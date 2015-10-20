@@ -53,7 +53,7 @@ public class ParticipantsInterfaceServiceImpl implements
     /** The search participantby orcid id. */
     @Value("${searchParticipantbyOrcidId.url}")
     private String searchParticipantbyOrcidId;
-    
+
     private static final String URL = "http://assearchdev.wiley.com:8080/v1/participants/";
 
     /**
@@ -124,7 +124,7 @@ public class ParticipantsInterfaceServiceImpl implements
                         ParticipantGetResponse.class);
         return participantGetResponse.getParticipantList();
     }
-    
+
     /**
      * Gets the address.
      *
@@ -138,7 +138,7 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public final AddressMapper getAddress(final String participantId)
             throws Exception {
-        final String url = URL+ participantId + "/addresses";
+        final String url = URL + participantId + "/addresses";
         return (AddressMapper) StubInvokerUtil.restGetServiceInvoker(url,
                 AddressMapper.class);
     }
@@ -155,7 +155,7 @@ public class ParticipantsInterfaceServiceImpl implements
      *             the exception
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
+    @Override
     public final ResponseEntity updateAddress(final String participantId,
             final AddressData address) throws Exception {
         final String url = "http://demo7580012.mockable.io/address";
@@ -181,8 +181,8 @@ public class ParticipantsInterfaceServiceImpl implements
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final ResponseEntity uploadProfileImage(final String participantId,
-            final byte[] imageFile) throws Exception {
-        final String url = URL+ participantId + "/profileImage";
+            final byte[] imageFile)  {
+        final String url = URL + participantId + "/profileImage";
         return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
                 HttpMethod.PUT, new String(imageFile, StandardCharsets.UTF_8),
                 ParticipantError.class, null);
@@ -195,13 +195,10 @@ public class ParticipantsInterfaceServiceImpl implements
      * @param participantId
      *            the participant id
      * @return the profile image
-     * @throws Exception
-     *             the exception
      */
     @Override
-    public final byte[] getProfileImage(final String participantId)
-            throws Exception {
-        final String url = URL+ participantId + "/profileImage";
+    public final byte[] getProfileImage(final String participantId) {
+        final String url = URL + participantId + "/profileImage";
         return (byte[]) StubInvokerUtil
                 .restGetServiceInvoker(url, Byte[].class);
     }
@@ -243,7 +240,7 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public final PreferenceValue getAlerts(final String participantId)
             throws Exception {
-        final String url = URL+ participantId + "/preferences/" + "ALERT";
+        final String url = URL + participantId + "/preferences/" + "ALERT";
         final PreferenceMapper preferenceMapper = (PreferenceMapper) StubInvokerUtil
                 .restGetServiceInvoker(url, PreferenceMapper.class);
         return preferenceMapper.getPreferenceValue();
@@ -257,7 +254,7 @@ public class ParticipantsInterfaceServiceImpl implements
      * @return the response entity
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
+    @Override
     public final ResponseEntity updateProfile(final ProfileEntity profileEntity) {
 
         final String url = "http://assearchdev.wiley.com:8080/v1/profile/";
@@ -275,10 +272,11 @@ public class ParticipantsInterfaceServiceImpl implements
      */
     @Override
     public final Preferences getPreferredJournals(final String participantId) {
-        final String url = URL+"1478cd2b-1671-443c-a0ea-09cbdc4169e9/preferences/FAVJOURNAL";
+        final String url = URL
+                + "1478cd2b-1671-443c-a0ea-09cbdc4169e9/preferences/FAVJOURNAL";
 
-        return (Preferences) RestServiceInvokerUtil
-                .getServiceData(url, Preferences.class);
+        return (Preferences) RestServiceInvokerUtil.getServiceData(url,
+                Preferences.class);
     }
 
     /**
@@ -342,15 +340,14 @@ public class ParticipantsInterfaceServiceImpl implements
         return participantGetResponse.getParticipantList().get(0);
     }
 
-
-	@Override
-	public Participant searchParticipantByEmailId(String userId) {
-		final String participantSearchUrl = participantCrudUrl
+    @Override
+    public Participant searchParticipantByEmailId(String userId) {
+        final String participantSearchUrl = participantCrudUrl
                 .concat("?email=").concat(userId);
         ParticipantGetResponse participantGetResponse = (ParticipantGetResponse) RestServiceInvokerUtil
                 .getServiceData(participantSearchUrl,
                         ParticipantGetResponse.class);
-        return (Participant)participantGetResponse.getParticipantList().get(0);
-	}
+        return (Participant) participantGetResponse.getParticipantList().get(0);
+    }
 
 }

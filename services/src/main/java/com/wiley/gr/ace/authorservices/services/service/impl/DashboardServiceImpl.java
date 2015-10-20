@@ -548,14 +548,14 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside getArticleAuthorData Method of DashboardServiceImpl");
         final List<ArticleData> articleDataList = new ArrayList<ArticleData>();
         ArticleData articleData = null;
-        final Map<Integer, ArticleUserRoleDetails> articleDetailsMap = new HashMap<Integer, ArticleUserRoleDetails>();// getAllArticlesForUser(userId);
+        final Map<Integer, ArticleUserRoleDetails> articleDetailsMap = new HashMap<Integer, ArticleUserRoleDetails>();
         for (final Map.Entry<Integer, ArticleUserRoleDetails> articleInfo : articleDetailsMap
                 .entrySet()) {
             final Integer dhId = articleInfo.getKey();
             final ArticleUserRoleDetails articleUserRoleDetails = articleDetailsMap
                     .get(dhId);
             if (!StringUtils.isEmpty(dhId)
-                    && "Article".equalsIgnoreCase(articleUserRoleDetails
+                    && AuthorServicesConstants.ARTICLE.equalsIgnoreCase(articleUserRoleDetails
                             .getRoleCode())) {
                 articleData = getArticleDataForUser(dhId, userId);
                 articleData.setArticleUserRole(articleUserRoleDetails
@@ -596,7 +596,7 @@ public class DashboardServiceImpl implements DashboardService {
                     LOGGER.info(AuthorServicesConstants.PRINTSTACKTRACE,e);
                     throw new UserException();
                 }
-                final HashMap<String, OrderStatus> orderStatusHashMap = orderStatusHasMap(userId);
+                final Map<String, OrderStatus> orderStatusHashMap = orderStatusHasMap(userId);
                 articleData
                         .setOrderPaymentStatus(getOrderPaymentStatusForArticle(
                                 orderStatusHashMap, dhId));
@@ -664,12 +664,12 @@ public class DashboardServiceImpl implements DashboardService {
      *            - the request value
      * @return hashMap
      */
-    private HashMap<String, OrderStatus> orderStatusHasMap(final String userId) {
+    private Map<String, OrderStatus> orderStatusHasMap(final String userId) {
 
         final List<SavedOrders> savedOrdersList = orderOnlinedao
                 .getUserSavedOrders(userId);
         final OrderStatus orderStatus = new OrderStatus();
-        final HashMap<String, OrderStatus> satusHashMap = new HashMap<String, OrderStatus>();
+        final Map<String, OrderStatus> satusHashMap = new HashMap<String, OrderStatus>();
 
         if (null != savedOrdersList) {
             final String[] statusArray = submitOrderStatus.split(":");
@@ -705,7 +705,6 @@ public class DashboardServiceImpl implements DashboardService {
             }
 
         }
-        System.err.println(satusHashMap.toString());
         return satusHashMap;
     }
 
@@ -721,7 +720,7 @@ public class DashboardServiceImpl implements DashboardService {
      *             the user exception
      */
     private OrderPaymentStatus getOrderPaymentStatusForArticle(
-            final HashMap<String, OrderStatus> orderStatusHashMap,
+            final Map<String, OrderStatus> orderStatusHashMap,
             final Integer articleId) throws UserException {
 
         LOGGER.info("inside getOrderPaymentStatusForArticle Method of DashboardServiceImpl");
@@ -863,14 +862,14 @@ public class DashboardServiceImpl implements DashboardService {
         final DashboardView dashboardView = new DashboardView();
         final List<ArticleData> articleDataListForProduction = new ArrayList<ArticleData>();
         ArticleData articleDataForProduction = null;
-        final Map<Integer, ArticleUserRoleDetails> articleDetailsMap = new HashMap<Integer, ArticleUserRoleDetails>();// getAllArticlesForUser(userId);
+        final Map<Integer, ArticleUserRoleDetails> articleDetailsMap = new HashMap<Integer, ArticleUserRoleDetails>();
         for (final Map.Entry<Integer, ArticleUserRoleDetails> articleInfo : articleDetailsMap
                 .entrySet()) {
             final Integer dhId = articleInfo.getKey();
             final ArticleUserRoleDetails articleUserRoleDetails = articleDetailsMap
                     .get(dhId);
             if (!StringUtils.isEmpty(dhId)
-                    && "Article".equalsIgnoreCase(articleUserRoleDetails
+                    && AuthorServicesConstants.ARTICLE.equalsIgnoreCase(articleUserRoleDetails
                             .getRoleCode())) {
                 articleDataForProduction = getProductionDetailsForArticles(String
                         .valueOf(dhId));
@@ -994,14 +993,14 @@ public class DashboardServiceImpl implements DashboardService {
         DashboardView dashboardView = null;
         ArticleData publishedArticleData = null;
         final List<ArticleData> articleDataListforPublication = new ArrayList<ArticleData>();
-        final Map<Integer, ArticleUserRoleDetails> articleDetailsMap = new HashMap<Integer, ArticleUserRoleDetails>();// getAllArticlesForUser(userId);
+        final Map<Integer, ArticleUserRoleDetails> articleDetailsMap = new HashMap<Integer, ArticleUserRoleDetails>();
         for (final Map.Entry<Integer, ArticleUserRoleDetails> articleInfo : articleDetailsMap
                 .entrySet()) {
             final Integer dhId = articleInfo.getKey();
             final ArticleUserRoleDetails articleUserRoleDetails = articleDetailsMap
                     .get(dhId);
             if (!StringUtils.isEmpty(dhId)
-                    && "Article".equalsIgnoreCase(articleUserRoleDetails
+                    && AuthorServicesConstants.ARTICLE.equalsIgnoreCase(articleUserRoleDetails
                             .getRoleCode())) {
                 publishedArticleData = getPublishedArticleData(String
                         .valueOf(dhId));
