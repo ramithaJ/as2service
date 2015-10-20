@@ -2,62 +2,83 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 /**
  * @author virtusa version1.0
  *
  */
-public class OrderRequest
-{
-    private String applicationKey;
+public class OrderRequest {
 
-    @JsonProperty("Order")
-    private OrderData orderData;
+	/** The application key. */
+	private String applicationKey;
 
-    private String userID;
+	/** The order data. */
+	@JsonProperty("Order")
+	private OrderData orderData;
 
-    private String correlationID;
+	/** The user ID. */
+	private String userID;
 
-    public String getApplicationKey ()
-    {
-        return applicationKey;
-    }
+	/** The correlation ID. */
+	private String correlationID;
 
-    public void setApplicationKey (String applicationKey)
-    {
-        this.applicationKey = applicationKey;
-    }
+	/**
+	 * @return the applicationKey
+	 */
+	public String getApplicationKey() {
+		return applicationKey;
+	}
 
-    public OrderData getOrderData ()
-    {
-        return orderData;
-    }
+	/**
+	 * @param applicationKey
+	 *            the applicationKey to set
+	 */
+	public void setApplicationKey(String applicationKey) {
+		this.applicationKey = applicationKey;
+	}
 
-    public void setOrderData (OrderData orderData)
-    {
-        this.orderData = orderData;
-    }
+	/**
+	 * @return the orderData
+	 */
+	public OrderData getOrderData() {
+		return orderData;
+	}
 
-    public String getUserID ()
-    {
-        return userID;
-    }
+	/**
+	 * @param orderData
+	 *            the orderData to set
+	 */
+	public void setOrderData(OrderData orderData) {
+		this.orderData = orderData;
+	}
 
-    public void setUserID (String userID)
-    {
-        this.userID = userID;
-    }
+	/**
+	 * @return the userID
+	 */
+	public String getUserID() {
+		return userID;
+	}
 
-    public String getCorrelationID ()
-    {
-        return correlationID;
-    }
+	/**
+	 * @param userID
+	 *            the userID to set
+	 */
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
 
-    public void setCorrelationID (String correlationID)
-    {
-        this.correlationID = correlationID;
-    }
+	/**
+	 * @return the correlationID
+	 */
+	public String getCorrelationID() {
+		return correlationID;
+	}
 
+	/**
+	 * @param correlationID
+	 *            the correlationID to set
+	 */
+	public void setCorrelationID(String correlationID) {
+		this.correlationID = correlationID;
+	}
 
 }
-
