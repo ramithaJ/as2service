@@ -65,7 +65,6 @@ public class JournalInfoReceiver {
         } catch (final Exception e) {
             LOGGER.error("Exceprion while receiving Journal Info Event :: "
                     + e.getMessage());
-            e.printStackTrace();
         }
     }
 }

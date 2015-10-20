@@ -98,7 +98,6 @@ public class QueueListener implements MessageListener {
 		 * jmsExp.getMessage()); jmsExp.printStackTrace(); }
 		 */catch (Exception e) {
 			LOGGER.error("Exception :: " + e.getMessage());
-			e.printStackTrace();
 		}
 
 	}

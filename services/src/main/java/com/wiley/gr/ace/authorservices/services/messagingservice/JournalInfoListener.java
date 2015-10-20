@@ -62,7 +62,6 @@ public class JournalInfoListener implements MessageListener {
                     .parseJournalInfoTypeEvent(journalInfoTypeEvent);
         } catch (final Exception e) {
             LOGGER.error("Exception :: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 }
