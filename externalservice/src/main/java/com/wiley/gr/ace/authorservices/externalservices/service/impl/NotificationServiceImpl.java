@@ -1,18 +1,18 @@
-/*******************************************************************************
+/**
+ * ****************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * <p>
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
- *******************************************************************************/
+ * *****************************************************************************
+ */
 
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
-
-import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
@@ -23,10 +23,11 @@ import com.wiley.gr.ace.authorservices.model.external.NotificationDetailsPayload
 import com.wiley.gr.ace.authorservices.model.external.NotificationRequest;
 import com.wiley.gr.ace.authorservices.model.external.NotificationsList;
 import com.wiley.gr.ace.authorservices.model.external.UserNotifications;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * The Class NotificationServiceImpl.
- * 
+ *
  * @author virtusa version 1.0
  */
 public class NotificationServiceImpl implements NotificationService {
@@ -62,20 +63,20 @@ public class NotificationServiceImpl implements NotificationService {
     private String notificationDetailsurl;
 
     /**
-     * This field holds the value of applicationId.
+     * This field holds the value of APPLICATION_ID.
      */
-    private static final String applicationId = "24";
+    private static final String APPLICATION_ID = "24";
 
     /**
-     * 
+     *
      * @param notificationRequest
      *            the notification request
      * @return NotificationHistory response
      */
     @Override
     public final NotificationResponse sendNotification(final String appId,
-            final String type, final String templateId,
-            final NotificationRequest notificationRequest) {
+                                                       final String type, final String templateId,
+                                                       final NotificationRequest notificationRequest) {
 
         String notificationFinalUrl = notificationurl + appId + "/send?tmpl="
                 + templateId + "&type=" + type;
@@ -94,8 +95,7 @@ public class NotificationServiceImpl implements NotificationService {
      *             the exception
      */
     @Override
-    public final NotificationHistory getNotificationHistory(final String userId)
-            throws Exception {
+    public final NotificationHistory getNotificationHistory(final String userId) {
         return (NotificationHistory) RestServiceInvokerUtil.getServiceData(
                 notificationHistoryUrl, NotificationHistory.class);
     }
@@ -113,8 +113,8 @@ public class NotificationServiceImpl implements NotificationService {
             final String notificationId) {
 
         return (NotificationDetailsPayload) StubInvokerUtil
-                .restGetServiceInvoker(notificationDetailsurl + applicationId
-                        + "/" + notificationId,
+                .restGetServiceInvoker(notificationDetailsurl + APPLICATION_ID
+                                + "/" + notificationId,
                         NotificationDetailsPayload.class);
     }
 

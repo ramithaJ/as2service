@@ -1,10 +1,7 @@
 /**
- * 
+ *
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
@@ -12,8 +9,11 @@ import com.wiley.gr.ace.authorservices.model.NotificationHistory;
 import com.wiley.gr.ace.authorservices.model.Notifications;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ProductPersonRelationObject;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 
 // TODO: Auto-generated Javadoc
+
 /**
  * The Class SharedServiceImpl.
  *
@@ -26,7 +26,7 @@ public class SharedServiceImpl implements SharedService {
 
     @Value("${notification.url}")
     private String notificationHistroyUrl;
-    
+
     @Value("${productPersonRelation.url}")
     private String productPersonRelationUrl;
 
@@ -39,7 +39,7 @@ public class SharedServiceImpl implements SharedService {
      */
     @Override
     public final Service authorLookup(final String firstName,
-            final String lastName, final String email) throws Exception {
+                                      final String lastName, final String email) {
         return (Service) RestServiceInvokerUtil.getServiceData(authorLookupUrl,
                 Service.class);
 
@@ -51,7 +51,7 @@ public class SharedServiceImpl implements SharedService {
 
         return (Service) RestServiceInvokerUtil
                 .restServiceInvoker(
-                		productPersonRelationUrl,
+                        productPersonRelationUrl,
                         productPersonRelationObject, Service.class);
     }
 

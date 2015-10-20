@@ -1,6 +1,7 @@
-/*******************************************************************************
+/**
+ * ****************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
+ * <p>
  * All material contained herein is proprietary to John Wiley & Sons
  * and its third party suppliers, if any. The methods, techniques and
  * technical concepts contained herein are considered trade secrets
@@ -8,23 +9,14 @@
  * Reproduction or distribution of this material, in whole or in part,
  * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
- *******************************************************************************/
+ * *****************************************************************************
+ */
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import java.util.List;
-
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
-import com.wiley.gr.ace.authorservices.model.external.ArticleData;
-import com.wiley.gr.ace.authorservices.model.external.ArticlePdfResponse;
-import com.wiley.gr.ace.authorservices.model.external.ESBUser;
-import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
-import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournalResponse;
-import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
-import com.wiley.gr.ace.authorservices.model.external.Quote;
-import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
-import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
-import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
+import com.wiley.gr.ace.authorservices.model.external.*;
+
+import java.util.List;
 
 /**
  * The Interface ESBInterfaceService.
@@ -42,7 +34,7 @@ public interface ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    User fetchOrcidDetails(String orcid) throws Exception;
+    User fetchOrcidDetails(String orcid);
 
     /**
      * Update alm user.
@@ -53,7 +45,7 @@ public interface ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    String updateALMUser(User user) throws Exception;
+    String updateALMUser(User user);
 
     /**
      * Check email id exists.
@@ -75,7 +67,7 @@ public interface ESBInterfaceService {
      * @return the users from first name last name
      */
     List<ESBUser> getUsersFromFirstNameLastName(String firstName,
-            String lastName);
+                                                String lastName);
 
     /**
      * Creat user.
@@ -95,8 +87,7 @@ public interface ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    ArticlePdfResponse getArticlePdfResponse(String articleDoi)
-            throws Exception;
+    ArticlePdfResponse getArticlePdfResponse(String articleDoi);
 
     /**
      * Gets the pdh lookup journal response.
@@ -107,8 +98,7 @@ public interface ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    PdhLookupJournalResponse getPdhLookupJournalResponse(String journalId)
-            throws Exception;
+    PdhLookupJournalResponse getPdhLookupJournalResponse(String journalId);
 
     // WP2A
 
@@ -121,7 +111,7 @@ public interface ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    Quote getQuote(QuoteRequest quoteRequest) throws Exception;
+    Quote getQuote(QuoteRequest quoteRequest);
 
     /**
      * Pdh get article.
@@ -150,7 +140,7 @@ public interface ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    TaxResponse getTaxInfo(TaxRequest taxRequest) throws Exception;
+    TaxResponse getTaxInfo(TaxRequest taxRequest);
 
     /**
      * Gets the pdh lookup response.
