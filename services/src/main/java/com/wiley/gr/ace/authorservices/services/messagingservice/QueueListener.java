@@ -17,6 +17,7 @@ import javax.jms.MessageListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
 import com.wiley.gr.ace.authorservices.services.service.impl.SaveArticleDataImpl;
@@ -84,7 +85,7 @@ public class QueueListener implements MessageListener {
             saveArticleData.parseArticleEvent(articleEvent);
 
         } catch (Exception e) {
-            LOGGER.error("Exception :: " + e.getMessage());
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException();
         }
 

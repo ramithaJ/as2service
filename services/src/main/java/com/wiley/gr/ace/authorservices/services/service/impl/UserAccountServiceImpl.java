@@ -168,8 +168,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      *             the user exception
      */
     @Override
-    public final AddressesData getUserAddress(final String userId)
-            throws UserException {
+    public final AddressesData getUserAddress(final String userId) {
 
         UserAccountServiceImpl.LOGGER.info("inside getUserAddress Method");
         AddressesData address = new AddressesData();
@@ -202,7 +201,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     @Override
     public Object updatAddress(final String participantId,
-            final AddressData address) throws UserException {
+            final AddressData address) {
         try {
             final List<AddressData> varifiedAddress = validateAddress(address);
             if (StringUtils.isEmpty(varifiedAddress)) {
