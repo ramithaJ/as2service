@@ -33,6 +33,10 @@ public class WOAAccount {
      */
     @JsonProperty("ResearchFunders")
     private ResearchFunders researchFunders;
+    /**
+     * This field holds the value of notCurrent.
+     */
+    private boolean notCurrent = false;
 
     /**
      * 
@@ -134,16 +138,29 @@ public class WOAAccount {
         this.researchFunders = researchFunders;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "WOAAccount [id=" + id + ", code=" + code + ", name=" + name
-                + ", dealType=" + dealType + ", currency=" + currency
-                + ", researchFunders=" + researchFunders + "]";
-    }
+	/**
+	 * @return the notCurrent
+	 */
+	public boolean isNotCurrent() {
+		return notCurrent;
+	}
 
+	/**
+	 * @param notCurrent the notCurrent to set
+	 */
+	public void setNotCurrent(boolean notCurrent) {
+		this.notCurrent = notCurrent;
+	}
+
+	/**
+	 * the toString method.
+	 */
+	@Override
+	public String toString() {
+		return "WOAAccount [id=" + id + ", code=" + code + ", name=" + name
+				+ ", dealType=" + dealType + ", currency=" + currency
+				+ ", researchFunders=" + researchFunders + ", notCurrent="
+				+ notCurrent + "]";
+	}
+    
 }

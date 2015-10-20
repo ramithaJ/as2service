@@ -8,43 +8,25 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class ResearchFunderElement {
 
-    /** The funderrefid. */
-    private String funderRefId;
-
     /** The fundername. */
-    private String funderName;
+    private String name;
     
     /** The doi. */
     private String doi;
 
     /**
-     * @return the funderRefId
-     */
-    public final String getFunderRefId() {
-        return funderRefId;
-    }
-
-    /**
-     * @param funderRefId
-     *            the funderRefId to set
-     */
-    public final void setFunderRefId(final String funderRefId) {
-        this.funderRefId = funderRefId;
-    }
-
-    /**
      * @return the funderName
      */
-    public final String getFunderName() {
-        return funderName;
+    public final String getName() {
+        return name;
     }
 
     /**
      * @param funderName
      *            the funderName to set
      */
-    public final void setFunderName(final String funderName) {
-        this.funderName = funderName;
+    public final void setName(final String name) {
+        this.name = name;
     }
     
 
@@ -62,15 +44,12 @@ public class ResearchFunderElement {
 		this.doi = doi;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * to String method
 	 */
 	@Override
 	public String toString() {
-		return "ResearchFunderElement [funderRefId=" + funderRefId
-				+ ", funderName=" + funderName + ", doi=" + doi + "]";
+		return "ResearchFunderElement [name="+ name + ", doi=" + doi + "]";
 	}
-
-
 
 }
