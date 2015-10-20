@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.TrackLicense;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
@@ -44,8 +45,8 @@ public interface LicenseService {
     /**
      * Gets the license text.
      *
-     * @param licenseObject
-     *            the license object
+     * @param licenseChoiceRequest
+     *            the license choice request
      * @return the license text
      */
     String getLicenseText(LicenseChoiceRequest licenseChoiceRequest);
@@ -92,22 +93,35 @@ public interface LicenseService {
      * @param userId
      *            the user id
      * @return the track license
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     TrackLicense trackLicenseStatus(String dhId, String userId)
-            throws Exception;
+            throws UserException;
 
     /**
      * Initiate licence.
      *
+     * @param userId
+     *            the user id
      * @param articleId
      *            the article id
+     * @param articleType
+     *            the article type
      * @return the license object
      */
-    LicenseObject initiateLicence(String userId,String articleId,String articleType);
+    LicenseObject initiateLicence(String userId, String articleId,
+            String articleType);
 
- 
+    /**
+     * View license agreement.
+     *
+     * @param dhId
+     *            the dh id
+     * @return the response entity
+     * @throws UserException
+     *             the user exception
+     */
     ResponseEntity<byte[]> viewLicenseAgreement(Integer dhId)
-            throws Exception;
+            throws UserException;
 }

@@ -262,7 +262,7 @@ public class LicenseServiceImpl implements LicenseService {
      */
     @Override
     public TrackLicense trackLicenseStatus(final String dhId,
-            final String userId) throws UserException {
+            final String userId) {
         LOGGER.info(" inside trackLicenseStatus method of LicenseServiceImpl");
         LicenseStatus licenseStatus = taskService
                 .getLicenseStatus(dhId, userId);
@@ -430,7 +430,7 @@ public class LicenseServiceImpl implements LicenseService {
             List<Id> lisOfId = programData.getFunder().getSecondaryIds()
                     .getId();
             for (Id id : lisOfId) {
-                if ("DOI".equalsIgnoreCase(id.getType())){
+                if ("DOI".equalsIgnoreCase(id.getType())) {
                     grantRecipients.setRecipentsName(programData.getFunder()
                             .getName());
                     break;
@@ -450,7 +450,7 @@ public class LicenseServiceImpl implements LicenseService {
 
     @Override
     public ResponseEntity<byte[]> viewLicenseAgreement(Integer dhId)
-            throws Exception {
+            throws UserException {
         ViewLicenseAgreement viewLicenseAgreement = new ViewLicenseAgreement();
         ResponseEntity<byte[]> response = null;
         HttpHeaders headers = new HttpHeaders();
