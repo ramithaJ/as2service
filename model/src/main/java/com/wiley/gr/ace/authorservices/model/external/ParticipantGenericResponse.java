@@ -14,7 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -25,25 +25,22 @@ public class ParticipantGenericResponse {
 
     /** The participant links. */
     @JsonProperty("_links")
-    private ArrayList<ParticipantLinks> participantLinks;
+    private List<ParticipantLinks> participantLinks;
 
     /**
-     * Gets the participant links.
-     *
-     * @return the participant links
+     * @return the participantLinks
      */
-    public final ArrayList<ParticipantLinks> getParticipantLinks() {
+    public final List<ParticipantLinks> getParticipantLinks() {
         return participantLinks;
     }
 
     /**
-     * Sets the participant links.
-     *
      * @param participantLinks
-     *            the new participant links
+     *            the participantLinks to set
      */
     public final void setParticipantLinks(
-            final ArrayList<ParticipantLinks> participantLinks) {
+            final List<ParticipantLinks> participantLinks) {
         this.participantLinks = participantLinks;
     }
+
 }

@@ -12,6 +12,7 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -67,20 +68,23 @@ public class ESBUser {
     /** The Found in. */
     @JsonProperty("FoundIN")
     private String foundIN;
-    
+
     /** The primary email addr. */
     private String primaryEmailAddr;
-    
+
     /** The asid. */
     @JsonProperty("ASID")
-    private String ASID;
-    
+    private String asid;
+
     /** The orcid id. */
     private String orcidId;
 
     /** The institution. */
     private String institution;
-    
+
+    /** The addresses. */
+    private List<ESBUserAddress> addresses;
+
     /**
      * Gets the orcid id.
      *
@@ -118,26 +122,37 @@ public class ESBUser {
     public final void setInstitution(final String institution) {
         this.institution = institution;
     }
-    
+
     /**
-     * Gets the asid.
-     *
      * @return the asid
      */
-    public final String getASID() {
-        return ASID;
+    public final String getAsid() {
+        return asid;
     }
 
     /**
-     * Sets the asid.
-     *
-     * @param aSID
-     *            the new asid
+     * @param asid
+     *            the asid to set
      */
-    public final void setASID(final String aSID) {
-        ASID = aSID;
+    public final void setAsid(final String asid) {
+        this.asid = asid;
     }
-    
+
+    /**
+     * @return the addresses
+     */
+    public final List<ESBUserAddress> getAddresses() {
+        return addresses;
+    }
+
+    /**
+     * @param addresses
+     *            the addresses to set
+     */
+    public final void setAddresses(final List<ESBUserAddress> addresses) {
+        this.addresses = addresses;
+    }
+
     /**
      * Gets the primary email addr.
      *
@@ -156,17 +171,6 @@ public class ESBUser {
     public final void setPrimaryEmailAddr(final String primaryEmailAddr) {
         this.primaryEmailAddr = primaryEmailAddr;
     }
-    
-    /** The addresses. */
-    private ArrayList<ESBUserAddress> addresses;
-    /**
-     * Gets the addresses.
-     *
-     * @return the addresses
-     */
-    public final ArrayList<ESBUserAddress> getAddresses() {
-        return addresses;
-    }
 
     /**
      * Sets the addresses.
@@ -178,7 +182,6 @@ public class ESBUser {
         this.addresses = addresses;
     }
 
-    
     /**
      * Gets the found in.
      *
@@ -197,7 +200,7 @@ public class ESBUser {
     public final void setFoundIN(final String foundIN) {
         this.foundIN = foundIN;
     }
-    
+
     /**
      * @return the street
      */

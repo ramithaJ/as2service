@@ -35,12 +35,6 @@ public class Institute {
     private String instituteCode;
 
     /**
-     * This field holds the value of discount.
-     */
-    /*@JsonProperty("discount")
-	private List<DiscountedSociety> discountList;*/
-
-    /**
      * @return the instituteName
      */
     public final String getInstituteName() {

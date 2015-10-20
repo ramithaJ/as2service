@@ -6,32 +6,17 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "businessEvent", namespace="http://www.wiley.com/bpm/event")
-public class MetadataModel {	
+@XmlRootElement(name = "businessEvent", namespace = "http://www.wiley.com/bpm/event")
+public class MetadataModel {
 
-	@XmlElement(name = "eventMetadata")
-	private EventMetadata eventMetadata;
-	
-	/*@XmlElement(name = "eventData")
-	private Object eventData;*/
+    @XmlElement(name = "eventMetadata")
+    private EventMetadata eventMetadata;
 
-	public EventMetadata getEventMetaData() {
-		return eventMetadata;
-	}
+    public EventMetadata getEventMetaData() {
+        return eventMetadata;
+    }
 
-	public void setEventMetaData(EventMetadata eventMetaData) {
-		this.eventMetadata = eventMetadata;
-	}
-/*
-	public Object getEventData() {
-		return eventData;
-	}
-
-	public void setEventData(Object eventData) {
-		this.eventData = eventData;
-	}
-	*/
+    public void setEventMetaData(final EventMetadata eventMetaData) {
+        this.eventMetadata = eventMetadata;
+    }
 }
-	
-
-

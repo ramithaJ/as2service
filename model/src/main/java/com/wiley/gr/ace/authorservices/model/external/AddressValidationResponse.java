@@ -1,17 +1,24 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class AddressValidationResponse {
 
-    private ArrayList<AddressValidationMultiRes> addressValidationMultiResList;
+    private List<AddressValidationMultiRes> addressValidationMultiResList;
 
-    public final ArrayList<AddressValidationMultiRes> getAddressValidationMultiResList() {
+    /**
+     * @return the addressValidationMultiResList
+     */
+    public final List<AddressValidationMultiRes> getAddressValidationMultiResList() {
         return addressValidationMultiResList;
     }
 
+    /**
+     * @param addressValidationMultiResList
+     *            the addressValidationMultiResList to set
+     */
     public final void setAddressValidationMultiResList(
-            final ArrayList<AddressValidationMultiRes> addressValidationMultiResList) {
+            final List<AddressValidationMultiRes> addressValidationMultiResList) {
         this.addressValidationMultiResList = addressValidationMultiResList;
     }
 

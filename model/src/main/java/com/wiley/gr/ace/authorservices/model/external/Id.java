@@ -7,45 +7,42 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(Include.NON_NULL)
 public class Id {
 
-	@JsonProperty("type")
-	private String type;
+    @JsonProperty("type")
+    private String type;
 
-	@JsonProperty("_content_")
-	private String Content;
+    @JsonProperty("_content_")
+    private String content;
 
-	/**
-	 * 
-	 * @return The type
-	 */
-	public String getType() {
-		return type;
-	}
+    /**
+     * 
+     * @return The type
+     */
+    public String getType() {
+        return type;
+    }
 
-	/**
-	 * 
-	 * @param type
-	 *            The type
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
+    /**
+     * 
+     * @param type
+     *            The type
+     */
+    public void setType(final String type) {
+        this.type = type;
+    }
 
-	/**
-	 * 
-	 * @return The Content
-	 */
-	public String getContent() {
-		return Content;
-	}
+    /**
+     * @return the content
+     */
+    public final String getContent() {
+        return content;
+    }
 
-	/**
-	 * 
-	 * @param Content
-	 *            The _content_
-	 */
-	public void setContent(String Content) {
-		this.Content = Content;
-	}
-
+    /**
+     * @param content
+     *            the content to set
+     */
+    public final void setContent(final String content) {
+        this.content = content;
+    }
 
 }

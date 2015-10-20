@@ -3,7 +3,7 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -17,24 +17,20 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class ArticleDataDetails {
 
     /** The article data. */
-    private ArrayList<ArticleData> articleData;
+    private List<ArticleData> articleData;
 
     /**
-     * Gets the article data.
-     *
-     * @return the article data
+     * @return the articleData
      */
-    public final ArrayList<ArticleData> getArticleData() {
+    public final List<ArticleData> getArticleData() {
         return articleData;
     }
 
     /**
-     * Sets the article data.
-     *
      * @param articleData
-     *            the new article data
+     *            the articleData to set
      */
-    public final void setArticleData(final ArrayList<ArticleData> articleData) {
+    public final void setArticleData(final List<ArticleData> articleData) {
         this.articleData = articleData;
     }
 

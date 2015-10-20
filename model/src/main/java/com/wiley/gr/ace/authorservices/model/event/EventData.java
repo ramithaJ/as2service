@@ -12,111 +12,117 @@
 package com.wiley.gr.ace.authorservices.model.event;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class EventData.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "even:eventData")
-//@XmlType(namespace="http://www.wiley.com/bpm/event")
 public class EventData {
 
-	/** The journal info. */
-	@XmlElement(name = "even:journalInfo")
-	private JournalInfo journalInfo;
+    /** The journal info. */
+    @XmlElement(name = "even:journalInfo")
+    private JournalInfo journalInfo;
 
-	/** The co author list. */
-	@XmlElement(name = "even:coAuthorList")
-	private ArrayList<CoAuthorList> coAuthorList;
+    /** The co author list. */
+    @XmlElement(name = "even:coAuthorList")
+    private List<CoAuthorList> coAuthorList;
 
-	/** The corresponding author. */
-	@XmlElement(name = "even:correspondingAuthor")
-	private CorrespondingAuthor correspondingAuthor;
+    /** The corresponding author. */
+    @XmlElement(name = "even:correspondingAuthor")
+    private CorrespondingAuthor correspondingAuthor;
 
-	/** The article info. */
-	@XmlElement(name = "even:articleInfo")
-	private ArticleInfo articleInfo;
+    /** The article info. */
+    @XmlElement(name = "even:articleInfo")
+    private ArticleInfo articleInfo;
 
-	/**
-	 * Gets the journal info.
-	 *
-	 * @return the journalInfo
-	 */
-	public JournalInfo getJournalInfo() {
-		return journalInfo;
-	}
+    /**
+     * Gets the journal info.
+     *
+     * @return the journalInfo
+     */
+    public JournalInfo getJournalInfo() {
+        return journalInfo;
+    }
 
-	/**
-	 * Sets the journal info.
-	 *
-	 * @param journalInfo
-	 *            the journalInfo to set
-	 */
-	public void setJournalInfo(JournalInfo journalInfo) {
-		this.journalInfo = journalInfo;
-	}
+    /**
+     * Sets the journal info.
+     *
+     * @param journalInfo
+     *            the journalInfo to set
+     */
+    public void setJournalInfo(final JournalInfo journalInfo) {
+        this.journalInfo = journalInfo;
+    }
 
-	/**
-	 * Gets the co author list.
-	 *
-	 * @return the coAuthorList
-	 */
-	public ArrayList<CoAuthorList> getCoAuthorList() {
-		return coAuthorList;
-	}
+    /**
+     * @return the coAuthorList
+     */
+    public final List<CoAuthorList> getCoAuthorList() {
+        return coAuthorList;
+    }
 
-	/**
-	 * Sets the co author list.
-	 *
-	 * @param coAuthorList
-	 *            the coAuthorList to set
-	 */
-	public void setCoAuthorList(ArrayList<CoAuthorList> coAuthorList) {
-		this.coAuthorList = coAuthorList;
-	}
+    /**
+     * @param coAuthorList
+     *            the coAuthorList to set
+     */
+    public final void setCoAuthorList(final List<CoAuthorList> coAuthorList) {
+        this.coAuthorList = coAuthorList;
+    }
 
-	/**
-	 * Gets the corresponding author.
-	 *
-	 * @return the correspondingAuthor
-	 */
-	public CorrespondingAuthor getCorrespondingAuthor() {
-		return correspondingAuthor;
-	}
+    /**
+     * Sets the co author list.
+     *
+     * @param coAuthorList
+     *            the coAuthorList to set
+     */
+    public void setCoAuthorList(final ArrayList<CoAuthorList> coAuthorList) {
+        this.coAuthorList = coAuthorList;
+    }
 
-	/**
-	 * Sets the corresponding author.
-	 *
-	 * @param correspondingAuthor
-	 *            the correspondingAuthor to set
-	 */
-	public void setCorrespondingAuthor(CorrespondingAuthor correspondingAuthor) {
-		this.correspondingAuthor = correspondingAuthor;
-	}
+    /**
+     * Gets the corresponding author.
+     *
+     * @return the correspondingAuthor
+     */
+    public CorrespondingAuthor getCorrespondingAuthor() {
+        return correspondingAuthor;
+    }
 
-	/**
-	 * Gets the article info.
-	 *
-	 * @return the articleInfo
-	 */
-	public ArticleInfo getArticleInfo() {
-		return articleInfo;
-	}
+    /**
+     * Sets the corresponding author.
+     *
+     * @param correspondingAuthor
+     *            the correspondingAuthor to set
+     */
+    public void setCorrespondingAuthor(
+            final CorrespondingAuthor correspondingAuthor) {
+        this.correspondingAuthor = correspondingAuthor;
+    }
 
-	/**
-	 * Sets the article info.
-	 *
-	 * @param articleInfo
-	 *            the articleInfo to set
-	 */
-	public void setArticleInfo(ArticleInfo articleInfo) {
-		this.articleInfo = articleInfo;
-	}
+    /**
+     * Gets the article info.
+     *
+     * @return the articleInfo
+     */
+    public ArticleInfo getArticleInfo() {
+        return articleInfo;
+    }
+
+    /**
+     * Sets the article info.
+     *
+     * @param articleInfo
+     *            the articleInfo to set
+     */
+    public void setArticleInfo(final ArticleInfo articleInfo) {
+        this.articleInfo = articleInfo;
+    }
 
 }

@@ -14,7 +14,6 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -31,21 +30,18 @@ public class LicenseTypesPresented {
     /** The license type. */
     private List<String> licenseType;
 
-    public List<String> getLicenseType() {
+    /**
+     * @return the licenseType
+     */
+    public final List<String> getLicenseType() {
         return licenseType;
     }
 
-    public void setLicenseType(final List<String> licenseType) {
-        this.licenseType = licenseType;
-    }
-
     /**
-     * Sets the license type.
-     *
      * @param licenseType
-     *            the new license type
+     *            the licenseType to set
      */
-    public final void setLicenseType(final ArrayList<String> licenseType) {
+    public final void setLicenseType(final List<String> licenseType) {
         this.licenseType = licenseType;
     }
 
