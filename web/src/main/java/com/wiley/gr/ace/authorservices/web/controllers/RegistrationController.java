@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.AuthorServicesUtil;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
@@ -51,10 +52,6 @@ public class RegistrationController {
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(RegistrationController.class);
-    /*
-     * public static final Logger LOGGER = Logger
-     * .getLogger(RegistrationController.class.getName());
-     */
 
     /** The registration service. */
     @Autowired(required = true)
@@ -72,6 +69,9 @@ public class RegistrationController {
      */
     @Value("${noDataFound.code}")
     private String noDataFoundCode;
+
+    @Value("${noDataFound.message}")
+    private String noDataFoundMessage;
 
     /** value from props file configured. */
 
@@ -164,7 +164,7 @@ public class RegistrationController {
                 foundUserToReturn.setInvited(true);
                 foundUserToReturn.setParticipantId(retrievedUser
                         .getParticipantId());
-                service.setStatus("SUCCESS");
+                service.setStatus(AuthorServicesConstants.SUCCESS);
                 service.setPayload(foundUserToReturn);
             } else {
                 LOGGER.info("Pre-populating user data");
@@ -178,7 +178,7 @@ public class RegistrationController {
                 ErrorPOJO err = new ErrorPOJO();
                 err.setCode("PREPOP_INVITE_DETAILS");
                 err.setMessage("PREPOP_INVITE_DETAILS");
-                service.setStatus("SUCCESS");
+                service.setStatus(AuthorServicesConstants.SUCCESS);
                 service.setPayload(user);
                 service.setError(err);
             }
@@ -205,13 +205,14 @@ public class RegistrationController {
             LOGGER.info("Searching invitation records");
             user = registrationService.searchInvitationRecord(participantId);
             if (!StringUtils.isEmpty(user)) {
-                service.setStatus("SUCCESS");
+                service.setStatus(AuthorServicesConstants.SUCCESS);
                 service.setPayload(user);
             } else {
                 throw new UserException(getInvitationRecordsErrorCode,
                         getInvitationRecordsErrorMessage);
             }
         } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(getInvitationRecordsErrorCode,
                     getInvitationRecordsErrorMessage);
         }
@@ -234,15 +235,15 @@ public class RegistrationController {
             if (user.isSearchFullName()) {
                 LOGGER.info("Searching if any user exist with the same firstname and lastname");
                 service = new Service();
-                ArrayList<User> usersList = null;
+                List<User> usersList = null;
                 usersList = registrationService.getUserFromFirstNameLastName(
                         user.getFirstName(), user.getLastName());
-                if (!StringUtils.isEmpty(usersList) && usersList.size() > 0) {
+                if (!usersList.isEmpty()) {
                     LOGGER.info("List of users found with the same firstname and lastname");
-                    service.setStatus("FAILURE");
+                    service.setStatus(AuthorServicesConstants.FAILURE);
                     service.setPayload(usersList);
                     ErrorPOJO err = new ErrorPOJO();
-                    err.setCode("LIST_OF_USER_FOUND");
+                    err.setCode(AuthorServicesConstants.LIST_OF_USER_FOUND);
                     err.setMessage("List of users found. Please select or continue");
                     service.setPayload(usersList);
                     service.setError(err);
@@ -264,7 +265,7 @@ public class RegistrationController {
                         fieldList.add(AuthorServicesUtil.encrypt(userId));
                         notificationRequest.setFieldList(fieldList);
                         notificationRequest.setFrom("admin@wiley.com");
-                        ArrayList<String> toList = new ArrayList<String>();
+                        List<String> toList = new ArrayList<String>();
                         toList.add(user.getPrimaryEmailAddr());
                         notificationRequest.setToList(toList);
 
@@ -299,13 +300,7 @@ public class RegistrationController {
                             service.setError(errorPOJO);
                         } else if (success.equals(loginSecurityResponse
                                 .getStatus())) {
-
-                            // Users users =
-                            // userLoginServiceDAO.getUserId(login.getEmailId());
                             UserLogin userLogin = new UserLogin();
-                            // userLogin.setUserId(users.getUserId().intValue());
-                            // userLogin.setFirstName(users.getFirstName());
-                            // userLogin.setLastName(users.getLastName());
                             service.setPayload(userLogin);
                         }
                     }
@@ -341,7 +336,7 @@ public class RegistrationController {
                 User user = registrationService.searchUserByOrcidId(orcidId);
                 if (!StringUtils.isEmpty(user)) {
                     LOGGER.info("User has already orcid Id");
-                    service.setStatus("FAILURE");
+                    service.setStatus(AuthorServicesConstants.FAILURE);
                     ErrorPOJO err = new ErrorPOJO();
                     err.setCode(isUserFoundWithOrcidIdErrorCode);
                     err.setMessage(isUserFoundWithOrcidIdErrorMessage);
@@ -349,19 +344,19 @@ public class RegistrationController {
                     service.setPayload(user);
                 } else {
                     LOGGER.info("User has already orcid Id");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                 }
             } catch (Exception e) {
-                LOGGER.error("Print Stack Trace....",e);
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new UserException(isUserFoundWithOrcidIdErrorCode,
                         isUserFoundWithOrcidIdErrorMessage);
             }
         } else {
             LOGGER.info("Send valid ORCID Id");
-            service.setStatus("FAILURE");
+            service.setStatus(AuthorServicesConstants.FAILURE);
             ErrorPOJO err = new ErrorPOJO();
             err.setCode(noDataFoundCode);
-            err.setMessage("Please enter ORCID Id");
+            err.setMessage(noDataFoundMessage);
             service.setError(err);
         }
         return service;
@@ -418,6 +413,7 @@ public class RegistrationController {
                         "Resend verification email failed");
             }
         } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException("REGISTRATION_RESEND_VER_FAIL_ERR_TEXT",
                     "Resend verification email failed");
         }

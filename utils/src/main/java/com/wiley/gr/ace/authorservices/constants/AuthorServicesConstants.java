@@ -308,5 +308,7 @@ public class AuthorServicesConstants {
 
     /** The Constant CDM_USER_ROLE. */
     public static final String CDM_USER_ROLE = "UR";
-
+    
+    /** The Constant LIST_OF_USER_FOUND. */
+    public static final String LIST_OF_USER_FOUND = "LIST_OF_USER_FOUND";
 }
