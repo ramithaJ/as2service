@@ -38,8 +38,26 @@ import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
  */
 public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 
+    /**
+     * This field holds the value of LOGGER
+     */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OrderOnlineDAOImpl.class);
+
+    /**
+     * This field holds the value of savedOrders
+     */
+    private static final String SAVEDORDERS = "savedOrders";
+
+    /**
+     * This field holds the value of SAVEDORDERSTABLE
+     */
+    private static final String SAVEDORDERS_PRODUCTS = "savedOrders.products";
+
+    /**
+     * This field holds the value of SAVEDORDERS_USERSBYUSERID
+     */
+    private static final String SAVEDORDERS_USERSBYUSERID = "savedOrders.usersByUserId";
 
     /**
      * Method to get savedOrders.
@@ -52,12 +70,13 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         try {
             session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(SavedOrders.class,
-                    "savedOrders");
-            criteria.createAlias("savedOrders.products", "products");
-            criteria.createAlias("savedOrders.usersByUserId", "usersByUserId");
+                    SAVEDORDERS);
+            criteria.createAlias(SAVEDORDERS_PRODUCTS, "products");
+            criteria.createAlias(SAVEDORDERS_USERSBYUSERID,
+                    "usersByUserIdaliasname");
             criteria.add(Restrictions.eq("products.dhId",
                     Integer.parseInt(articleId)));
-            criteria.add(Restrictions.eq("usersByUserId.userId",
+            criteria.add(Restrictions.eq("usersByUserIdaliasname.userId",
                     Integer.parseInt(userId)));
             return (SavedOrders) criteria.uniqueResult();
         } finally {
@@ -78,11 +97,11 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         try {
             session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(Orders.class, "orders");
-            criteria.createAlias("orders.usersByUserId", "usersByUserId");
-            criteria.createAlias("orders.products", "products");
-            criteria.add(Restrictions.eq("usersByUserId.userId",
+            criteria.createAlias("orders.usersByUserId", "usersByUserIdalias");
+            criteria.createAlias("orders.products", "productsalias");
+            criteria.add(Restrictions.eq("usersByUserIdalias.userId",
                     Integer.parseInt(userId)));
-            criteria.add(Restrictions.eq("products.dhId",
+            criteria.add(Restrictions.eq("productsalias.dhId",
                     Integer.parseInt(articleId)));
             return (Orders) criteria.uniqueResult();
 
@@ -157,7 +176,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         try {
             session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(SavedOrders.class,
-                    "savedOrders");
+                    SAVEDORDERS);
             criteria.add(Restrictions.eq("savedOrders.orderId",
                     Integer.parseInt(orderId)));
 
@@ -210,12 +229,13 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         try {
             session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(SavedOrders.class,
-                    "savedOrders");
-            criteria.createAlias("savedOrders.usersByUserId", "usersByUserId");
-            criteria.createAlias("savedOrders.products", "products");
-            criteria.add(Restrictions.eq("usersByUserId.userId",
+                    SAVEDORDERS);
+            criteria.createAlias(SAVEDORDERS_USERSBYUSERID,
+                    "usersByUserIdalias");
+            criteria.createAlias(SAVEDORDERS_PRODUCTS, "productsalias");
+            criteria.add(Restrictions.eq("usersByUserIdalias.userId",
                     Integer.parseInt(userId)));
-            criteria.add(Restrictions.eq("products.dhId",
+            criteria.add(Restrictions.eq("productsalias.dhId",
                     Integer.parseInt(articleId)));
             return (SavedOrders) criteria.uniqueResult();
         } finally {
@@ -270,10 +290,10 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                     CoauthorRequestsOoorders.class, "coAuthors");
             criteria.createAlias("coAuthors.usersByCoauthUserId",
                     "usersByUserId");
-            criteria.createAlias("coAuthors.products", "Products");
+            criteria.createAlias("coAuthors.products", "productsaliasname");
             criteria.add(Restrictions.eq("usersByUserId.userId",
                     Integer.parseInt(userId)));
-            criteria.add(Restrictions.eq("Products.dhId",
+            criteria.add(Restrictions.eq("productsaliasname.dhId",
                     Integer.parseInt(articleId)));
             coauthorRequestsOoorders = (CoauthorRequestsOoorders) criteria
                     .uniqueResult();
@@ -322,9 +342,10 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         try {
             session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(SavedOrders.class,
-                    "savedOrders");
-            criteria.createAlias("savedOrders.usersByUserId", "usersByUserId");
-            criteria.add(Restrictions.eq("usersByUserId.userId",
+                    SAVEDORDERS);
+            criteria.createAlias(SAVEDORDERS_USERSBYUSERID,
+                    "usersByUserIdaliasname");
+            criteria.add(Restrictions.eq("usersByUserIdaliasname.userId",
                     Integer.parseInt(userId)));
             List<SavedOrders> list = criteria.list();
             if (list.isEmpty()) {

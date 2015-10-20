@@ -38,39 +38,8 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
     public final boolean searchUserByOrcidId(final String orcidId)
             throws Exception {
 
-        boolean isUserFound = false;
-        // Session session = getSessionFactory().openSession();
-        // String searchOrcidHql =
-        // "from AuthorProfile af where af.orcidId=:orcidId";
-        // List<UserProfile> authorProfilesList = session
-        // .createQuery(searchOrcidHql).setString("orcidId", "orcidId")
-        // .list();
-        // if (!StringUtils.isEmpty(authorProfilesList)) {
-        // isUserFound = true;
-        // }
-
-        return isUserFound;
+        return false;
     }
-
-    /**
-     * This method gets the Invitation Records.
-     * 
-     * @param guid
-     *            to Retrieve.
-     * @return the InviteResetpwdLog.
-     */
-    /*
-     * @Override public final InviteResetpwdLog getInvitationRecords(final
-     * String guid) { InviteResetpwdLog inviteRecord = new InviteResetpwdLog();
-     * Session session = getSessionFactory().openSession(); String
-     * searchInviteHql = "from InviteResetpwdLog ir where ir.guid=:guid";
-     * List<InviteResetpwdLog> inviteRecordList = session
-     * .createQuery(searchInviteHql).setString("guid", guid).list(); if
-     * (!StringUtils.isEmpty(inviteRecordList)) { inviteRecord =
-     * inviteRecordList.get(0); } else { inviteRecord = null; }
-     * 
-     * return inviteRecord; }
-     */
 
     @Override
     public void createRegistrationRecord(
@@ -92,16 +61,6 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
     @Override
     public RegistrationDetails getRegistrationRecord(final String almUserId) {
         return null;
-        /*
-         * Session session = null; RegistrationDetails registrationDetails =
-         * null; try { session = getSessionFactory().openSession();
-         * 
-         * Criteria criteria = session.createCriteria(InviteResetpwdLog.class);
-         * criteria.add(Restrictions.eq("almUserId", almUserId));
-         * registrationDetails = (RegistrationDetails) criteria.uniqueResult();
-         * } finally { if (null != session) { session.flush(); session.close();
-         * } } return registrationDetails;
-         */
     }
 
     @Override

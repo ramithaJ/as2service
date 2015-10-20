@@ -18,48 +18,44 @@ import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnectio
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.AlertsDao;
 import com.wiley.gr.ace.authorservices.persistence.services.AreaOfInterterestDao;
-import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
 import com.wiley.gr.ace.authorservices.persistence.services.ArticleAssignmentDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
+import com.wiley.gr.ace.authorservices.persistence.services.CollectArticleDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.InvitationCeaseDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.InvitationStartDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.LicenseDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.SendNotificationDao;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleInfoDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveJournalInfoDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SocietyDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
 import com.wiley.gr.ace.authorservices.persistence.services.UploadLicenseDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.CollectArticleDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.AlertsDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.AreaOfInterterestDaoImpl;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.AuthorProfileDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ArticleAssignmentDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.AuthorProfileDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.CollectArticleDAOImpl;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.DashboardDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.InviataionCeaseDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.InvitationStartDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.LicenseDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.LookupValuesDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.OrderOnlineDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.RegistrationServiceDAOImpl;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.SendNotificationDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveArticleDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveArticleInfoDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveJournalInfoDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SocietyDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UpdateUserDAOImpl;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAutocompleteImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UploadLicenseDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAutocompleteImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserRolesDAOImpl;
@@ -110,16 +106,6 @@ public class PersistenceBeanConfig {
     @Bean(name = "UserLoginServiceDAO")
     public UserLoginServiceDAO userLoginServiceDAO() {
         return new UserLoginServiceDAOImpl();
-    }
-
-    /**
-     * This method Creates the DashboardDAO.
-     *
-     * @return the DashboardDAOImpl.
-     */
-    @Bean(name = "DashboardDAO")
-    public DashboardDAO dashboardDAO() {
-        return new DashboardDAOImpl();
     }
 
     /**
@@ -200,16 +186,6 @@ public class PersistenceBeanConfig {
     @Bean(name = "AuthorProfileDao")
     public AuthorProfileDao authorProfileDao() {
         return new AuthorProfileDaoImpl();
-    }
-
-    /**
-     * SendNotification dao.
-     *
-     * @return the User profile
-     */
-    @Bean(name = "SendNotificationDao")
-    public SendNotificationDao sendNotificationDao() {
-        return new SendNotificationDaoImpl();
     }
 
     /**
