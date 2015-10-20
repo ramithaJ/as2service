@@ -43,10 +43,8 @@ public class ResearchFunderDAOImpl implements ResearchFunderDAO {
         try {
             session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(UserFunders.class);
-            criteria.add(Restrictions.eq("participantId",
-            		participantId));
+            criteria.add(Restrictions.eq("participantId", participantId));
             return criteria.list();
-
         } finally {
             if (null != session) {
                 session.flush();
@@ -56,9 +54,10 @@ public class ResearchFunderDAOImpl implements ResearchFunderDAO {
     }
 
     @Override
-    public boolean updateResearchFunder(final String participantId, final ResearchFunder researchFunder) {
+    public boolean updateResearchFunder(final String participantId,
+            final ResearchFunder researchFunder) {
 
-    	UUID participantUUID = UUID.fromString(participantId);
+        UUID participantUUID = UUID.fromString(participantId);
         Session session = null;
         try {
             session = getSessionFactory().openSession();

@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.model.Service;
@@ -45,7 +46,7 @@ public class SaveArticleDataImpl implements SaveArticleData {
     private SharedService sharedService;
 
     @Override
-    public void parseArticleEvent(final String articleEvent)  {
+    public void parseArticleEvent(final String articleEvent) {
 
         LOGGER.info("Parsing article event ...");
         if (null != articleEvent && articleEvent.trim().length() > 0) {
@@ -54,16 +55,21 @@ public class SaveArticleDataImpl implements SaveArticleData {
             final DocumentBuilderFactory dbf = DocumentBuilderFactory
                     .newInstance();
             dbf.setNamespaceAware(true);
+            try {
+                final JAXBContext eventDataContext = JAXBContext
+                        .newInstance(EventData.class);
+                final EventData eventData = (EventData) eventDataContext
+                        .createUnmarshaller().unmarshal(reader);
+                LOGGER.debug("Parsed article name :: "
+                        + eventData.getArticleInfo().getArticleName());
 
-            final JAXBContext eventDataContext = JAXBContext
-                    .newInstance(EventData.class);
-            final EventData eventData = (EventData) eventDataContext
-                    .createUnmarshaller().unmarshal(reader);
-            LOGGER.debug("Parsed article name :: "
-                    + eventData.getArticleInfo().getArticleName());
+                handleCorrenspondingAuthorDetails(eventData);
+                handleCoAuthorDetails(eventData);
+            } catch (Exception e) {
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+                throw new ASException();
+            }
 
-            handleCorrenspondingAuthorDetails(eventData);
-            handleCoAuthorDetails(eventData);
         }
 
     }

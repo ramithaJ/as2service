@@ -23,6 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.event.JournalInfo;
 import com.wiley.gr.ace.authorservices.persistence.entity.JournalConfiguration;
 import com.wiley.gr.ace.authorservices.persistence.entity.JournalSetupStates;
@@ -61,28 +63,34 @@ public class SaveJournalInfoServiceImpl implements SaveJournalInfoService {
                     .newInstance();
             dbf.setNamespaceAware(true);
 
-            final JAXBContext journalInfoTypeContext = JAXBContext
-                    .newInstance(JournalInfo.class);
-            final JournalInfo journalInfo = (JournalInfo) journalInfoTypeContext
-                    .createUnmarshaller().unmarshal(reader);
+            try {
+                final JAXBContext journalInfoTypeContext = JAXBContext
+                        .newInstance(JournalInfo.class);
+                final JournalInfo journalInfo = (JournalInfo) journalInfoTypeContext
+                        .createUnmarshaller().unmarshal(reader);
+                final JournalConfiguration journalConfiguration = new JournalConfiguration();
+                final Integer dhId = saveJournalInfoDAO
+                        .getJournalId(journalInfo.getJournalID());
+                if (dhId != Integer.parseInt(journalInfo.getJournalID())) {
+                    journalConfiguration.setDhId(Integer.parseInt(journalInfo
+                            .getJournalID()));
+                    journalConfiguration.setJournalNickname(journalInfo
+                            .getJournalName());
+                    final JournalSetupStates journalSetupStates = new JournalSetupStates();
+                    journalSetupStates.setSetupStateCd(journalInfo
+                            .getJournalSetupState());
+                    journalConfiguration
+                            .setJournalSetupStates(journalSetupStates);
+                    journalConfiguration.setTitleDispOoo(journalInfo
+                            .getRevenueModel());
 
-            final JournalConfiguration journalConfiguration = new JournalConfiguration();
-            final Integer dhId = saveJournalInfoDAO.getJournalId(journalInfo
-                    .getJournalID());
-            if (dhId != Integer.parseInt(journalInfo.getJournalID())) {
-                journalConfiguration.setDhId(Integer.parseInt(journalInfo
-                        .getJournalID()));
-                journalConfiguration.setJournalNickname(journalInfo
-                        .getJournalName());
-                final JournalSetupStates journalSetupStates = new JournalSetupStates();
-                journalSetupStates.setSetupStateCd(journalInfo
-                        .getJournalSetupState());
-                journalConfiguration.setJournalSetupStates(journalSetupStates);
-                journalConfiguration.setTitleDispOoo(journalInfo
-                        .getRevenueModel());
-
-                saveJournalInfoDAO.saveJournalInfo(journalConfiguration);
+                    saveJournalInfoDAO.saveJournalInfo(journalConfiguration);
+                }
+            } catch (Exception e) {
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+                throw new UserException();
             }
+
         }
     }
 }

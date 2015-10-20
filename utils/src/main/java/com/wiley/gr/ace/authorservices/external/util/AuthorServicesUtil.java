@@ -101,8 +101,7 @@ public class AuthorServicesUtil {
                 | InvalidKeyException e) {
             LOGGER.error(PRINTSTACKTRACE, e);
         }
-        String encryptedValue = new Base64().encodeAsString(encVal);
-        return encryptedValue;
+        return new Base64().encodeAsString(encVal);
     }
 
     public static String decrypt(final String input) {
