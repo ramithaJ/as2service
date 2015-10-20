@@ -156,14 +156,19 @@ public class AutocompleteCachingServiceImpl implements
     /** The area of interest dao . */
     @Autowired(required = true)
     private AreaOfInterterestDao areaOfInterest;
-    
+
     /** The woa funders. */
     @Value("${woaFunders.key}")
     private String woaFundersKey;
-    
+
     /** The woa accounts url. */
-    @Value("${woaAccounts.url}")    
+    @Value("${woaAccounts.url}")
     private String woaAccountsurl;
+
+    /**
+     * This field holds the value of CACHED
+     */
+    private static final String CACHED = "_cached";
 
     /**
      * This method returns the cached drop down data in the form of Map. If
@@ -183,16 +188,16 @@ public class AutocompleteCachingServiceImpl implements
         Map<String, CacheData> dropDownMap = null;
         List<CacheData> cacheDataList = null;
 
-        String industryKey = industrieskey + "_cached";
-        String jobCategoryKey = jobCategorieskey + "_cached";
-        String countryKey = countrieskey + "_cached";
-        String institutionKey = institutionskey + "_cached";
-        String departmentKey = departmentskey + "_" + parentId + "_cached";
-        String researchFunderKey = researchFundersKey + "_cached";
-        String societyKey = societieskey + "_cached";
-        String areaOfIntrestKey = areasOfInterestsKey + "_cached";
-        String woaFunderKey = woaFundersKey + "_cached"; 
-        
+        String industryKey = industrieskey + CACHED;
+        String jobCategoryKey = jobCategorieskey + CACHED;
+        String countryKey = countrieskey + CACHED;
+        String institutionKey = institutionskey + CACHED;
+        String departmentKey = departmentskey + "_" + parentId + CACHED;
+        String researchFunderKey = researchFundersKey + CACHED;
+        String societyKey = societieskey + CACHED;
+        String areaOfIntrestKey = areasOfInterestsKey + CACHED;
+        String woaFunderKey = woaFundersKey + CACHED;
+
         if (industryKey.equals(dropDownKey)) {
             LOGGER.info("getCachedData::industrieskey::" + dropDownKey);
             cacheDataList = getIndustries();
@@ -217,8 +222,8 @@ public class AutocompleteCachingServiceImpl implements
         } else if (areaOfIntrestKey.equals(dropDownKey)) {
             LOGGER.info("getCachedData::areasOfInterestsKey::" + dropDownKey);
             cacheDataList = getAreasOfInterests();
-        } else if(woaFunderKey.equals(dropDownKey)){
-        	LOGGER.info("getCachedData::woaFundersKey::" + dropDownKey);
+        } else if (woaFunderKey.equals(dropDownKey)) {
+            LOGGER.info("getCachedData::woaFundersKey::" + dropDownKey);
             cacheDataList = getWoaFundersKey();
         }
 
@@ -237,7 +242,7 @@ public class AutocompleteCachingServiceImpl implements
         return dropDownMap;
     }
 
-	/**
+    /**
      * This method returns ResearchFunders.
      * 
      * @return cacheDataList.
@@ -248,7 +253,6 @@ public class AutocompleteCachingServiceImpl implements
         response = (ResearchFundersResponse) RestServiceInvokerUtil
                 .getServiceData(researchFundersurl,
                         ResearchFundersResponse.class);
-        
 
         return getResearchFundersList(response);
     }
@@ -265,19 +269,19 @@ public class AutocompleteCachingServiceImpl implements
         List<CacheData> cacheList = null;
 
         List<Funder> funderList = response.getFunders().getFunder();
-        
+
         Set<String> cacheStringSet = new HashSet<String>();
 
         if (funderList != null && !funderList.isEmpty()) {
 
             for (Funder funder : funderList) {
                 CacheData cacheData = new CacheData();
-                
+
                 String funderName = funder.getName();
-                if(funderName.contains("\"")){
-                	funderName = funderName.replaceAll("\"", "&quot;");
+                if (funderName.contains("\"")) {
+                    funderName = funderName.replaceAll("\"", "&quot;");
                 }
-                
+
                 cacheData.setName(funderName);
                 List<Id> idList = funder.getSecondaryIds().getId();
                 for (Id id : idList) {
@@ -296,9 +300,11 @@ public class AutocompleteCachingServiceImpl implements
                 try {
                     JSONObject json = (JSONObject) new JSONParser().parse(data);
                     CacheData cacheData = new CacheData();
-                    cacheData.setName(json.get(cacheDataName).toString().toUpperCase());
+                    cacheData.setName(json.get(cacheDataName).toString()
+                            .toUpperCase());
                     cacheData.setCode(json.get(cacheDataCode).toString());
-                    cacheData.setDisplayName(json.get(cacheDataName).toString());
+                    cacheData
+                            .setDisplayName(json.get(cacheDataName).toString());
                     cacheList.add(cacheData);
                 } catch (ParseException e) {
                     throw new ASException(
@@ -356,15 +362,16 @@ public class AutocompleteCachingServiceImpl implements
         if (funderList != null && !funderList.isEmpty()) {
 
             for (Funder funder : funderList) {
-            	
-            	if(funder.getParent() != null){
-            		List<Id> idList = funder.getParent().getSecondaryIds().getId();
-            		for (Id id : idList) {
-            			if (funderContentType.equals(id.getType())) {
-            				doiSet.add(id.getContent());
-            			}
-            		}
-            	}
+
+                if (funder.getParent() != null) {
+                    List<Id> idList = funder.getParent().getSecondaryIds()
+                            .getId();
+                    for (Id id : idList) {
+                        if (funderContentType.equals(id.getType())) {
+                            doiSet.add(id.getContent());
+                        }
+                    }
+                }
 
             }
 
@@ -434,18 +441,18 @@ public class AutocompleteCachingServiceImpl implements
         List<SubFunder> subFunderList = new ArrayList<SubFunder>();
 
         for (Funder funder : funderList) {
-        	if(funder.getParent() != null){
-        		String selectedDoi = funder.getParent().getSecondaryIds().getId()
-        				.get(0).getContent();
-        		if (parentFunder.getDoi().equals(selectedDoi)) {
-        			SubFunder subFunder = new SubFunder();
-        			subFunder.setDoi(funder.getSecondaryIds().getId().get(0)
-        					.getContent());
-        			subFunder.setId(funder.getId());
-        			subFunder.setName(funder.getName());
-        			subFunderList.add(subFunder);
-        		}
-        	}
+            if (funder.getParent() != null) {
+                String selectedDoi = funder.getParent().getSecondaryIds()
+                        .getId().get(0).getContent();
+                if (parentFunder.getDoi().equals(selectedDoi)) {
+                    SubFunder subFunder = new SubFunder();
+                    subFunder.setDoi(funder.getSecondaryIds().getId().get(0)
+                            .getContent());
+                    subFunder.setId(funder.getId());
+                    subFunder.setName(funder.getName());
+                    subFunderList.add(subFunder);
+                }
+            }
         }
 
         return subFunderList;
@@ -509,8 +516,7 @@ public class AutocompleteCachingServiceImpl implements
                         .toUpperCase());
                 jobCategory.setDisplayName(jobCategoryMap
                         .get(jobCategoriesName));
-                LOGGER.info("Job Category Name : "
-                        + jobCategory.getName());
+                LOGGER.info("Job Category Name : " + jobCategory.getName());
                 LOGGER.info("Job Category Display Name : "
                         + jobCategory.getDisplayName());
                 jobCategoryList.add(jobCategory);
@@ -678,8 +684,7 @@ public class AutocompleteCachingServiceImpl implements
                         .toUpperCase());
                 interests.setDisplayName(areaOfInterest.getInterestName());
 
-                LOGGER.info("Area of interests Name : "
-                        + interests.getName());
+                LOGGER.info("Area of interests Name : " + interests.getName());
                 LOGGER.info("Area of interests Display Name : "
                         + interests.getDisplayName());
                 areasOfIntrestList.add(interests);
@@ -688,37 +693,37 @@ public class AutocompleteCachingServiceImpl implements
 
         return areasOfIntrestList;
     }
-    
+
     /**
      * This method returns the woaFundersList.
+     * 
      * @return cachedata
      */
     private List<CacheData> getWoaFundersKey() {
-    	
-    	List<CacheData> woaFunderList = null;
-  
-    	WileyOpenAccessFunders wileyOpenAccessFunders =(WileyOpenAccessFunders) RestServiceInvokerUtil
-                .getServiceData(woaAccountsurl,
-                		WileyOpenAccessFunders.class);
-    	
-    	if(wileyOpenAccessFunders != null){
-    		List<WOAFunder> woaFundersList = wileyOpenAccessFunders.getWoaFunders()
-    				.getWOAFunder();
-    		
-    		if(woaFundersList != null && !woaFundersList.isEmpty()){
-    	    	woaFunderList = new ArrayList<CacheData>();
 
-    			for (WOAFunder woaFunder : woaFundersList) {
-    				CacheData cacheData = new CacheData();
-    				cacheData.setCode(woaFunder.getId());
-    				cacheData.setName(woaFunder.getName().toUpperCase());
-    				cacheData.setDisplayName(woaFunder.getName());
-    				woaFunderList.add(cacheData);
-    			}	
-    		}
-    		
-    	}
-		return woaFunderList;
-	}
+        List<CacheData> woaFunderList = null;
+
+        WileyOpenAccessFunders wileyOpenAccessFunders = (WileyOpenAccessFunders) RestServiceInvokerUtil
+                .getServiceData(woaAccountsurl, WileyOpenAccessFunders.class);
+
+        if (wileyOpenAccessFunders != null) {
+            List<WOAFunder> woaFundersList = wileyOpenAccessFunders
+                    .getWoaFunders().getWOAFunder();
+
+            if (woaFundersList != null && !woaFundersList.isEmpty()) {
+                woaFunderList = new ArrayList<CacheData>();
+
+                for (WOAFunder woaFunder : woaFundersList) {
+                    CacheData cacheData = new CacheData();
+                    cacheData.setCode(woaFunder.getId());
+                    cacheData.setName(woaFunder.getName().toUpperCase());
+                    cacheData.setDisplayName(woaFunder.getName());
+                    woaFunderList.add(cacheData);
+                }
+            }
+
+        }
+        return woaFunderList;
+    }
 
 }

@@ -71,6 +71,16 @@ public class AutocompleteServiceImpl implements AutocompleteService {
     private String subFunderskey;
 
     /**
+     * This field holds the value of AUTO
+     */
+    private static final String AUTO = "_auto";
+
+    /**
+     * This field holds the value of CACHED
+     */
+    private static final String CACHED = "_cached";
+
+    /**
      * Enum For valid drop down keys.
      */
     public enum DropDownKeys {
@@ -160,30 +170,20 @@ public class AutocompleteServiceImpl implements AutocompleteService {
             }
 
             if (phrase != null && !"".equals(phrase.trim())) {
-                /*
-                 * Auto Complete
-                 * 
-                 * Key is appended with (_auto/_cached) to avoid conflict
-                 * between auto complete and caching data.
-                 */
 
                 LOGGER.info("getDropDownData::Autocomplete Request with phrase:"
                         + phrase);
 
-                dropDownList = getAutoCompleteDataFromRedis(key + "_auto",
-                        phrase, offset);
+                dropDownList = getAutoCompleteDataFromRedis(key + AUTO, phrase,
+                        offset);
 
                 if (dropDownList == null) {
-                    /*
-                     * Get the data from cache if not available in Redis and set
-                     * it in Redis.
-                     */
 
                     LOGGER.info("getDropDownData::No Data found in Redis with the Key : "
                             + key);
 
                     dropDownMap = autocompleteCachingService.getCachedData(key
-                            + "_cached", parentId);
+                            + CACHED, parentId);
                     if (dropDownMap != null && !dropDownMap.isEmpty()) {
 
                         Collection<CacheData> values = dropDownMap.values();
@@ -200,11 +200,11 @@ public class AutocompleteServiceImpl implements AutocompleteService {
                                 final Jedis redis = new Jedis(
                                         jedisConnectionFactory.getShardInfo());
                                 for (String dropDownData : dropDownList) {
-                                    addWord(dropDownData, redis, key + "_auto");
+                                    addWord(dropDownData, redis, key + AUTO);
                                 }
                                 redis.close();
                                 dropDownList = getAutoCompleteDataFromRedis(key
-                                        + "_auto", phrase, offset);
+                                        + AUTO, phrase, offset);
                             }
 
                         } else {
@@ -219,21 +219,11 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
                 }
 
-                /*
-                 * Convert the json string to json object and sort the list in
-                 * ascending order.
-                 */
                 if (dropDownList != null) {
                     jsonDropDownList = getJsonDropDownList(dropDownList, phrase);
                 }
 
             } else {
-                /*
-                 * Cacheable
-                 * 
-                 * Key is appended with (_auto/_cached) to avoid conflict
-                 * between auto complete and caching data.
-                 */
 
                 LOGGER.info("getDropDownData::Caching Request");
                 String subFunderKey = subFunderskey + "_" + parentId;
@@ -243,7 +233,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
                     LOGGER.info("getDropDownData::Caching Request for Key :"
                             + key);
                     subFunderDetails = autocompleteCachingService
-                            .getCachedSubFunders(key + "_cached");
+                            .getCachedSubFunders(key + CACHED);
                     SubFunders subFunders = subFunderDetails.getSubFundersMap()
                             .get(parentId);
 
@@ -271,17 +261,13 @@ public class AutocompleteServiceImpl implements AutocompleteService {
                             + key);
 
                     dropDownMap = autocompleteCachingService.getCachedData(key
-                            + "_cached", parentId);
+                            + CACHED, parentId);
 
                     if (dropDownMap != null && !dropDownMap.isEmpty()) {
                         Collection<CacheData> values = dropDownMap.values();
                         if (values != null && !values.isEmpty()) {
                             jsonDropDownList = new ArrayList<CacheData>();
                             jsonDropDownList.addAll(values);
-                            /*
-                             * for (CacheData cacheData : values) {
-                             * jsonDropDownList.add(cacheData); }
-                             */
 
                             jsonDropDownList = sortCacheData("name",
                                     jsonDropDownList);
@@ -485,7 +471,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
             LOGGER.info("getNameByCode::Key:" + key);
         }
 
-        dropDownMap = autocompleteCachingService.getCachedData(key + "_cached",
+        dropDownMap = autocompleteCachingService.getCachedData(key + CACHED,
                 parentId);
 
         if (dropDownMap != null) {

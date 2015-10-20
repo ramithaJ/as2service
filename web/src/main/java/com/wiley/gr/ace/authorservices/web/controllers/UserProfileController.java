@@ -77,15 +77,16 @@ public class UserProfileController {
 
     @Value("${UserProfileController.alerts.code}")
     private String alertsErrorCode;
-    
+
     @Value("${UserProfileController.alerts.message}")
     private String alertsErrorMessage;
-    
+
     @Value("${UserProfileController.profilePicture.code}")
     private String profilePictureErrorCode;
-    
+
     @Value("${UserProfileController.profilePicture.message}")
     private String profilePictureErrorMessage;
+
     /**
      * Gets the affiliations list.
      *
@@ -452,7 +453,7 @@ public class UserProfileController {
         try {
             service.setPayload(authorProfileService.getAlerts(userId));
         } catch (final Exception e) {
-            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,e);
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(alertsErrorCode, alertsErrorMessage);
         }
         return service;
@@ -477,7 +478,7 @@ public class UserProfileController {
         try {
             isUpdated = authorProfileService.updateAlerts(userId, listOfalert);
         } catch (final Exception e) {
-            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,e);
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(alertsErrorCode, alertsErrorMessage);
         }
         if (isUpdated) {
@@ -515,8 +516,7 @@ public class UserProfileController {
     @RequestMapping(value = "/getImage/{userId}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     public final byte[] getProfile(@PathVariable("userId") final String userId) {
         UserProfileController.LOGGER.info("inside getProfile method ");
-        final byte[] bites = new byte[100];
-        return bites;
+        return new byte[100];
 
     }
 
@@ -561,7 +561,9 @@ public class UserProfileController {
                 }
             }
         } catch (final Exception e) {
-            throw new UserException(profilePictureErrorCode, profilePictureErrorMessage);
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException(profilePictureErrorCode,
+                    profilePictureErrorMessage);
         }
         if (isUpdated) {
             service.setStatus(AuthorServicesConstants.SUCCESS);
@@ -589,7 +591,7 @@ public class UserProfileController {
         try {
             service.setPayload(authorProfileService.getAlerts(participantId));
         } catch (final Exception e) {
-            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,e);
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(alertsErrorCode, alertsErrorMessage);
         }
         return service;

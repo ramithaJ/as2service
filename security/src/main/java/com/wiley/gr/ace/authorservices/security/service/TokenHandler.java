@@ -51,10 +51,6 @@ public class TokenHandler {
     @Value("${authentication.service.auth.url.refresh}")
     private String authenticationTokenRefreshUrl;
 
-    /** The authentication token validation url. */
-    @Value("${authentication.service.auth.url.validate}")
-    private String authenticationTokenValidationUrl;
-
     /** The token app key. */
     @Value("${authentication.service.token.app.key}")
     private String tokenAppKey;
@@ -69,7 +65,7 @@ public class TokenHandler {
 
     /** User locked message. */
     @Value("${authentication.service.user.locked.message}")
-    private static final String userLockedMessage = "423 Locked";
+    private String userLockedMessage;
 
     /** The rest template. */
     @Autowired

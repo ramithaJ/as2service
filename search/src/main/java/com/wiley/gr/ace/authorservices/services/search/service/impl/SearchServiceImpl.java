@@ -9,7 +9,7 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-package com.wiley.gr.ace.authorservices.services.search.service.Impl;
+package com.wiley.gr.ace.authorservices.services.search.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

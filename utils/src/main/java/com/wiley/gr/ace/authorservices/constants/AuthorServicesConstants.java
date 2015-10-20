@@ -19,6 +19,13 @@ package com.wiley.gr.ace.authorservices.constants;
  */
 public class AuthorServicesConstants {
 
+    /**
+     * constructor.
+     */
+    private AuthorServicesConstants() {
+
+    }
+
     /** The Constant AUTHOR_ROLE_CD. */
     public static final String AUTHOR_ROLE_CD = "101";
 
@@ -292,7 +299,7 @@ public class AuthorServicesConstants {
         AUTOMATED_PROCESSING_DISABLED,
         /** The automation currently enabled. */
         AUTOMATION_CURRENTLY_ENABLED
-    };
+    }
 
     /** The Constant AS_ALM_TNC_FLAG. */
     public static final String AS_ALM_TNC_FLAG = "Y";
@@ -308,13 +315,13 @@ public class AuthorServicesConstants {
 
     /** The Constant CDM_USER_ROLE. */
     public static final String CDM_USER_ROLE = "UR";
-    
+
     /** The Constant LIST_OF_USER_FOUND. */
     public static final String LIST_OF_USER_FOUND = "LIST_OF_USER_FOUND";
-    
+
     /** The Constant ERROR. */
-    public static final String ERROR= "ERROR";
-    
+    public static final String ERROR = "ERROR";
+
     /** The Constant EMPTY. */
-    public static final String EMPTY= "";
+    public static final String EMPTY = "";
 }
