@@ -174,7 +174,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         UserAccountServiceImpl.LOGGER.info("inside getUserAddress Method");
         AddressesData address = new AddressesData();
         try {
-            AddressMapper mapper = (AddressMapper) participantsInterfaceService
+            AddressMapper mapper = participantsInterfaceService
                     .getAddress(userId);
 
             List<ParticipantAddress> participantAddresses = mapper.getContent();
@@ -240,8 +240,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      *             the exception
      */
     @Override
-    public List<AddressData> validateAddress(final AddressData address)
-            throws Exception {
+    public List<AddressData> validateAddress(final AddressData address) {
         List<AddressData> validAddressList = new ArrayList<>();
         final AddressValidationRequest addressValidationRequest = new AddressValidationRequest();
         final AddressValidationMultiReq addressValidationMultiReq = new AddressValidationMultiReq();
@@ -290,7 +289,8 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @return the addresses
      */
     private Addresses partipcipantAddrToAddr(
-            ParticipantAddress participantAddr, AddressesData address) {
+            final ParticipantAddress participantAddr,
+            final AddressesData address) {
         if (!StringUtils.isEmpty(participantAddr)) {
             String type = participantAddr.getAddressType();
             AddressData addressData = new AddressData();
