@@ -1,21 +1,28 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserPayload {
-	
-	/** The user payload. */
+
+    /** The user payload. */
     @JsonProperty("UserPayload")
-    private ArrayList<ALMUser> userPayload;
+    private List<ALMUser> userPayload;
 
-	public ArrayList<ALMUser> getUserPayload() {
-		return userPayload;
-	}
+    /**
+     * @return the userPayload
+     */
+    public final List<ALMUser> getUserPayload() {
+        return userPayload;
+    }
 
-	public void setUserPayload(ArrayList<ALMUser> userPayload) {
-		this.userPayload = userPayload;
-	}
+    /**
+     * @param userPayload
+     *            the userPayload to set
+     */
+    public final void setUserPayload(final List<ALMUser> userPayload) {
+        this.userPayload = userPayload;
+    }
 
 }

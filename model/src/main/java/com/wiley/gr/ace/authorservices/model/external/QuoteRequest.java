@@ -25,39 +25,64 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class QuoteRequest {
 
+    /**
+     * This field holds the value of article
+     */
     private Article article;
 
+    /**
+     * This field holds the value of requestCreatedTimestamp
+     */
     private String requestCreatedTimestamp;
 
+    /**
+     * This field holds the value of requestType
+     */
     private String requestType;
 
-    public Article getArticle ()
-    {
+    /**
+     * @return the article
+     */
+    public final Article getArticle() {
         return article;
     }
 
-    public void setArticle (Article article)
-    {
+    /**
+     * @param article
+     *            the article to set
+     */
+    public final void setArticle(final Article article) {
         this.article = article;
     }
 
-    public String getRequestCreatedTimestamp ()
-    {
+    /**
+     * @return the requestCreatedTimestamp
+     */
+    public final String getRequestCreatedTimestamp() {
         return requestCreatedTimestamp;
     }
 
-    public void setRequestCreatedTimestamp (String requestCreatedTimestamp)
-    {
+    /**
+     * @param requestCreatedTimestamp
+     *            the requestCreatedTimestamp to set
+     */
+    public final void setRequestCreatedTimestamp(
+            final String requestCreatedTimestamp) {
         this.requestCreatedTimestamp = requestCreatedTimestamp;
     }
 
-    public String getRequestType ()
-    {
+    /**
+     * @return the requestType
+     */
+    public final String getRequestType() {
         return requestType;
     }
 
-    public void setRequestType (String requestType)
-    {
+    /**
+     * @param requestType
+     *            the requestType to set
+     */
+    public final void setRequestType(final String requestType) {
         this.requestType = requestType;
     }
 

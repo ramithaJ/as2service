@@ -14,7 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -25,25 +25,21 @@ public class ParticipantGetResponse extends ParticipantGenericResponse {
 
     /** The participant list. */
     @JsonProperty("content")
-    private ArrayList<Participant> participantList;
+    private List<Participant> participantList;
 
     /**
-     * Gets the participant list.
-     *
-     * @return the participant list
+     * @return the participantList
      */
-    public final ArrayList<Participant> getParticipantList() {
+    public final List<Participant> getParticipantList() {
         return participantList;
     }
 
     /**
-     * Sets the participant list.
-     *
      * @param participantList
-     *            the new participant list
+     *            the participantList to set
      */
-    public final void setParticipantList(
-            final ArrayList<Participant> participantList) {
+    public final void setParticipantList(final List<Participant> participantList) {
         this.participantList = participantList;
     }
+
 }
