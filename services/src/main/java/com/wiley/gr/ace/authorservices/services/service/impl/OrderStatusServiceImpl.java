@@ -14,6 +14,7 @@
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +39,10 @@ public class OrderStatusServiceImpl implements OrderStatusService {
     /**
      * This field holds the value of orderStatusMap.
      */
-    private static HashMap<String, OrderStatus> orderStatusMap = new HashMap<String, OrderStatus>();
+    private static Map<String, OrderStatus> orderStatusMap = new HashMap<String, OrderStatus>();
 
     @Override
-    public HashMap<String, OrderStatus> getOrderStatusMap() {
+    public Map<String, OrderStatus> getOrderStatusMap() {
 
         for (OO_ORDER_STATUS ooOrderStatus : AuthorServicesConstants.OO_ORDER_STATUS
                 .values()) {

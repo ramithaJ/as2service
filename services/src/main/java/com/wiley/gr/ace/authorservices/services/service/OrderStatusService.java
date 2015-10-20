@@ -13,7 +13,7 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.wiley.gr.ace.authorservices.model.OrderStatus;
 
@@ -26,5 +26,5 @@ public interface OrderStatusService {
     /**
      * @return HashMap
      */
-    HashMap<String, OrderStatus> getOrderStatusMap();
+    Map<String, OrderStatus> getOrderStatusMap();
 }

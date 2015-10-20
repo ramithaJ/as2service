@@ -55,7 +55,6 @@ public class SaveJournalInfoServiceImpl implements SaveJournalInfoService {
     @Override
     public void parseJournalInfoTypeEvent(final String journalInfoTypeEvent)
             throws Exception {
-        boolean result = false;
         LOGGER.info("Parsing Journal Info Type Event ...");
         if (null != journalInfoTypeEvent
                 && journalInfoTypeEvent.trim().length() > 0) {
@@ -85,9 +84,7 @@ public class SaveJournalInfoServiceImpl implements SaveJournalInfoService {
                 journalConfiguration.setTitleDispOoo(journalInfo
                         .getRevenueModel());
 
-                result = saveJournalInfoDAO
-                        .saveJournalInfo(journalConfiguration);
-                System.err.println(" Journal Info Type Event " + result);
+                saveJournalInfoDAO.saveJournalInfo(journalConfiguration);
             }
         }
     }

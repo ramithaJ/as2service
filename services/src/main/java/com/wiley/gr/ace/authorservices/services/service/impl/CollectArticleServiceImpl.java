@@ -60,14 +60,6 @@ public class CollectArticleServiceImpl implements CollectArticleService {
             ownerships.setCode(ownershipTypes.getTypeCd());
             ownerships.setName(ownershipTypes.getTypeName());
             Set<SubOwnerships> subOwnershipsSet = new HashSet<SubOwnerships>();
-//            Set<SubOwnershipTypes> subOwnershipTypesSet = (Set<SubOwnershipTypes>) ownershipTypes
-//                    .getSubOwnershipTypeses();
-//            for (SubOwnershipTypes subOwnershipTypes : subOwnershipTypesSet) {
-//                SubOwnerships subOwnerships = new SubOwnerships();
-//                subOwnerships.setCode(subOwnershipTypes.getSubTypeCd());
-//                subOwnerships.setName(subOwnershipTypes.getSubTypeName());
-//                subOwnershipsSet.add(subOwnerships);
-//            }
             ownerships.setSubOwnerships(subOwnershipsSet);
             ownershipsSet.add(ownerships);
         }
