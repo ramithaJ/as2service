@@ -22,11 +22,11 @@ import com.wiley.gr.ace.authorservices.model.external.AddressData;
 import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
 import com.wiley.gr.ace.authorservices.model.external.AlertRequest;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
-import com.wiley.gr.ace.authorservices.model.external.ParticipantGetResponse;
 import com.wiley.gr.ace.authorservices.model.external.PreferenceValue;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface ParticipantsInterfaceService.
  */
@@ -58,6 +58,14 @@ public interface ParticipantsInterfaceService {
      * @return the participant
      */
     Participant searchParticipantByUserId(String userId);
+    
+    /**
+     * Search participant by email id.
+     *
+     * @param userId the user id
+     * @return the participant
+     */
+    Participant searchParticipantByEmailId(String userId);
 
     /**
      * Search participant by name.
@@ -85,13 +93,10 @@ public interface ParticipantsInterfaceService {
     /**
      * Update address.
      *
-     * @param participantId
-     *            the participant id
-     * @param participantAddress
-     *            the participant address
+     * @param participantId            the participant id
+     * @param address the address
      * @return the response entity
-     * @throws Exception
-     *             the exception
+     * @throws Exception             the exception
      */
     ResponseEntity<?> updateAddress(String participantId, AddressData address)
             throws Exception;
@@ -147,15 +152,6 @@ public interface ParticipantsInterfaceService {
     PreferenceValue getAlerts(String participantId) throws Exception;
 
     /**
-     * Search participant by email.
-     *
-     * @param email
-     *            the email
-     * @return the participant
-     */
-    Participant searchParticipantByEmail(String email);
-
-    /**
      * Update profile.
      *
      * @param profileEntity
@@ -206,14 +202,5 @@ public interface ParticipantsInterfaceService {
      * @return the participant
      */
     Participant searchParticipantByOrcidId(String orcidId);
-
-    /**
-     * Search participany by email id.
-     *
-     * @param emailId
-     *            the email id
-     * @return the participant get response
-     */
-    ParticipantGetResponse searchParticipanyByEmailId(String emailId);
 
 }
