@@ -61,12 +61,6 @@ public class UserLoginController extends ASExceptionController {
     @Autowired
     private AuthorProfileService authorProfileService;
 
-    // /**
-    // * Injecting UserLoginServiceDAO bean.
-    // */
-    // @Autowired(required = true)
-    // private UserLoginServiceDAO userLoginServiceDAO;
-
     /**
      * Injecting SendNotification bean.
      */
@@ -137,12 +131,7 @@ public class UserLoginController extends ASExceptionController {
             errorPOJO.setMessage(securityResponse.getMessage());
             service.setError(errorPOJO);
         } else if (success.equals(securityResponse.getStatus())) {
-
-            // Users users = userLoginServiceDAO.getUserId(login.getEmailId());
             UserLogin user = new UserLogin();
-            // user.setUserId(users.getUserId().intValue());
-            // user.setFirstName(users.getFirstName());
-            // user.setLastName(users.getLastName());
             service.setPayload(user);
         }
         return service;

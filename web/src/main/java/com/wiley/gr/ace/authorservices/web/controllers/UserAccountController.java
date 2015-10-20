@@ -16,12 +16,14 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
@@ -31,6 +33,8 @@ import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
 /**
+ * The Class UserAccountController.
+ *
  * @author virtusa version 1.0
  */
 @RestController
@@ -54,6 +58,14 @@ public class UserAccountController {
      */
     @Autowired
     private AuthorProfileService authorProfileService;
+
+    /** The user addresses error code. */
+    @Value("${UserAccountController.userAddresses.code}")
+    private String userAddressesErrorCode;
+
+    /** The user addresses error message. */
+    @Value("${UserAccountController.userAddresses.message}")
+    private String userAddressesErrorMessage;
 
     /**
      * Method to get the user Account information.
@@ -143,7 +155,9 @@ public class UserAccountController {
         try {
             service.setPayload(userAccountService.getUserAddress(userId));
         } catch (Exception e) {
-            throw new UserException("500", "Unable to fetch");
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException(userAddressesErrorCode,
+                    userAddressesErrorMessage);
         }
         return service;
     }
@@ -170,18 +184,20 @@ public class UserAccountController {
             if (result instanceof Boolean) {
                 isUpdated = (boolean) result;
                 if (isUpdated) {
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(isUpdated);
                 } else {
-                    service.setStatus("Failure");
+                    service.setStatus(AuthorServicesConstants.FAILURE);
                     service.setPayload(isUpdated);
                 }
             } else if (result instanceof List) {
-                service.setStatus("Failure");
+                service.setStatus(AuthorServicesConstants.FAILURE);
                 service.setPayload(result);
             }
         } catch (Exception e) {
-            throw new UserException("500", e.getMessage());
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException(userAddressesErrorCode,
+                    userAddressesErrorMessage);
         }
 
         return service;
@@ -205,6 +221,8 @@ public class UserAccountController {
     }
 
     /**
+     * Removes the orcid id.
+     *
      * @param userId
      *            - input
      * @return service

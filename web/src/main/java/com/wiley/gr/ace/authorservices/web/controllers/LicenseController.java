@@ -14,7 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.LicenseException;
 import com.wiley.gr.ace.authorservices.exception.UserException;
@@ -59,13 +60,11 @@ public class LicenseController {
     @Autowired(required = true)
     private LicenseService licenseService;
 
-    
     @Value("${LicenseController.viewLicense.code}")
     private String viewLicenseErrorCode;
-    
+
     @Value("${LicenseController.viewLicense.message}")
     private String viewLicenseErrorMessage;
-
 
     /**
      * Gets the license type.
@@ -85,8 +84,8 @@ public class LicenseController {
                 && !StringUtils.isEmpty(licenseObject)) {
             LOGGER.info("fetching license type choice for article with article id: "
                     + articleId);
-            ArrayList<String> licenseTypesOptions = licenseService
-                    .getLicenseChoice(articleId, licenseObject);
+            List<String> licenseTypesOptions = licenseService.getLicenseChoice(
+                    articleId, licenseObject);
             if (!StringUtils.isEmpty(licenseTypesOptions)) {
                 LOGGER.info("Fetched the available license types for the article");
                 service.setPayload(licenseTypesOptions);
@@ -153,7 +152,7 @@ public class LicenseController {
      *            the license choice request
      * @return the license text
      */
-    @RequestMapping(value = "/licensetext/", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/licensetext/", method = RequestMethod.POST)
     public String getLicenseText(
             @RequestBody final LicenseChoiceRequest licenseChoiceRequest) {
         return licenseService.getLicenseText(licenseChoiceRequest);
@@ -183,7 +182,6 @@ public class LicenseController {
 
     }
 
-    
     /**
      * Gets the view license agreement of article in pdf.
      *
@@ -195,23 +193,23 @@ public class LicenseController {
      */
     @RequestMapping(value = "/view/{dhId}", method = RequestMethod.GET)
     public final ResponseEntity<byte[]> viewLicenseAgreement(
-            @PathVariable("dhId") final Integer dhId) throws Exception {
+            @PathVariable("dhId") final Integer dhId) throws UserException {
         LOGGER.info("inside getArticleDHIDInPDF method of ViewLicenseAgreementController");
         Service service = new Service();
         ResponseEntity<byte[]> viewLicenseAgreement = null;
         try {
-            viewLicenseAgreement =licenseService
-                    .viewLicenseAgreement(dhId);
+            viewLicenseAgreement = licenseService.viewLicenseAgreement(dhId);
             if (!StringUtils.isEmpty(viewLicenseAgreement)) {
-                service.setStatus("SUCCESS");
+                service.setStatus(AuthorServicesConstants.SUCCESS);
                 service.setPayload(viewLicenseAgreement);
             } else {
-                service.setStatus("FAILURE");
+                service.setStatus(AuthorServicesConstants.FAILURE);
                 service.setPayload(viewLicenseAgreement);
             }
         } catch (final Exception e) {
-            LOGGER.error("Print Stack Trace- ", e);
-            throw new UserException(viewLicenseErrorCode,viewLicenseErrorMessage);
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException(viewLicenseErrorCode,
+                    viewLicenseErrorMessage);
         }
 
         return viewLicenseAgreement;

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
@@ -45,9 +46,9 @@ public class DashboardController {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DashboardController.class);
 
-    @Autowired(required=true)
+    @Autowired(required = true)
     private DashboardService dashboardService;
-    
+
     /** value from props file configured. */
     @Value("${DashboardController.getProfileMeter.code}")
     private String getProfileMeterErrorCode;
@@ -102,6 +103,7 @@ public class DashboardController {
 
     @Value("${inputParameterNotFound.message}")
     private String inputParameterNotFound;
+
     /**
      * This method takes userId and return the Service.
      *
@@ -123,17 +125,17 @@ public class DashboardController {
                     service.setPayload(dashboard);
                 } else {
                     LOGGER.info("Profile Meter Data is Not Found");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(noDataFound);
                 }
             } catch (final Exception e) {
-                LOGGER.error("Print Stack Trace- ", e);
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new UserException(getProfileMeterErrorCode,
                         getProfileMeterErrorMessage);
             }
         } else {
             LOGGER.info("input Parameter userId is Not Found");
-            service.setStatus("FAILURE");
+            service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(inputParameterNotFound);
         }
         return service;
@@ -156,25 +158,24 @@ public class DashboardController {
         if (!StringUtils.isEmpty(userId)) {
             LOGGER.info("input parameter userId is found to Get All the Author Article Details");
             try {
-                dashboardView = dashboardService
-                        .getAllAuthorArticles(userId);
+                dashboardView = dashboardService.getAllAuthorArticles(userId);
                 if (!StringUtils.isEmpty(dashboardView)) {
                     LOGGER.info("All Author Articles  Data is Found");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(dashboardView);
                 } else {
                     LOGGER.info("All Author Articles  Data is Not Found");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(noDataFound);
                 }
             } catch (final Exception e) {
-                LOGGER.error("Print Stack Trace- ", e);
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new ASException(getActionRequiredErrorCode,
                         getActionRequiredErrorMessage);
             }
         } else {
             LOGGER.info("input Parameter userId is Not Found");
-            service.setStatus("FAILURE");
+            service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(inputParameterNotFound);
         }
         return service;
@@ -199,21 +200,21 @@ public class DashboardController {
                 dashboardView = dashboardService.actionRequired(userId);
                 if (!StringUtils.isEmpty(dashboardView)) {
                     LOGGER.info("Action Required Data is Found");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(dashboardView);
                 } else {
                     LOGGER.info("Action Required Data is Not Found");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(noDataFound);
                 }
             } catch (final Exception e) {
-                LOGGER.error("Print Stack Trace- ", e);
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new ASException(getAllAuthorArticlesErrorCode,
                         getAllAuthorArticlesErrorMessage);
             }
         } else {
             LOGGER.info("input Parameter userId is Not Found");
-            service.setStatus("FAILURE");
+            service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(inputParameterNotFound);
         }
         return service;
@@ -239,21 +240,21 @@ public class DashboardController {
                         .getEmailCommunicationHistory(userId);
                 if (!StringUtils.isEmpty(emailCommunicationHistory)) {
                     LOGGER.info(" Email Communication History is Found");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(emailCommunicationHistory);
                 } else {
                     LOGGER.info(" Email Communication History Not Found");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(noDataFound);
                 }
             } catch (final Exception e) {
-                LOGGER.error("Print Stack Trace- ", e);
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new ASException(getEmailCommunicationHistoryErrorCode,
                         getEmailCommunicationHistoryErrorMessage);
             }
         } else {
             LOGGER.info("input Parameter userId is Not Found");
-            service.setStatus("FAILURE");
+            service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(inputParameterNotFound);
         }
         return service;
@@ -278,21 +279,21 @@ public class DashboardController {
                 dashboardView = dashboardService.getProductionDetails(userId);
                 if (!StringUtils.isEmpty(dashboardView)) {
                     LOGGER.info("Production Details are Found");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(dashboardView);
                 } else {
                     LOGGER.info("Production Details are Not Found");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(noDataFound);
                 }
             } catch (final Exception e) {
-                LOGGER.error("Print Stack Trace- ", e);
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new ASException(getProductionDetailsErrorCode,
                         getProductionDetailsErrorMessage);
             }
         } else {
             LOGGER.info("input Parameter userId is Not Found");
-            service.setStatus("FAILURE");
+            service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(inputParameterNotFound);
         }
         return service;
@@ -318,21 +319,21 @@ public class DashboardController {
                         .getPublishedArticleDetails(userId);
                 if (!StringUtils.isEmpty(dashboardView)) {
                     LOGGER.info("Publication Details are Found");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(dashboardView);
                 } else {
                     LOGGER.info("Publication Details are Not Found");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(noDataFound);
                 }
             } catch (final Exception e) {
-                LOGGER.error("Print Stack Trace- ", e);
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new ASException(getPublishedArticleDetailsErrorCode,
                         getPublishedArticleDetailsErrorMessage);
             }
         } else {
             LOGGER.info("input Parameter userId is Not Found");
-            service.setStatus("FAILURE");
+            service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(inputParameterNotFound);
         }
         return service;

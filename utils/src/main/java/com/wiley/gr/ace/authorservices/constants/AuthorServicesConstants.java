@@ -311,4 +311,7 @@ public class AuthorServicesConstants {
     
     /** The Constant LIST_OF_USER_FOUND. */
     public static final String LIST_OF_USER_FOUND = "LIST_OF_USER_FOUND";
+    
+    /** The Constant ERROR. */
+    public static final String ERROR= "ERROR";
 }
