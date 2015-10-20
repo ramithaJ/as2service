@@ -26,13 +26,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 
-import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
-import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
@@ -71,7 +69,6 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunders;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
-import com.wiley.gr.ace.authorservices.persistence.services.AlertsDao;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
 import com.wiley.gr.ace.authorservices.persistence.services.ResearchFunderDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SocietyDao;
@@ -757,21 +754,21 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         final ProfileRequest profileRequest = new ProfileRequest();
         profileRequest.setTitleCode(participant.getJobTitle());
         profileRequest.setSuffixCode(participant.getHonorificSuffix());
-        profileRequest.setMiddleName("");
+        profileRequest.setMiddleName(AuthorServicesConstants.EMPTY);
         profileRequest.setLastName(participant.getFamilyName());
         profileRequest.setFirstName(participant.getName());
-        profileRequest.setAlternativeName("");
+        profileRequest.setAlternativeName(AuthorServicesConstants.EMPTY);
         profileRequest.setIndustryCode(participant.getIndustryId());
         profileRequest.setJobCategoryCode(participant.getJobCategoryId());
         profileRequest.setSendEmail(participant.getEmail());
-        profileRequest.setPrimaryEmail(""); // primary email Address
+        profileRequest.setPrimaryEmail(AuthorServicesConstants.EMPTY); 
 
         final List<InterestList> interestList = new ArrayList<InterestList>();
         final InterestList interest = new InterestList();
-        interest.setInterestCode(""); // interest code
+        interest.setInterestCode(AuthorServicesConstants.EMPTY); 
         profileRequest.setInterestList(interestList);
 
-        profileRequest.setOrcid(""); // orcid id
+        profileRequest.setOrcid(AuthorServicesConstants.EMPTY); 
 
         entityValue.setProfile(profileRequest);
         profileEntity.setEntityValue(entityValue);
