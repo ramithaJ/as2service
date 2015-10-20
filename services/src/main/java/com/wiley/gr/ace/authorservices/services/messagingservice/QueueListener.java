@@ -17,6 +17,7 @@ import javax.jms.MessageListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
 import com.wiley.gr.ace.authorservices.services.service.impl.SaveArticleDataImpl;
 
@@ -33,79 +34,61 @@ import com.wiley.gr.ace.authorservices.services.service.impl.SaveArticleDataImpl
  */
 public class QueueListener implements MessageListener {
 
-	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(QueueListener.class);
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(QueueListener.class);
 
-	/*
-	 * @Autowired(required = true) private SaveArticleData saveArticleData;
-	 */
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.jms.MessageListener#onMessage(javax.jms.Message)
+     */
+    @Override
+    public void onMessage(final Message message) {
+        try {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.jms.MessageListener#onMessage(javax.jms.Message)
-	 */
-	public void onMessage(Message message) {
-		try {
+            String articleEvent = "<even:eventData xsi:type=\"even:ArticleAcceptanceEventDataType\">"
+                    + "<even:articleInfo>"
+                    + "<art:articleID>1234</art:articleID>"
+                    + "<art:articleName>TestArticle</art:articleName>"
+                    + "</even:articleInfo>"
+                    + "<even:journalInfo>"
+                    + "<art:journalID>4321</art:journalID>"
+                    + "<art:journalName>TestJournal</art:journalName>"
+                    + "</even:journalInfo>"
+                    + "<even:correspondingAuthor>"
+                    + "<art:fullName>Matt Hejnas</art:fullName>"
+                    + "<art:userID>GUID123</art:userID>"
+                    + "<art:email>matt@cedrusco.com</art:email>"
+                    + "<art:registeredInd>false</art:registeredInd>"
+                    + "</even:correspondingAuthor>"
+                    + "<even:coAuthorList>"
+                    + "<art:fullName>Matt Hejnas</art:fullName>"
+                    + "<art:userID>GUID456</art:userID>"
+                    + "<art:email>matt2@cedrusco.com</art:email>"
+                    + "<art:registeredInd>false</art:registeredInd>"
+                    + "</even:coAuthorList>"
+                    + "<even:coAuthorList>"
+                    + "<art:fullName>Matt Hejnas</art:fullName>"
+                    + "<art:userID>GUID789</art:userID>"
+                    + "<art:email>matt3@cedrusco.com</art:email>"
+                    + "<art:registeredInd>false</art:registeredInd>"
+                    + "</even:coAuthorList>"
+                    + "<even:coAuthorList>"
+                    + "<art:fullName>Matt Hejnas</art:fullName>"
+                    + "<art:userID>GUID987</art:userID>"
+                    + "<art:email>matt4@cedrusco.com</art:email>"
+                    + "<art:registeredInd>false</art:registeredInd>"
+                    + "</even:coAuthorList>" + "</even:eventData>";
 
-			/*
-			 * LOGGER.info("Received Article Acceptance Event .."); TextMessage
-			 * textMessage = (TextMessage) message; String articleEvent =
-			 * textMessage.getText(); LOGGER.debug("Following data received :: "
-			 * + articleEvent);
-			 */
+            SaveArticleData saveArticleData = new SaveArticleDataImpl();
+            saveArticleData.parseArticleEvent(articleEvent);
 
-			String articleEvent = "<even:eventData xsi:type=\"even:ArticleAcceptanceEventDataType\">"
-					+ "<even:articleInfo>"
-					+ "<art:articleID>1234</art:articleID>"
-					+ "<art:articleName>TestArticle</art:articleName>"
-					+ "</even:articleInfo>"
-					+ "<even:journalInfo>"
-					+ "<art:journalID>4321</art:journalID>"
-					+ "<art:journalName>TestJournal</art:journalName>"
-					+ "</even:journalInfo>"
-					+ "<even:correspondingAuthor>"
-					+ "<art:fullName>Matt Hejnas</art:fullName>"
-					+ "<art:userID>GUID123</art:userID>"
-					+ "<art:email>matt@cedrusco.com</art:email>"
-					+ "<art:registeredInd>false</art:registeredInd>"
-					+ "</even:correspondingAuthor>"
-					+ "<even:coAuthorList>"
-					+ "<art:fullName>Matt Hejnas</art:fullName>"
-					+ "<art:userID>GUID456</art:userID>"
-					+ "<art:email>matt2@cedrusco.com</art:email>"
-					+ "<art:registeredInd>false</art:registeredInd>"
-					+ "</even:coAuthorList>"
-					+ "<even:coAuthorList>"
-					+ "<art:fullName>Matt Hejnas</art:fullName>"
-					+ "<art:userID>GUID789</art:userID>"
-					+ "<art:email>matt3@cedrusco.com</art:email>"
-					+ "<art:registeredInd>false</art:registeredInd>"
-					+ "</even:coAuthorList>"
-					+ "<even:coAuthorList>"
-					+ "<art:fullName>Matt Hejnas</art:fullName>"
-					+ "<art:userID>GUID987</art:userID>"
-					+ "<art:email>matt4@cedrusco.com</art:email>"
-					+ "<art:registeredInd>false</art:registeredInd>"
-					+ "</even:coAuthorList>" + "</even:eventData>";
+        } catch (Exception e) {
+            LOGGER.error("Exception :: " + e.getMessage());
+            throw new UserException();
+        }
 
-			SaveArticleData saveArticleData = new SaveArticleDataImpl();
-			saveArticleData.parseArticleEvent(articleEvent);
-
-		} /*
-		 * catch (JMSException jmsExp) { LOGGER.error("JMS exception :: " +
-		 * jmsExp.getMessage()); jmsExp.printStackTrace(); }
-		 */catch (Exception e) {
-			LOGGER.error("Exception :: " + e.getMessage());
-		}
-
-	}
-
-	public static void main(String[] args) {
-
-		QueueListener ql = new QueueListener();
-		ql.onMessage(null);
-	}
+    }
 
 }

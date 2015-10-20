@@ -13,18 +13,26 @@
  */
 package com.wiley.gr.ace.authorservices.services.messagingservice;
 
-import com.wiley.gr.ace.authorservices.model.event.*;
-import com.wiley.gr.ace.authorservices.services.service.SaveInvitationCeaseEventService;
-import com.wiley.gr.ace.authorservices.services.service.SaveInvitationStartEventService;
+import java.io.StringReader;
+
+import javax.jms.Message;
+import javax.jms.TextMessage;
+import javax.xml.bind.JAXBContext;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 
-import javax.jms.Message;
-import javax.jms.TextMessage;
-import javax.xml.bind.JAXBContext;
-import java.io.StringReader;
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.UserException;
+import com.wiley.gr.ace.authorservices.model.event.InvitationCeaseEventData;
+import com.wiley.gr.ace.authorservices.model.event.InvitationCeaseModel;
+import com.wiley.gr.ace.authorservices.model.event.InvitationStartEventData;
+import com.wiley.gr.ace.authorservices.model.event.InvitationStartModel;
+import com.wiley.gr.ace.authorservices.model.event.MetadataModel;
+import com.wiley.gr.ace.authorservices.services.service.SaveInvitationCeaseEventService;
+import com.wiley.gr.ace.authorservices.services.service.SaveInvitationStartEventService;
 
 public class MessageReciever {
 
@@ -33,7 +41,6 @@ public class MessageReciever {
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(MessageReciever.class);
-
 
     @Autowired(required = true)
     private JmsTemplate jmsTemplate;
@@ -53,13 +60,13 @@ public class MessageReciever {
                 eventGenerator(message);
 
             } catch (Exception e) {
-                LOGGER.error("Exception :: " + e.getMessage());
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             }
 
         }
     }
 
-    private void eventGenerator(Message message) throws Exception {
+    private void eventGenerator(final Message message) {
         MetadataModel eventModelData = (MetadataModel) unmarshall(message,
                 "com.wiley.gr.ace.authorservices.model.event.MetadataModel");
         String eventType = eventModelData.getEventMetaData().getEventTypeName();
@@ -73,7 +80,7 @@ public class MessageReciever {
                     .parseInvitationStartEvent(startEventData);
         }
 
-        if (eventType.equalsIgnoreCase("InvitationCeaseEvent")) {
+        if ("InvitationCeaseEvent".equalsIgnoreCase(eventType)) {
             InvitationCeaseModel startModel = (InvitationCeaseModel) unmarshall(
                     message,
                     "com.wiley.gr.ace.authorservices.model.event.InvitationCeaseModel");
@@ -84,15 +91,22 @@ public class MessageReciever {
         }
     }
 
-    private Object unmarshall(Message message, String className)
-            throws Exception {
-        StringReader reader = null;
-        if (message instanceof TextMessage)
-            reader = new StringReader(((TextMessage) message).getText());
-        JAXBContext context = JAXBContext.newInstance(Class.forName(className));
-        Object xmlData = context.createUnmarshaller().unmarshal(reader);
-        return xmlData;
+    private Object unmarshall(final Message message, final String className) {
+        Object xmlData = null;
+        try {
+            StringReader reader = null;
+            if (message instanceof TextMessage) {
+                reader = new StringReader(((TextMessage) message).getText());
+            }
+            JAXBContext context = JAXBContext.newInstance(Class
+                    .forName(className));
+            xmlData = context.createUnmarshaller().unmarshal(reader);
 
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException();
+        }
+        return xmlData;
     }
 
 }

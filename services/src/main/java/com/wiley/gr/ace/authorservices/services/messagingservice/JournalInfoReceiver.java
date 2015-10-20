@@ -25,6 +25,9 @@ import javax.naming.InitialContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.UserException;
+
 /**
  * * @author virtusa version 1.0
  *
@@ -63,8 +66,8 @@ public class JournalInfoReceiver {
             receiver.setMessageListener(listener);
 
         } catch (final Exception e) {
-            LOGGER.error("Exceprion while receiving Journal Info Event :: "
-                    + e.getMessage());
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException();
         }
     }
 }

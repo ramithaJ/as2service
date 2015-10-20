@@ -20,6 +20,8 @@ import javax.jms.MessageListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.services.service.SaveJournalInfoService;
 import com.wiley.gr.ace.authorservices.services.service.impl.SaveJournalInfoServiceImpl;
 
@@ -61,7 +63,8 @@ public class JournalInfoListener implements MessageListener {
             journalInfoTypeService
                     .parseJournalInfoTypeEvent(journalInfoTypeEvent);
         } catch (final Exception e) {
-            LOGGER.error("Exception :: " + e.getMessage());
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException();
         }
     }
 }

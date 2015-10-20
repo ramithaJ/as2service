@@ -13,13 +13,19 @@
  */
 package com.wiley.gr.ace.authorservices.services.messagingservice;
 
+import javax.jms.Queue;
+import javax.jms.QueueConnection;
+import javax.jms.QueueConnectionFactory;
+import javax.jms.QueueReceiver;
+import javax.jms.QueueSession;
+import javax.jms.Session;
+import javax.naming.InitialContext;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jms.*;
-import javax.naming.InitialContext;
-
-// TODO: Auto-generated Javadoc
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 
 /**
  * The Class ArticleAcceptanceReceiver.
@@ -57,20 +63,11 @@ public class ArticleAcceptanceReceiver {
             QueueListener listener = new QueueListener();
             receiver.setMessageListener(listener);
 
-
         } catch (Exception e) {
-            LOGGER.error("Exceprion while receiving Article Event :: "
-                    + e.getMessage());
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException();
         }
 
     }
 
-    /**
-     * The main method.
-     *
-     * @param args the arguments
-     */
-    public static void main(String[] args) {
-
-    }
 }
