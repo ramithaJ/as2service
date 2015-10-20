@@ -314,4 +314,7 @@ public class AuthorServicesConstants {
     
     /** The Constant ERROR. */
     public static final String ERROR= "ERROR";
+    
+    /** The Constant EMPTY. */
+    public static final String EMPTY= "";
 }
