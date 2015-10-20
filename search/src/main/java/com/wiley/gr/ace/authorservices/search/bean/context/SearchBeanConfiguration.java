@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import com.wiley.gr.ace.authorservices.services.search.external.service.SearchExternalService;
 import com.wiley.gr.ace.authorservices.services.search.external.service.impl.SearchExternalServiceImpl;
 import com.wiley.gr.ace.authorservices.services.search.service.SearchService;
-import com.wiley.gr.ace.authorservices.services.search.service.Impl.SearchServiceImpl;
+import com.wiley.gr.ace.authorservices.services.search.service.impl.SearchServiceImpl;
 
 /**
  * The Class SearchBeanConfiguration.
