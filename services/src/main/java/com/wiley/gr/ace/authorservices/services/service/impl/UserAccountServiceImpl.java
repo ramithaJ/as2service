@@ -23,6 +23,7 @@ import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
 import com.wiley.gr.ace.authorservices.model.Addresses;
@@ -214,7 +215,7 @@ public class UserAccountServiceImpl implements UserAccountService {
                 final ParticipantError participantError = (ParticipantError) resposeEntity
                         .getBody();
                 LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,participantError);
-                throw new Exception();
+                throw new UserException();
             }
             return isUpdated;
         } else {

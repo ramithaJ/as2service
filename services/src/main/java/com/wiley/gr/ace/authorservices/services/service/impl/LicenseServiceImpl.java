@@ -420,7 +420,7 @@ public class LicenseServiceImpl implements LicenseService {
                 .initiateLicence(articleId).getProgram();
         for (ProgramData programData : programList) {
             FunderDetails funderDetails = new FunderDetails();
-            ArrayList<FunderDetails> funderDetailsList = new ArrayList<FunderDetails>();
+            List<FunderDetails> funderDetailsList = new ArrayList<FunderDetails>();
             Grants grant = new Grants();
             List<Grants> grantList = new ArrayList<Grants>();
             Recipients grantRecipients = new Recipients();

@@ -92,6 +92,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Autowired(required = true)
     private NotificationService notificationService;
 
+    /** The auto complete service. */
     @Autowired(required = true)
     private AutocompleteService autoCompleteService;
 
@@ -466,8 +467,8 @@ public class RegistrationServiceImpl implements RegistrationService {
     /**
      * Verify account.
      *
-     * @param almUserId
-     *            the alm user id
+     * @param almUserIdEncrypted
+     *            the alm user id encrypted
      */
     @Override
     public final void verifyAccount(final String almUserIdEncrypted) {
@@ -482,20 +483,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 for (ALMUser almUser : almUserList) {
                     if (almUser.getEmail().equals(user.getPrimaryEmailAddr())) {
                         String userStatus = almUser.getUserStatus();
-                        if (AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE
-                                .equalsIgnoreCase(userStatus)) {
-                            throw new ASException(accountActivatedErrorCode,
-                                    accountActivatedErrorMessage);
-                        } else if (AuthorServicesConstants.VERIFY_ACCOUNT_SUSPENDED
-                                .equalsIgnoreCase(userStatus)) {
-                            throw new ASException(accountSuspendedErrorCode,
-                                    accountSuspendedErrorMessage);
-                        } else if (AuthorServicesConstants.VERIFY_ACCOUNT_AWAITING_ACTIVATION
-                                .equalsIgnoreCase(userStatus)) {
-                            userStatus = AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE;
-                            almUser.setUserStatus(userStatus);
-                            almInterfaceService.updateUser(almUser);
-                        }
+                        verifyAccountChecking(almUser, userStatus);
                     } else {
                         throw new ASException(noUserFoundErrorCode,
                                 noUserFoundErrorMessage);
@@ -507,6 +495,31 @@ public class RegistrationServiceImpl implements RegistrationService {
             throw new ASException(noUserFoundErrorCode, noUserFoundErrorMessage);
         }
 
+    }
+
+    /**
+     * Verify account checking.
+     *
+     * @param almUser
+     *            the alm user
+     * @param userStatus
+     *            the user status
+     */
+    private void verifyAccountChecking(ALMUser almUser, String userStatus) {
+        if (AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE
+                .equalsIgnoreCase(userStatus)) {
+            throw new ASException(accountActivatedErrorCode,
+                    accountActivatedErrorMessage);
+        } else if (AuthorServicesConstants.VERIFY_ACCOUNT_SUSPENDED
+                .equalsIgnoreCase(userStatus)) {
+            throw new ASException(accountSuspendedErrorCode,
+                    accountSuspendedErrorMessage);
+        } else if (AuthorServicesConstants.VERIFY_ACCOUNT_AWAITING_ACTIVATION
+                .equalsIgnoreCase(userStatus)) {
+            userStatus = AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE;
+            almUser.setUserStatus(userStatus);
+            almInterfaceService.updateUser(almUser);
+        }
     }
 
     /**
@@ -536,9 +549,12 @@ public class RegistrationServiceImpl implements RegistrationService {
      * @param almUserId
      *            the alm user id
      * @return the user
-     * @throws IOException.
-     * @throws JsonMappingException.
-     * @throws JsonParseException.
+     * @throws JsonParseException
+     *             the json parse exception
+     * @throws JsonMappingException
+     *             the json mapping exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private User returnUserFromDB(final String almUserId)
             throws JsonParseException, JsonMappingException, IOException {
@@ -562,6 +578,8 @@ public class RegistrationServiceImpl implements RegistrationService {
      * @param user
      *            the user
      * @return the string
+     * @throws UserException
+     *             the user exception
      */
     @Override
     public void updateParticipant(final User user) throws UserException {

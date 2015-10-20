@@ -311,11 +311,11 @@ public class OrcidServiceImpl implements OrcidService {
      * @param contactDetails
      *            the contact details
      * @return the addresses
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the as exception
      */
     private Addresses parseAddressesDetails(final JSONObject contactDetails)
-            throws Exception {
+            throws ASException {
         Addresses addresses = null;
         try {
             JSONObject addressJSON = (JSONObject) new JSONParser()
