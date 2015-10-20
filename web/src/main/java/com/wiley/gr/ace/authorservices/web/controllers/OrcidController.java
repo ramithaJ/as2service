@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -50,6 +51,9 @@ public class OrcidController {
     /** The orcid service. */
     @Autowired(required = true)
     private OrcidService orcidService;
+
+    @Value("${orcidForRegister.url}")
+    private String orcidRegisterRedirectUrl;
 
     /**
      * orcidUrl From Props File.
@@ -113,10 +117,11 @@ public class OrcidController {
                     .append(orcidClientId)
                     .append("&response_type=code&scope=/authenticate&redirect_uri=")
                     .append(orcidRedirectUrl);
-            service.setStatus("SUCCESS");
+            service.setStatus(AuthorServicesConstants.SUCCESS);
             service.setPayload(url);
 
         } catch (final Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new ASException(getOrcidURLErrorCode,
                     getOrcidURLErrorMessage, e);
         }
@@ -138,49 +143,35 @@ public class OrcidController {
     public final void getOrcidData(@PathVariable("type") final String type,
             HttpServletRequest request, HttpServletResponse response) {
         LOGGER.info("inside getOrcidData() method of OrcidController ");
-        
         User user = null;
         try {
             String authrizationCode = request.getParameter("code");
             LOGGER.info("authrizationCode------>" + authrizationCode);
-            if (null != authrizationCode) {
+            if (!StringUtils.isEmpty(authrizationCode)) {
                 final OrcidAccessToken orcidAccessToken = orcidService
                         .getAccessToken(authrizationCode);
-                if (null != orcidAccessToken) {
+                if (!StringUtils.isEmpty(orcidAccessToken)) {
                     LOGGER.info("accessToken.getAccess_token() --->"
                             + orcidAccessToken.getAccessToken());
                     LOGGER.info("accessToken.getOrcid() ---> "
                             + orcidAccessToken.getOrcid());
-                    if (null != type) {
+                    if (!StringUtils.isEmpty(type)) {
                         user = orcidService.getBio(orcidAccessToken);
                         if ("userupdate".equalsIgnoreCase(type)) {
                             orcidService.getWork(orcidAccessToken, user);
                         }
                     }
                     orcidService.putOrcidData(user, authrizationCode);
-//                    service.setStatus("SUCCESS");
-//                    service.setPayload(user);
-//                    LOGGER.info("service.toString() --> "+ service.toString());
-//                    ObjectMapper objectMapper = new ObjectMapper();
-//                    String serviceStr = objectMapper.writeValueAsString(service);
-//                    LOGGER.info("serviceStr--> "+ serviceStr);
-//                    response.addHeader("ORCIDINFO", serviceStr);
-//                    response.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
-                    response.sendRedirect("http://authorservicesdev.wiley.com/landing.html#register/orcid?code="+authrizationCode);
-                                                           
-                    
-//                    request.setAttribute("ORCIDINFO", service);
-//                    RequestDispatcher rd = request
-//                            .getRequestDispatcher("http://authorservicesdev.wiley.com/landing.html#register/orcid");
-//                    rd.forward(request, response);
+                    response.sendRedirect(orcidRegisterRedirectUrl
+                            + authrizationCode);
                 }
             }
         } catch (final Exception e) {
-            LOGGER.error("Stack Trace-.", e);
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new ASException(getOrcidDetailsErrorCode,
                     getOrcidDetailsErrorMessage, e);
         }
-        // return service;
+
     }
 
     /**
@@ -198,27 +189,14 @@ public class OrcidController {
         Service service = new Service();
         User user = null;
         try {
-             user=orcidService.getCachedOrcidData(user, authorizationCode);
-             if(!StringUtils.isEmpty(user)) {
-//            if (null != authorizationCode) {
-//                final OrcidAccessToken accessToken = orcidService
-//                        .getAccessToken(authorizationCode);
-//                if (null != accessToken) {
-//                    LOGGER.info("accessToken.getAccess_token() --->"
-//                            + accessToken.getAccessToken());
-//                    LOGGER.info("accessToken.getOrcid() ---> "
-//                            + accessToken.getOrcid());
-//                    if (null != type) {
-//                        user = orcidService.getBio(accessToken);
-//                        if ("userupdate".equalsIgnoreCase(type)) {
-//                            orcidService.getWork(accessToken, user);
-//                        }
-//                    }
-                    service.setStatus("SUCCESS");
-                    service.setPayload(user);
-                }
+            user = orcidService.getCachedOrcidData(user, authorizationCode);
+            if (!StringUtils.isEmpty(user)) {
+
+                service.setStatus(AuthorServicesConstants.SUCCESS);
+                service.setPayload(user);
+            }
         } catch (final Exception e) {
-            LOGGER.error("Stack Trace-.", e);
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new ASException(getOrcidDetailsErrorCode,
                     getOrcidDetailsErrorMessage, e);
         }
@@ -235,14 +213,15 @@ public class OrcidController {
     @RequestMapping(value = "/{participantId}", method = RequestMethod.GET)
     public final Service getOrcidId(@PathVariable final String participantId) {
         Service service = new Service();
-        if (!StringUtils.isEmpty(participantId))
+        if (!StringUtils.isEmpty(participantId)) {
             try {
                 service.setPayload(orcidService.getOrcidId(participantId));
             } catch (final Exception e) {
-                LOGGER.error("Stack Trace-.", e);
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new ASException(getOrcidIdErrorCode,
                         getOrcidIdErrorMessage, e);
             }
+        }
         return service;
     }
 

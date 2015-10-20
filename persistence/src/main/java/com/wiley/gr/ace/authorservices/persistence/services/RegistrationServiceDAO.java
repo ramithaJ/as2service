@@ -29,18 +29,8 @@ public interface RegistrationServiceDAO {
      * @throws Exception
      *             if unable to search.
      */
-    boolean searchUserByOrcidId(String orcidId) throws Exception;
+    boolean searchUserByOrcidId(String orcidId);
 
-    /**
-     * This method gets the Invitation Records.
-     * 
-     * @param guid
-     *            to Retrieve.
-     * @return the InviteResetpwdLog.
-     */
-    /*
-     * InviteResetpwdLog getInvitationRecords(String guid);
-     */
     /**
      * Creates the registration record.
      *

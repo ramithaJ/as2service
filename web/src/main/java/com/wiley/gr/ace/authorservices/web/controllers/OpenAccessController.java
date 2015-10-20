@@ -1,16 +1,19 @@
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
@@ -26,6 +29,12 @@ import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 @RequestMapping("/openaccess")
 public class OpenAccessController {
 
+    /**
+     * Logger Configured.
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(OpenAccessController.class);
+
     /** The order online open service. */
     @Autowired(required = true)
     OrderOnlineOpenService orderOnlineOpenService;
@@ -33,6 +42,54 @@ public class OpenAccessController {
     /** The open access service. */
     @Autowired(required = true)
     OpenAccessService openAccessService;
+
+    /** The open access quote error code. */
+    @Value("${OpenAccessController.openAccessQuote.code}")
+    private String openAccessQuoteErrorCode;
+
+    /** The open access quote error mesage. */
+    @Value("${OpenAccessController.openAccessQuote.message}")
+    private String openAccessQuoteErrorMesage;
+
+    /** The pay open access error code. */
+    @Value("${OpenAccessController.payOpenAccess.code}")
+    private String payOpenAccessErrorCode;
+
+    /** The pay open access error message. */
+    @Value("${OpenAccessController.payOpenAccess.message}")
+    private String payOpenAccessErrorMessage;
+
+    /** The validate address error code. */
+    @Value("${OpenAccessController.validateAddress.code}")
+    private String validateAddressErrorCode;
+
+    /** The validate address error message. */
+    @Value("${OpenAccessController.validateAddress.message}")
+    private String validateAddressErrorMessage;
+
+    /** The validate address failed error code. */
+    @Value("${OpenAccessController.validateAddressFailed.code}")
+    private String validateAddressFailedErrorCode;
+
+    /** The validate address failed error message. */
+    @Value("${OpenAccessController.validateAddressFailed.message}")
+    private String validateAddressFailedErrorMessage;
+
+    /** The validate vat tax details error code. */
+    @Value("${OpenAccessController.validateVatTaxDetails.code}")
+    private String validateVatTaxDetailsErrorCode;
+
+    /** The validate vat tax details error message. */
+    @Value("${OpenAccessController.validateVatTaxDetails.message}")
+    private String validateVatTaxDetailsErrorMessage;
+
+    /** The vat tax details failed error code. */
+    @Value("${OpenAccessController.vatTaxDetailsFailed.code}")
+    private String vatTaxDetailsFailedErrorCode;
+
+    /** The vat tax details failed error message. */
+    @Value("${OpenAccessController.vatTaxDetailsFailed.message}")
+    private String vatTaxDetailsFailedErrorMessage;
 
     /**
      * Gets the open access quote.
@@ -45,8 +102,8 @@ public class OpenAccessController {
      *            the journal id
      * @return the open access quote
      */
-    @RequestMapping(value = "/getQuote", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service getOpenAccessQuote(
+    @RequestMapping(value = "/getQuote", method = RequestMethod.GET)
+    public Service getOpenAccessQuote(
             @RequestParam("userId") final String userId,
             @RequestParam("articleId") final String articleId,
             @RequestParam("journalId") final String journalId) {
@@ -57,11 +114,14 @@ public class OpenAccessController {
             openAccessPaymentData = openAccessService.getOpenAccessDetails(
                     userId, articleId, journalId);
             if (!StringUtils.isEmpty(openAccessPaymentData)) {
-                service.setStatus("SUCCESS");
+                service.setStatus(AuthorServicesConstants.SUCCESS);
                 service.setPayload(openAccessPaymentData);
             }
         } catch (Exception e) {
-            service.setStatus("ERROR");
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException(openAccessQuoteErrorCode,
+                    openAccessQuoteErrorMesage);
+
         }
 
         return service;
@@ -76,9 +136,8 @@ public class OpenAccessController {
      *            the order id
      * @return the service
      */
-    @RequestMapping(value = "/pay", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service payOpenAccess(
-            @RequestParam("userId") final String userId,
+    @RequestMapping(value = "/pay", method = RequestMethod.POST)
+    public Service payOpenAccess(@RequestParam("userId") final String userId,
             @RequestParam("orderId") final String orderId) {
         Service service = new Service();
 
@@ -86,11 +145,9 @@ public class OpenAccessController {
             orderOnlineOpenService.submitOnlineOpenOrder(userId, orderId, "OA");
             service.setStatus("SUCCESS");
         } catch (Exception e) {
-            service.setStatus("ERROR");
-            ErrorPOJO err = new ErrorPOJO();
-            err.setCode("609");
-            err.setMessage("Submit payment unsuccessful");
-            service.setError(err);
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException(payOpenAccessErrorCode,
+                    payOpenAccessErrorMessage);
         }
 
         return service;
@@ -105,14 +162,11 @@ public class OpenAccessController {
      *            the online open order
      * @return the service
      */
-    @RequestMapping(value = "/saveforlater", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service saveForLater(
-            @RequestParam("userId") final String userId,
+    @RequestMapping(value = "/saveforlater", method = RequestMethod.PUT)
+    public Service saveForLater(@RequestParam("userId") final String userId,
             @RequestBody final OnlineOpenOrder onlineOpenOrder) {
         Service service = new Service();
-
         orderOnlineOpenService.saveLaterOrder(onlineOpenOrder, userId);
-
         return service;
     }
 
@@ -125,9 +179,8 @@ public class OpenAccessController {
      *            the order id
      * @return the service
      */
-    @RequestMapping(value = "/view/{userId}/{orderId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service viewOpenAccess(
-            @PathVariable("userId") final String userId,
+    @RequestMapping(value = "/view/{userId}/{orderId}", method = RequestMethod.GET)
+    public Service viewOpenAccess(@PathVariable("userId") final String userId,
             @PathVariable("orderId") final String orderId) {
         Service service = new Service();
         service.setPayload(openAccessService.viewOpenAccess(userId, orderId));
@@ -141,28 +194,26 @@ public class OpenAccessController {
      *            the address
      * @return the service
      */
-    @RequestMapping(value = "/validate/address", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service validateAddress(@RequestBody final Address address) {
+    @RequestMapping(value = "/validate/address", method = RequestMethod.POST)
+    public Service validateAddress(@RequestBody final Address address) {
         Service service = new Service();
         try {
             if (StringUtils.isEmpty(openAccessService.validateAddress(address))) {
-                service.setStatus("SUCCESS");
+                service.setStatus(AuthorServicesConstants.SUCCESS);
             } else {
-                service.setStatus("FAILURE");
+                service.setStatus(AuthorServicesConstants.FAILURE);
                 ErrorPOJO err = new ErrorPOJO();
                 service.setPayload(openAccessService.validateAddress(address));
-                err.setCode("199");
-                err.setMessage("Address is not valid");
+                err.setCode(validateAddressErrorCode);
+                err.setMessage(validateAddressErrorMessage);
                 service.setError(err);
             }
         } catch (Exception e) {
-            service.setStatus("ERROR");
-            ErrorPOJO err = new ErrorPOJO();
-            err.setCode("198");
-            err.setMessage("Address doctor service encountered exception");
-            service.setError(err);
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException(validateAddressFailedErrorCode,
+                    validateAddressFailedErrorMessage);
         }
-        return null;
+        return service;
     }
 
     /**
@@ -174,30 +225,28 @@ public class OpenAccessController {
      *            the vat tax reg num
      * @return the service
      */
-    @RequestMapping(value = "/validate/vat", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service validateVatTaxDetails(
+    @RequestMapping(value = "/validate/vat", method = RequestMethod.GET)
+    public Service validateVatTaxDetails(
             @RequestParam("countryCD") final String countryCode,
             @RequestParam("vat") final String vatTaxRegNum) {
         Service service = new Service();
         try {
             if (openAccessService.validateVatTaxDetails(countryCode,
                     vatTaxRegNum)) {
-                service.setStatus("SUCCESS");
+                service.setStatus(AuthorServicesConstants.SUCCESS);
             } else {
-                service.setStatus("FAILURE");
+                service.setStatus(AuthorServicesConstants.FAILURE);
                 ErrorPOJO err = new ErrorPOJO();
-                err.setCode("199");
-                err.setMessage("Vat/Tax details is not valid");
+                err.setCode(validateVatTaxDetailsErrorCode);
+                err.setMessage(validateVatTaxDetailsErrorMessage);
                 service.setError(err);
             }
         } catch (Exception e) {
-            service.setStatus("ERROR");
-            ErrorPOJO err = new ErrorPOJO();
-            err.setCode("198");
-            err.setMessage("Vat/Tax details validation service encountered exception");
-            service.setError(err);
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException(vatTaxDetailsFailedErrorCode,
+                    vatTaxDetailsFailedErrorMessage);
         }
-        return null;
+        return service;
     }
 
 }

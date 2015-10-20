@@ -17,8 +17,11 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.persistence.entity.JournalConfiguration;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveJournalInfoDAO;
 
@@ -28,6 +31,12 @@ import com.wiley.gr.ace.authorservices.persistence.services.SaveJournalInfoDAO;
  * @author virtusa version 1.0
  */
 public class SaveJournalInfoDAOImpl implements SaveJournalInfoDAO {
+
+    /**
+     * This field holds the value of LOGGER
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(SaveJournalInfoDAOImpl.class);
 
     /**
      * Gets the journal id.
@@ -73,7 +82,7 @@ public class SaveJournalInfoDAOImpl implements SaveJournalInfoDAO {
             return true;
 
         } catch (final Exception e) {
-            e.printStackTrace();
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             return false;
         } finally {
             if (session != null) {

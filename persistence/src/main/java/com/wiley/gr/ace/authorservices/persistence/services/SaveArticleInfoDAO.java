@@ -41,13 +41,4 @@ public interface SaveArticleInfoDAO {
      */
     boolean saveArticleInfo(ArticleConfiguration articleConfiguration);
 
-    // /**
-    // * Save product details.
-    // *
-    // * @param products the products
-    // * @return true, if successful
-    // */
-    // boolean saveProductDetails(Products products);
-
-    /* void saveProductRelation(ProductRelations productRelations); */
 }

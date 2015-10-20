@@ -17,8 +17,11 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.persistence.entity.ArticleConfiguration;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleInfoDAO;
 
@@ -27,6 +30,12 @@ import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleInfoDAO;
  *
  */
 public class SaveArticleInfoDAOImpl implements SaveArticleInfoDAO {
+
+    /**
+     * This field holds the value of LOGGER
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(SaveArticleInfoDAOImpl.class);
 
     /**
      * Gets the article id.
@@ -72,7 +81,7 @@ public class SaveArticleInfoDAOImpl implements SaveArticleInfoDAO {
             return true;
 
         } catch (final Exception e) {
-            e.printStackTrace();
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             return false;
         } finally {
             if (session != null) {
@@ -83,32 +92,4 @@ public class SaveArticleInfoDAOImpl implements SaveArticleInfoDAO {
 
     }
 
-    // @Override
-    // public boolean saveProductDetails(Products products) {
-    // Session session = null;
-    // boolean isSaved = false;
-    // try{
-    // session = getSessionFactory().openSession();
-    // session.getTransaction().begin();
-    // session.save(products);
-    // session.getTransaction().commit();
-    // isSaved = true;
-    // }finally{
-    // if(null != session){
-    // session.flush();
-    // session.close();
-    // }
-    // }
-    // return isSaved;
-    // }
-
-    /*
-     * @Override public void saveProductRelation(ProductRelations
-     * productRelations) {
-     * 
-     * Session session = null; try{ session = getSessionFactory().openSession();
-     * session.getTransaction().begin(); session.save(productRelations);
-     * session.getTransaction().commit(); }finally{ if(null != session){
-     * session.flush(); session.close(); } } }
-     */
 }

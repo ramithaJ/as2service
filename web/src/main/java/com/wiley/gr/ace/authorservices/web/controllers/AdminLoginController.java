@@ -113,15 +113,7 @@ public class AdminLoginController extends ASExceptionController {
         Service service = new Service();
         final String emailId = login.getEmailId();
         if (adminLoginService.validateEmail(emailId)) {
-
-//            Users users = adminLoginService.getASUser(emailId);
-//            if (StringUtils.isEmpty(users)) {
-//                return null;
-//            }
                 UserLogin userLogin = new UserLogin();
-//            userLogin.setUserId(users.getUserId().intValue());
-//            userLogin.setFirstName(users.getFirstName());
-//            userLogin.setLastName(users.getLastName());
              service.setPayload(userLogin);
         } else {
             throw new ASException(errorcode, errormessage);
@@ -248,7 +240,6 @@ public class AdminLoginController extends ASExceptionController {
     public final Service findUser(@PathVariable("emailId") final String emailId) {
         LOGGER.info("Inside Get findUser");
         Service service = new Service();
-        // check if user exists, if yes return that data
         service.setPayload(adminLoginService.findUser(emailId));
         return service;
 

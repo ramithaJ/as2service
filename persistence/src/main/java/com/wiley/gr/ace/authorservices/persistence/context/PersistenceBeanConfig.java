@@ -18,7 +18,6 @@ import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnectio
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.AlertsDao;
 import com.wiley.gr.ace.authorservices.persistence.services.AreaOfInterterestDao;
-import com.wiley.gr.ace.authorservices.persistence.services.ArticleAssignmentDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
 import com.wiley.gr.ace.authorservices.persistence.services.CollectArticleDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.InvitationCeaseDAO;
@@ -27,7 +26,6 @@ import com.wiley.gr.ace.authorservices.persistence.services.LicenseDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleInfoDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveJournalInfoDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SocietyDao;
@@ -40,7 +38,6 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.AlertsDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.AreaOfInterterestDaoImpl;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.ArticleAssignmentDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.AuthorProfileDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.CollectArticleDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.InviataionCeaseDAOImpl;
@@ -49,7 +46,6 @@ import com.wiley.gr.ace.authorservices.persistence.services.impl.LicenseDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.LookupValuesDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.OrderOnlineDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.RegistrationServiceDAOImpl;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveArticleDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveArticleInfoDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveJournalInfoDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SocietyDaoImpl;
@@ -106,16 +102,6 @@ public class PersistenceBeanConfig {
     @Bean(name = "UserLoginServiceDAO")
     public UserLoginServiceDAO userLoginServiceDAO() {
         return new UserLoginServiceDAOImpl();
-    }
-
-    /**
-     * This method Creates the ArticleAssignmentDAO.
-     *
-     * @return the ArticleAssignmentDAOImpl.
-     */
-    @Bean(name = "ArticleAssignmentDAO")
-    public ArticleAssignmentDAO articleAssignmentDAO() {
-        return new ArticleAssignmentDAOImpl();
     }
 
     /**
@@ -217,16 +203,6 @@ public class PersistenceBeanConfig {
     public AreaOfInterterestDao areaOfInterest() {
         return new AreaOfInterterestDaoImpl();
 
-    }
-
-    /**
-     * Save article dao.
-     *
-     * @return the save article dao
-     */
-    @Bean(name = "SaveArticleDAO")
-    public SaveArticleDAO saveArticleDAO() {
-        return new SaveArticleDAOImpl();
     }
 
     /**

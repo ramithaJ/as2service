@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
@@ -68,6 +69,23 @@ public class UserProfileController {
     @Value("${imageSizeMore.message}")
     private String imageSizeMessage;
 
+    @Value("${UserProfileController.affiliations.code}")
+    private String affiliationsErrorCode;
+
+    @Value("${UserProfileController.affiliations.message}")
+    private String affiliationsErrorMessage;
+
+    @Value("${UserProfileController.alerts.code}")
+    private String alertsErrorCode;
+    
+    @Value("${UserProfileController.alerts.message}")
+    private String alertsErrorMessage;
+    
+    @Value("${UserProfileController.profilePicture.code}")
+    private String profilePictureErrorCode;
+    
+    @Value("${UserProfileController.profilePicture.message}")
+    private String profilePictureErrorMessage;
     /**
      * Gets the affiliations list.
      *
@@ -78,12 +96,14 @@ public class UserProfileController {
     @RequestMapping(value = "/affiliations/{userId}/", method = RequestMethod.GET)
     public final Service getAffiliationsList(
             @PathVariable("userId") final String userId) {
-        UserProfileController.LOGGER.info("inside getAffiliationsList method ");
+        LOGGER.info("inside getAffiliationsList method ");
         final Service service = new Service();
         try {
             service.setPayload(authorProfileService.getAffiliationList(userId));
         } catch (final Exception e) {
-            throw new UserException("50009", e.getMessage());
+            LOGGER.info(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException(affiliationsErrorCode,
+                    affiliationsErrorMessage);
         }
 
         return service;
@@ -105,20 +125,22 @@ public class UserProfileController {
             @PathVariable("userId") final int userId,
             @PathVariable("affiliationId") final String affiliationId,
             @RequestBody final Affiliation affiliationsUpdate) {
-        UserProfileController.LOGGER.info("inside updateAffiliation method ");
+        LOGGER.info("inside updateAffiliation method ");
         final Service service = new Service();
         boolean isUpdated = false;
         try {
             isUpdated = authorProfileService.updateAffiliation(
                     Integer.toString(userId), affiliationsUpdate);
         } catch (final Exception e) {
-            throw new UserException("50006", e.getMessage());
+            LOGGER.info(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException(affiliationsErrorCode,
+                    affiliationsErrorMessage);
         }
         if (isUpdated) {
-            service.setStatus("SUCCESS");
+            service.setStatus(AuthorServicesConstants.SUCCESS);
             service.setPayload(isUpdated);
         } else {
-            service.setStatus("Failure");
+            service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(isUpdated);
         }
         return service;
@@ -143,13 +165,15 @@ public class UserProfileController {
         try {
             isDeleted = authorProfileService.deleteAffiliations(userId);
         } catch (final Exception e) {
-            throw new UserException("50006", e.getMessage());
+            LOGGER.info(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException(affiliationsErrorCode,
+                    affiliationsErrorMessage);
         }
         if (isDeleted) {
-            service.setStatus("SUCCESS");
+            service.setStatus(AuthorServicesConstants.SUCCESS);
             service.setPayload(isDeleted);
         } else {
-            service.setStatus("Failure");
+            service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(isDeleted);
         }
         return service;
@@ -210,7 +234,7 @@ public class UserProfileController {
     public final Service getSocietiesList(
             @PathVariable("userId") final String userId) {
 
-        UserProfileController.LOGGER.info("inside getSocietiesList method ");
+        LOGGER.info("inside getSocietiesList method ");
         final Service service = new Service();
         service.setPayload(authorProfileService.getSocietylist(userId));
         return service;
@@ -428,7 +452,8 @@ public class UserProfileController {
         try {
             service.setPayload(authorProfileService.getAlerts(userId));
         } catch (final Exception e) {
-            throw new UserException("5005", "Unable to fetch");
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,e);
+            throw new UserException(alertsErrorCode, alertsErrorMessage);
         }
         return service;
     }
@@ -452,13 +477,14 @@ public class UserProfileController {
         try {
             isUpdated = authorProfileService.updateAlerts(userId, listOfalert);
         } catch (final Exception e) {
-            throw new UserException("50006", e.getMessage());
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,e);
+            throw new UserException(alertsErrorCode, alertsErrorMessage);
         }
         if (isUpdated) {
-            service.setStatus("SUCCESS");
+            service.setStatus(AuthorServicesConstants.SUCCESS);
             service.setPayload(isUpdated);
         } else {
-            service.setStatus("Failure");
+            service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(isUpdated);
         }
         return service;
@@ -489,14 +515,7 @@ public class UserProfileController {
     @RequestMapping(value = "/getImage/{userId}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     public final byte[] getProfile(@PathVariable("userId") final String userId) {
         UserProfileController.LOGGER.info("inside getProfile method ");
-        final byte[] bites = null;
-//        try {
-//            final File file = new File("c:/Images/Image");
-//
-//            // service.setPayload(authorProfileService.getProfileImage(userId));
-//        } catch (final Exception e) {
-//            throw new UserException("5000", "Unable to fetch");
-//        }
+        final byte[] bites = new byte[100];
         return bites;
 
     }
@@ -542,13 +561,13 @@ public class UserProfileController {
                 }
             }
         } catch (final Exception e) {
-            throw new UserException("50001", e.getMessage());
+            throw new UserException(profilePictureErrorCode, profilePictureErrorMessage);
         }
         if (isUpdated) {
-            service.setStatus("SUCCESS");
+            service.setStatus(AuthorServicesConstants.SUCCESS);
             service.setPayload(isUpdated);
         } else {
-            service.setStatus("Failure");
+            service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(isUpdated);
         }
 
@@ -570,7 +589,8 @@ public class UserProfileController {
         try {
             service.setPayload(authorProfileService.getAlerts(participantId));
         } catch (final Exception e) {
-            throw new UserException("5005", "Unable to fetch");
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,e);
+            throw new UserException(alertsErrorCode, alertsErrorMessage);
         }
         return service;
 

@@ -28,5 +28,5 @@ public interface InvitationCeaseDAO {
      * @throws Exception
      *             the exception
      */
-    boolean updateInviteResetPWDLog(String email) throws Exception;
+    boolean updateInviteResetPWDLog(String email);
 }

@@ -20,10 +20,6 @@ import com.wiley.gr.ace.authorservices.persistence.services.InvitationStartDAO;
  */
 public class InvitationStartDAOImpl implements InvitationStartDAO {
 
-//    /** The Constant LOGGER. */
-//    private static final Logger LOGGER = LoggerFactory
-//            .getLogger(InvitationStartDAOImpl.class);
-
     /**
      * Update invite reset pwd log.
      *
@@ -37,59 +33,8 @@ public class InvitationStartDAOImpl implements InvitationStartDAO {
      */
     @Override
     public final boolean updateInviteResetPWDLog(final String guId,
-            final String email) throws Exception {
-        /*
-         * LOGGER.info("inside updateInviteResetPWDLog of InvitationStartDAOImpl"
-         * ); boolean isUpdated = false; Session session = null; if
-         * (!StringUtils.isEmpty(guId) && !StringUtils.isEmpty(email)) { try {
-         * session = getSessionFactory().openSession(); String hql =
-         * "from InviteResetpwdLog rp whwere rp.emailAddress = :email";
-         * InviteResetpwdLog inviteResetpwdLog = (InviteResetpwdLog) session
-         * .createQuery(hql).setString("email", email) .uniqueResult();
-         * session.beginTransaction(); inviteResetpwdLog.setGuid(guId);
-         * session.getTransaction().commit(); isUpdated = true; } catch
-         * (Exception e) { if (!StringUtils.isEmpty(session)) {
-         * session.getTransaction().rollback(); } } finally { if
-         * (!StringUtils.isEmpty(session)) { session.flush(); session.close(); }
-         * } }
-         */
+            final String email) {
         return false;
     }
 
-    // /**
-    // * Creates the invitation log.
-    // *
-    // * @param invitationLog
-    // * the invitation log
-    // * @return true, if successful
-    // * @throws Exception
-    // * the exception
-    // */
-    // @Override
-    // public final boolean createInvitationLog(final InvitationLog
-    // invitationLog)
-    // throws Exception {
-    // LOGGER.info("inside createInvitationLog of InvitationStartDAOImpl");
-    // boolean isUpdated = false;
-    // Session session = null;
-    // if (!StringUtils.isEmpty(invitationLog)) {
-    // try {
-    // session = getSessionFactory().openSession();
-    // session.beginTransaction();
-    // session.saveOrUpdate(invitationLog);
-    // session.getTransaction().commit();
-    // isUpdated = true;
-    // } catch (Exception e) {
-    // if (!StringUtils.isEmpty(session)) {
-    // session.getTransaction().rollback();
-    // }
-    // } finally {
-    // if (!StringUtils.isEmpty(session)) {
-    // session.flush();
-    // session.close();
-    // }
-    // }
-    // }
-    // return isUpdated;
-    // }
 }
