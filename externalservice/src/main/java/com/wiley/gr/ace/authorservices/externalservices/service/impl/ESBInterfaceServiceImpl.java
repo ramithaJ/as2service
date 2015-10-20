@@ -119,7 +119,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
             response = restTemplate.exchange(uri,
                     HttpMethod.GET, requestEntity, User.class);
         } catch (URISyntaxException ue) {
-            LOGGER.error(ue.getMessage());
+            LOGGER.error(AuthorServicesConstants.FETCH_ORCID_DETAILS, ue);
         }
         return response.getBody();
     }
@@ -147,7 +147,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
             response = restTemplate.exchange(uri,
                     HttpMethod.GET, requestEntity, String.class);
         } catch (URISyntaxException ue) {
-            LOGGER.error(ue.getMessage());
+            LOGGER.error(AuthorServicesConstants.UPDATE_ALM_USER, ue);
         }
         return response.getBody();
     }

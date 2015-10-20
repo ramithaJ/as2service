@@ -170,7 +170,7 @@ public class RestServiceInvokerUtil {
     public static <T> Object pickListInvoker(final String url,
             final Class<T> responseEntityClass) {
 
-        StringBuffer responseString = null;
+        StringBuilder responseString = null;
         ESBResponse esbResponse = null;
         try {
 
@@ -192,7 +192,7 @@ public class RestServiceInvokerUtil {
             String output = null;
 
             while ((output = bufferedReader.readLine()) != null) {
-                responseString = new StringBuffer();
+                responseString = new StringBuilder();
                 responseString.append(output);
             }
             bufferedReader.close();

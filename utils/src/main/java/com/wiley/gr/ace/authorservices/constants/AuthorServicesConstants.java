@@ -327,4 +327,15 @@ public class AuthorServicesConstants {
     
     /** The Constant ARTICLE. */
     public static final String ARTICLE= "Article";
+
+    public static final String UPDATE_ALM_USER = "updateALMUser";
+
+    public static final String FETCH_ORCID_DETAILS = "fetchOrcidDetails";
+
+    public static final String GET_WORK = "getWork";
+
+    public static final String GET_BIO = "getBio";
+
+    public static final String GET_ACCESS_TOKEN = "getAccessToken";
+
 }

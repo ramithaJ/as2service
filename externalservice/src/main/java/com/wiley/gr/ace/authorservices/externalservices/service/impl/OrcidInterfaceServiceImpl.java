@@ -17,6 +17,7 @@
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 import org.apache.log4j.Logger;
@@ -110,7 +111,7 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
             final String json = rep.getText();
             orcidAccessToken = objectMapper.readValue(json, OrcidAccessToken.class);
         } catch (IOException io) {
-            LOGGER.error(io.getMessage());
+            LOGGER.error(AuthorServicesConstants.GET_ACCESS_TOKEN, io);
         }
         return orcidAccessToken;
 
@@ -129,7 +130,7 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
         try {
             response = getResponse(token, "/orcid-bio");
         } catch (IOException io) {
-            LOGGER.error(io.getMessage());
+            LOGGER.error(AuthorServicesConstants.GET_BIO, io);
         }
         return response;
     }
@@ -147,7 +148,7 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
         try {
             response = getResponse(token, "/orcid-works");
         } catch (IOException io) {
-            LOGGER.error(io.getMessage());
+            LOGGER.error(AuthorServicesConstants.GET_WORK, io);
         }
         return response;
     }

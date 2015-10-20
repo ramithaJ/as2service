@@ -141,36 +141,22 @@ public class TaskServiceImpl implements TaskService {
         HttpClient client = null;
         HttpUriRequest request = null;
         HttpResponse response = null;
+        String url = null;
 
         try {
             String requestString = taskServiceRequest
                     .getJsonString(taskServiceRequest);
             encodedParamString = URLEncoder.encode(requestString, "UTF-8");
-
-        } catch (UnsupportedEncodingException e) {
-            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
-            throw new ASException(internalServerErrorCode, e.getMessage());
-        }
-
-        StringBuilder decodedParamString = new StringBuilder();
-
-        decodedParamString.append("action=").append(action).append("&")
-                .append("bpdId=").append(bpId).append("&")
-                .append("processAppId=").append(processAppId).append("&")
-                .append("params=").append(encodedParamString).append("&")
-                .append("parts=").append(parts);
-
-        payLoadString = decodedParamString.toString();
-
-        String url = bpmserviceurl + "?" + payLoadString;
-
-        try {
+            payLoadString = decodedParamString(encodedParamString);
+            url = bpmserviceurl + "?" + payLoadString;
             saltString = WileyBPMAuthenticationUtils.getSalt();
         } catch (RuntimeException e) {
             LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new ASException();
+        } catch (UnsupportedEncodingException e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException(internalServerErrorCode, e.getMessage());
         }
-
         currentDate = new Date();
         date = currentDate.getTime();
         generatedSignature = WileyBPMAuthenticationUtils.generateSignature(key,
@@ -201,6 +187,21 @@ public class TaskServiceImpl implements TaskService {
         }
 
         return status;
+    }
+
+    /**
+     * @param encodedParamString
+     * @return
+     */
+    private String decodedParamString(String encodedParamString) {
+        StringBuilder decodedParamString = new StringBuilder();
+
+        decodedParamString.append("action=").append(action).append("&")
+                .append("bpdId=").append(bpId).append("&")
+                .append("processAppId=").append(processAppId).append("&")
+                .append("params=").append(encodedParamString).append("&")
+                .append("parts=").append(parts);
+        return decodedParamString.toString();
     }
 
     /**
