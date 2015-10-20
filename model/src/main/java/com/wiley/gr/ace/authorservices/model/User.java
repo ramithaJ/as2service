@@ -21,6 +21,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class User.
  *
@@ -146,6 +147,9 @@ public class User implements Serializable {
     
     /** The status. */
     private String status;
+    
+    /** The alm user id. */
+    private String almUserId;
 
     /**
      * Gets the industry name.
@@ -837,6 +841,24 @@ public class User implements Serializable {
 	 */
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	/**
+	 * Gets the alm user id.
+	 *
+	 * @return the alm user id
+	 */
+	public String getAlmUserId() {
+		return almUserId;
+	}
+
+	/**
+	 * Sets the alm user id.
+	 *
+	 * @param almUserId the new alm user id
+	 */
+	public void setAlmUserId(String almUserId) {
+		this.almUserId = almUserId;
 	}
 
 }
