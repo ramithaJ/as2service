@@ -25,31 +25,28 @@ import com.wiley.gr.ace.authorservices.services.service.SaveInvitationCeaseEvent
  * @author virtusa version 1.0
  */
 public class SaveInvitationCeaseEventServiceImpl implements
-		SaveInvitationCeaseEventService {
+        SaveInvitationCeaseEventService {
 
-	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(SaveInvitationCeaseEventServiceImpl.class);
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(SaveInvitationCeaseEventServiceImpl.class);
 
-	/** The invitation cease dao. */
-	@Autowired(required = true)
-	private InvitationCeaseDAO invitationCeaseDAO;
+    /** The invitation cease dao. */
+    @Autowired(required = true)
+    private InvitationCeaseDAO invitationCeaseDAO;
 
-	/**
-	 * Parses the invitation cease event.
-	 *
-	 * @param invitationCeaseEvent
-	 *            the invitation cease event data
-	 * @throws Exception
-	 *             the exception
-	 */
-	@Override
-	public final void parseInvitationCeaseEvent(
-			final InvitationCeaseEventData invitationCeaseEvent)
-			throws Exception {
-		LOGGER.info("inside parseInvitationCeaseEvent of SaveInvitationCeaseEventServiceImpl");
-		String email = invitationCeaseEvent.getEmail();
-		invitationCeaseDAO.updateInviteResetPWDLog(email);
-	}
+    /**
+     * Parses the invitation cease event.
+     *
+     * @param invitationCeaseEvent
+     *            the invitation cease event data
+     */
+    @Override
+    public final void parseInvitationCeaseEvent(
+            final InvitationCeaseEventData invitationCeaseEvent) {
+        LOGGER.info("inside parseInvitationCeaseEvent of SaveInvitationCeaseEventServiceImpl");
+        String email = invitationCeaseEvent.getEmail();
+        invitationCeaseDAO.updateInviteResetPWDLog(email);
+    }
 
 }

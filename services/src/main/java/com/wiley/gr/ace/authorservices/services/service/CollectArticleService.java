@@ -24,9 +24,7 @@ public interface CollectArticleService {
      * Gets the collect article obj.
      *
      * @return the collect article obj
-     * @throws Exception
-     *             the exception
      */
-    CollectArticle getCollectArticleObj() throws Exception;
+    CollectArticle getCollectArticleObj();
 
 }

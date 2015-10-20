@@ -25,9 +25,7 @@ public interface SaveInvitationCeaseEventService {
      *
      * @param invitationCeaseEventData
      *            the invitation cease event data
-     * @throws Exception
-     *             the exception
      */
-    void parseInvitationCeaseEvent(InvitationCeaseEventData invitationCeaseEventData)
-            throws Exception;
+    void parseInvitationCeaseEvent(
+            InvitationCeaseEventData invitationCeaseEventData);
 }

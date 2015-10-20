@@ -294,7 +294,7 @@ public class UserLoginServiceImpl implements UserLoginService {
      */
     @Override
     public final void verifyAccountUpdate(final String guid) {
-
+        LOGGER.info("verify account information");
     }
 
     /**

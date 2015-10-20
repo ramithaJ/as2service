@@ -44,12 +44,10 @@ public class CollectArticleServiceImpl implements CollectArticleService {
      * Gets the collect article obj.
      *
      * @return the collect article obj
-     * @throws Exception
-     *             the exception
      */
 
     @Override
-    public final CollectArticle getCollectArticleObj() throws Exception {
+    public final CollectArticle getCollectArticleObj() {
         LOGGER.info("inside getCollectArticleObj Method of CollectArticleServiceImpl");
         CollectArticle collectArticle = new CollectArticle();
         Set<OwnershipTypes> ownershipTypesSet = collectArticleDAO

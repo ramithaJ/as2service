@@ -25,9 +25,6 @@ public interface SaveInvitationStartEventService {
      *
      * @param invitationStartEventData
      *            the invitation start event data
-     * @throws Exception
-     *             the exception
      */
-    void parseInvitationStartEvent(InvitationStartEventData invitationStartEventData)
-            throws Exception;
+    void parseInvitationStartEvent(InvitationStartEventData invitationStartEventData);
 }

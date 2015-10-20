@@ -42,12 +42,9 @@ public class UploadLicenseServiceImpl implements UploadLicenseService {
      * @param userId
      *            the user id
      * @return the string
-     * @throws Exception
-     *             the exception
      */
     @Override
-    public final String viewLicense(final String dhId, final String userId)
-            throws Exception {
+    public final String viewLicense(final String dhId, final String userId) {
         LOGGER.info("Inside viewLicense method of UploadLicenseServiceImpl");
         return uploadLicenseDAO.viewLicense(dhId, userId);
     }
@@ -62,12 +59,10 @@ public class UploadLicenseServiceImpl implements UploadLicenseService {
      * @param file
      *            the file
      * @return true, if successful
-     * @throws Exception
-     *             the exception
      */
     @Override
     public final boolean uploadLicense(final String dhId, final String userId,
-            final MultipartFile file) throws Exception {
+            final MultipartFile file)  {
         LOGGER.info("Inside uploadLicense method of UploadLicenseServiceImpl");
         return uploadLicenseDAO.uploadLicense(dhId, userId, file);
     }

@@ -42,13 +42,10 @@ public class SaveInvitationStartServiceImpl implements
      *
      * @param invitationStartEvent
      *            the invitation start event data
-     * @throws Exception
-     *             the exception
      */
     @Override
     public final void parseInvitationStartEvent(
-            final InvitationStartEventData invitationStartEvent)
-            throws Exception {
+            final InvitationStartEventData invitationStartEvent) {
         LOGGER.info("inside parseInvitationStartEvent of SaveInvitationStartServiceImpl");
         if (!StringUtils.isEmpty(invitationStartEvent)) {
 

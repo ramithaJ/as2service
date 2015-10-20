@@ -120,8 +120,7 @@ public class OpenAccessServiceImpl implements OpenAccessService {
      */
     @Override
     public final OpenAccessPaymentData getOpenAccessDetails(
-            final String userId, final String articleId, final String journalId)
-            throws Exception {
+            final String userId, final String articleId, final String journalId) {
 
         OpenAccessPaymentData openAccessPaymentData = null;
 
@@ -387,12 +386,10 @@ public class OpenAccessServiceImpl implements OpenAccessService {
      * @param vatTaxRegNum
      *            the vat tax reg num
      * @return true, if successful
-     * @throws Exception
-     *             the exception
      */
     @Override
     public final boolean validateVatTaxDetails(final String countryCode,
-            final String vatTaxRegNum) throws Exception {
+            final String vatTaxRegNum) {
 
         return validationService.vatValidation(countryCode, vatTaxRegNum);
     }

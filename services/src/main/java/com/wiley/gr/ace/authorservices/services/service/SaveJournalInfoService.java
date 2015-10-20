@@ -26,9 +26,6 @@ public interface SaveJournalInfoService {
      *
      * @param journalInfoTypeEvent
      *            the journal info type event
-     * @throws Exception
-     *             the exception
      */
-    void parseJournalInfoTypeEvent(String journalInfoTypeEvent)
-            throws Exception;
+    void parseJournalInfoTypeEvent(String journalInfoTypeEvent);
 }

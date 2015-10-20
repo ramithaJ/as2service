@@ -250,12 +250,9 @@ public class RegistrationServiceImpl implements RegistrationService {
      * @param orcidId
      *            the orcid id
      * @return true, if successful
-     * @throws Exception
-     *             the exception
      */
     @Override
-    public final User searchUserByOrcidId(final String orcidId)
-            throws Exception {
+    public final User searchUserByOrcidId(final String orcidId) {
         LOGGER.info("inside isUserFoundWithOrcidId() method of RegistrationServiceImpl");
         User user = null;
         if (!StringUtils.isEmpty(orcidId)) {

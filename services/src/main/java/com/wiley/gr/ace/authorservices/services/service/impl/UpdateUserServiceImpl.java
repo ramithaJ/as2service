@@ -47,12 +47,10 @@ public class UpdateUserServiceImpl implements UpdateUserService {
      * @param userId
      *            the user id
      * @return true, if successful
-     * @throws Exception
-     *             the exception
      */
     @Override
     public final boolean updateOrcidId(final String emailId,
-            final String orcidId, final String userId) throws Exception {
+            final String orcidId, final String userId) {
         LOGGER.info("inside updateOrcidId method of UpdateUserServiceImpl");
         return authorProfileService.updateOrcidId(userId, orcidId);
     }

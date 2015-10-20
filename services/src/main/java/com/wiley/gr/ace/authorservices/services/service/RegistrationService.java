@@ -33,8 +33,7 @@ public interface RegistrationService {
      * @return the user from first name last name
      * 
      */
-    List<User> getUserFromFirstNameLastName(String firstName,
-            String lastName);
+    List<User> getUserFromFirstNameLastName(String firstName, String lastName);
 
     /**
      * Check email id exists.
@@ -52,10 +51,8 @@ public interface RegistrationService {
      * @param orcidId
      *            the orcid id
      * @return true, if successful
-     * @throws Exception
-     *             the exception
      */
-    User searchUserByOrcidId(String orcidId) throws Exception;
+    User searchUserByOrcidId(String orcidId);
 
     /**
      * Search invitation record.

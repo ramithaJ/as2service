@@ -31,10 +31,8 @@ public interface UpdateUserService {
      * @param userId
      *            the user id
      * @return true, if successful
-     * @throws Exception
-     *             the exception
      */
     boolean updateOrcidId(String emailId, String orcidId, String userId)
-            throws Exception;
+            ;
 
 }

@@ -33,15 +33,6 @@ public interface AdminLoginService {
      */
     boolean validateEmail(String emailId);
 
-//    /**
-//     * This method updates the lastLoginTime in the AS 2.0 database.
-//     *
-//     * @param emailId
-//     *            the email id
-//     * @return the string
-//     */
-//    Users doLogin(String emailId);
-
     /**
      * This method requests for a wiley user to get Admin Access.
      *
@@ -85,13 +76,5 @@ public interface AdminLoginService {
      *            the adminuser
      */
     void createAdmin(AdminUser adminuser);
-    
-//    /**
-//     * Gets the AS user.
-//     *
-//     * @param emailId the email id
-//     * @return the AS user
-//     */
-//    Users getASUser(final String emailId);
 
 }
