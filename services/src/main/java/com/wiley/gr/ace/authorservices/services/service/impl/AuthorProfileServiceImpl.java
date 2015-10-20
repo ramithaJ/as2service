@@ -242,7 +242,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public boolean updateAlerts(final String participantId,
-            final AlertsList alertList) throws Exception {
+            final AlertsList alertList) {
         AuthorProfileServiceImpl.LOGGER.info("inside updateAlerts Method ");
         boolean isUpdated = false;
         Integer code = null;

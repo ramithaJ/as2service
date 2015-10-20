@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
@@ -45,45 +46,26 @@ public interface AuthorProfileService {
     boolean updateSocietyDetails(String userId, Society society);
 
     /**
-     * Update research funder.
-     *
-     * @param userId
-     *            the user id
-     * @param researchFunder
-     *            the research funder
-     * @return true, if successful
-     */
-    /* boolean updateResearchFunder(int userId, ResearchFunder researchFunder); */
-
-    /**
      * Update alerts.
      *
-     * @param userId
-     *            the user id
-     * @param alert
-     *            the alert
+     * @param participantId
+     *            the participant id
+     * @param alertList
+     *            the alert list
      * @return true, if successful
      */
-    boolean updateAlerts(String participantId, AlertsList alertList)
-            throws Exception;
+    boolean updateAlerts(String participantId, AlertsList alertList);
 
     /**
-     * @param userId
-     * @param areaOfInterests
-     * @return
-     */
-    boolean addInterests(String userId, AreaOfInterests areaOfInterests);
-
-    /**
-     * Update Coauthor.
+     * Adds the interests.
      *
      * @param userId
      *            the user id
-     * @param coAuthor
-     *            the co author
+     * @param areaOfInterests
+     *            the area of interests
      * @return true, if successful
      */
-    /* boolean updatecoAuthor(int userId, CoAuthor coAuthor); */
+    boolean addInterests(String userId, AreaOfInterests areaOfInterests);
 
     /**
      * Update email details.
@@ -126,20 +108,18 @@ public interface AuthorProfileService {
     boolean updateSecurityDetails(SecurityDetailsHolder securityDetailsHolder);
 
     /**
-     * Gets the user profile response.
+     * Upload profile image.
      *
      * @param participantId
      *            the participant id
      * @param imageFile
      *            the image file
-     * @return the user profile response
-     * @throws Exception
-     *             the exception
+     * @return true, if successful
+     * @throws ASException
+     *             the AS exception
      */
-    /* LookupCustomerProfile getuserProfileResponse(int userId); */
-
     boolean uploadProfileImage(String participantId, byte[] imageFile)
-            throws Exception;
+            throws ASException;
 
     /**
      * Gets the research funders list.
@@ -191,12 +171,19 @@ public interface AuthorProfileService {
     /**
      * Gets the preffered journals.
      *
-     * @param userId
-     *            the user id
+     * @param participantId
+     *            the participant id
      * @return the preffered journals
      */
     List<PreferredJournals> getPrefferedJournals(String participantId);
 
+    /**
+     * Removes the orcid id.
+     *
+     * @param userId
+     *            the user id
+     * @return true, if successful
+     */
     boolean removeOrcidId(String userId);
 
     /**
@@ -216,18 +203,14 @@ public interface AuthorProfileService {
      * @param participantId
      *            the participant id
      * @return the profile picture
-     * @throws Exception
-     *             the exception
      */
-    byte[] getProfileImage(String participantId) throws Exception;
+    byte[] getProfileImage(String participantId);
 
     /**
      * Delete society.
      *
-     * @param userId
-     *            the user id
-     * @param societyId
-     *            the society id
+     * @param id
+     *            the id
      * @return true, if successful
      */
     boolean deleteSociety(Long id);
@@ -290,13 +273,45 @@ public interface AuthorProfileService {
     boolean updateAffiliation(String userId, Affiliation affiliation)
             throws Exception;
 
+    /**
+     * Adds the preferred journal.
+     *
+     * @param userId
+     *            the user id
+     * @param journalDetails
+     *            the journal details
+     * @return true, if successful
+     */
     boolean addPreferredJournal(String userId, JournalDetails journalDetails);
 
+    /**
+     * Gets the WO aaccounts.
+     *
+     * @param participantId
+     *            the participant id
+     * @return the WO aaccounts
+     */
     List<Preferences> getWOAaccounts(String participantId);
 
+    /**
+     * Update research funders.
+     *
+     * @param participantId
+     *            the participant id
+     * @param researchFunder
+     *            the research funder
+     * @return true, if successful
+     */
     boolean updateResearchFunders(String participantId,
             ResearchFunder researchFunder);
 
+    /**
+     * Delete research funder.
+     *
+     * @param participantSeqId
+     *            the participant seq id
+     * @return true, if successful
+     */
     boolean deleteResearchFunder(Long participantSeqId);
 
 }
