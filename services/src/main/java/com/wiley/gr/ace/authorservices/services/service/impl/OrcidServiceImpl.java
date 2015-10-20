@@ -590,11 +590,9 @@ public class OrcidServiceImpl implements OrcidService {
      * @param participantId
      *            the participant id
      * @return the orcid id
-     * @throws Exception
-     *             the exception
      */
     @Override
-    public String getOrcidId(final String participantId) throws Exception {
+    public String getOrcidId(final String participantId)  {
         String orcidId = null;
         Participant participant = participantsInterfaceService
                 .searchParticipantByParticipantId(participantId);

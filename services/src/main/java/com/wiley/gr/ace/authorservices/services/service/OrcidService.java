@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 
@@ -41,10 +42,10 @@ public interface OrcidService {
      * @param accessToken
      *            the access token
      * @return the bio
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the as exception
      */
-    User getBio(OrcidAccessToken accessToken) throws Exception;
+    User getBio(OrcidAccessToken accessToken) throws ASException;
 
     /**
      * Gets the work.
@@ -54,10 +55,10 @@ public interface OrcidService {
      * @param user
      *            the user
      * @return the work
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the as exception
      */
-    User getWork(OrcidAccessToken token, User user) throws Exception;
+    User getWork(OrcidAccessToken token, User user) throws ASException;
 
     /**
      * Gets the orcid id.
@@ -65,10 +66,28 @@ public interface OrcidService {
      * @param participantId
      *            the participant id
      * @return the orcid id
-     * @throws Exception
-     *             the exception
      */
-    String getOrcidId(String participantId) throws Exception;
-    User putOrcidData(User user,String authorizationCode);
-    User getCachedOrcidData(User user,String authorizationCode);
+    String getOrcidId(String participantId);
+
+    /**
+     * Put orcid data.
+     *
+     * @param user
+     *            the user
+     * @param authorizationCode
+     *            the authorization code
+     * @return the user
+     */
+    User putOrcidData(User user, String authorizationCode);
+
+    /**
+     * Gets the cached orcid data.
+     *
+     * @param user
+     *            the user
+     * @param authorizationCode
+     *            the authorization code
+     * @return the cached orcid data
+     */
+    User getCachedOrcidData(User user, String authorizationCode);
 }
