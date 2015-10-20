@@ -14,8 +14,9 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OpenAccessPaymentData;
@@ -49,10 +50,10 @@ public interface OpenAccessService {
      * @param address
      *            the address
      * @return true, if successful
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
-    ArrayList<Address> validateAddress(Address address) throws Exception;
+    List<Address> validateAddress(Address address) throws UserException;
 
     /**
      * Validate vat tax details.

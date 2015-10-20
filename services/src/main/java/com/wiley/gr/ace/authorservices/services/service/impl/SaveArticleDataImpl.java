@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.event.CoAuthorList;
@@ -30,7 +31,6 @@ import com.wiley.gr.ace.authorservices.model.event.EventData;
 import com.wiley.gr.ace.authorservices.model.external.ProductPersonRelationObject;
 import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SaveArticleDataImpl.
  */
@@ -44,20 +44,6 @@ public class SaveArticleDataImpl implements SaveArticleData {
     @Autowired(required = true)
     private SharedService sharedService;
 
-    // /** The save article service dao. */
-    // @Autowired(required = true)
-    // private SaveArticleDAO saveArticleDAO;
-
-    // /** The save article info dao. */
-    // @Autowired(required = true)
-    // private SaveArticleInfoDAO saveArticleInfoDAO;
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.services.service.SaveArticleData#
-     * parseArticleEvent(java.lang.String)
-     */
     @Override
     public void parseArticleEvent(final String articleEvent) throws Exception {
 
@@ -76,9 +62,6 @@ public class SaveArticleDataImpl implements SaveArticleData {
             LOGGER.debug("Parsed article name :: "
                     + eventData.getArticleInfo().getArticleName());
 
-            // saveArticleData(eventData);
-            // saveJournalData(eventData);
-            // saveProductRelations(eventData);
             handleCorrenspondingAuthorDetails(eventData);
             handleCoAuthorDetails(eventData);
         }
@@ -99,19 +82,9 @@ public class SaveArticleDataImpl implements SaveArticleData {
         final String email = eventData.getCorrespondingAuthor().getEmail();
         final String articleDhId = eventData.getArticleInfo().getArticleID();
         try {
-             final boolean isAuthorExisting = authorCoAuthorLookUp(firstName,
-             lastName, email);
-LOGGER.info(""+isAuthorExisting);
-            /*
-             * if (!isAuthorExisting) { final InviteResetpwdLog invite = new
-             * InviteResetpwdLog(); invite.setFirstName(firstName);
-             * invite.setLastName(lastName); invite.setEmailAddress(email);
-             * invite.setUserType(AuthorServicesConstants.AUTHOR_ROLE_CD);
-             * 
-             * final boolean status = saveArticleDAO
-             * .saveArticleInvitation(invite); LOGGER.debug("Saved status :: " +
-             * status); }
-             */
+            final boolean isAuthorExisting = authorCoAuthorLookUp(firstName,
+                    lastName, email);
+            LOGGER.info("is author existed or not" + isAuthorExisting);
 
             ProductPersonRelationObject productPersonRelationObject = new ProductPersonRelationObject();
             productPersonRelationObject.setDhId(articleDhId);
@@ -124,7 +97,8 @@ LOGGER.info(""+isAuthorExisting);
                     + service.getStatus());
 
         } catch (final Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException();
         }
     }
 
@@ -145,17 +119,8 @@ LOGGER.info(""+isAuthorExisting);
             try {
                 final boolean isCoAuthorExisting = authorCoAuthorLookUp(
                         firstName, lastName, email);
-                LOGGER.info("" + isCoAuthorExisting);
-                /*
-                 * if (!isCoAuthorExisting) { final InviteResetpwdLog invite =
-                 * new InviteResetpwdLog(); invite.setFirstName(firstName);
-                 * invite.setLastName(lastName); invite.setEmailAddress(email);
-                 * invite.setUserType(AuthorServicesConstants.COAUTHOR_ROLE_CD);
-                 * 
-                 * final boolean status = saveArticleDAO
-                 * .saveArticleInvitation(invite);
-                 * LOGGER.debug("Saved status :: " + status); }
-                 */
+                LOGGER.info("is author existing or not " + isCoAuthorExisting);
+
                 ProductPersonRelationObject productPersonRelationObject = new ProductPersonRelationObject();
                 productPersonRelationObject.setDhId(articleDhId);
                 productPersonRelationObject.setEmailId(email);
@@ -166,7 +131,8 @@ LOGGER.info(""+isAuthorExisting);
                 LOGGER.debug("Product person relation saved status: "
                         + service.getStatus());
             } catch (final Exception e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+                throw new UserException();
             }
         }
     }
@@ -192,52 +158,10 @@ LOGGER.info(""+isAuthorExisting);
                 isAuthorCoAuthorExist = true;
             }
         } catch (final Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException();
         }
         return isAuthorCoAuthorExist;
     }
-
-    // /**
-    // * Save journal data.
-    // *
-    // * @param eventData
-    // * the event data
-    // */
-    // private void saveJournalData(final EventData eventData) {
-    // final Products products = new Products();
-    // products.setDhId(Integer.parseInt(eventData.getJournalInfo()
-    // .getJournalID()));
-    // products.setDhTypeCd("JOURNAL");
-    // saveArticleInfoDAO.saveProductDetails(products);
-    //
-    // }
-
-    // /**
-    // * Save article data.
-    // *
-    // * @param eventData
-    // * the event data
-    // */
-    // private void saveArticleData(final EventData eventData) {
-    // final Products products = new Products();
-    // products.setDhId(Integer.parseInt(eventData.getArticleInfo()
-    // .getArticleID()));
-    // products.setDhTypeCd("ARTICLE");
-    // saveArticleInfoDAO.saveProductDetails(products);
-    // }
-
-    // private void saveProductRelations(final EventData eventData) {
-    // final ProductRelations productRelations = new ProductRelations();
-    // // final Products journalProduct = new Products();
-    // // final Products artcleProduct = new Products();
-    // // journalProduct.setDhId(Integer.parseInt(eventData.getJournalInfo()
-    // // .getJournalID()));
-    // // artcleProduct.setDhId(Integer.parseInt(eventData.getArticleInfo()
-    // // .getArticleID()));
-    // //productRelations.setDhTypeRelCd("JOURNAL-ARTICLE");//Will come from PDH
-    // // productRelations.setProductsByParentDhId(journalProduct);
-    // // productRelations.setProductsByChildDhId(artcleProduct);
-    // saveArticleInfoDAO.saveProductRelation(productRelations);
-    // }
 
 }

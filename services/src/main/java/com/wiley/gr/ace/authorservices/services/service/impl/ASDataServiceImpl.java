@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +69,7 @@ public class ASDataServiceImpl implements ASDataService {
     /** The area of interest dao . */
     @Autowired(required = true)
     private AreaOfInterterestDao areaOfInterest;
-    
+
     /** getting bean of userProfiles. */
     @Autowired
     private UserProfiles userProfiles;
@@ -89,14 +90,6 @@ public class ASDataServiceImpl implements ASDataService {
     @Value("${jobCategories.name}")
     private String jobCategoryName;
 
-    /** The country code. *//*
-    @Value("${country.code}")
-    private String countryCode;*/
-
-    /** The country name. *//*
-    @Value("${country.name}")
-    private String countryName;*/
-
     /**
      * This field holds the value of stateCode.
      */
@@ -107,10 +100,6 @@ public class ASDataServiceImpl implements ASDataService {
     @Value("${state.Name}")
     private String stateName;
 
-   /* *//** The suffix. *//*
-    @Value("${suffix}")
-    private String suffix;*/
-    
     /**
      * This will call external service to get titles data.
      *
@@ -177,7 +166,7 @@ public class ASDataServiceImpl implements ASDataService {
         List<Object> industryDocs = industries.getResponse().getDocs();
         for (Object object : industryDocs) {
 
-            LinkedHashMap<String, String> industryMap = (LinkedHashMap<String, String>) object;
+            Map<String, String> industryMap = (LinkedHashMap<String, String>) object;
             industry = new Industry();
             industry.setIndustryId(industryMap.get(industryCode));
             industry.setIndustryName(industryMap.get(industryName));
@@ -209,7 +198,7 @@ public class ASDataServiceImpl implements ASDataService {
         List<Object> jobCategoryDocs = jobCategories.getResponse().getDocs();
         for (Object object : jobCategoryDocs) {
 
-            LinkedHashMap<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
+            Map<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
             jobCategory = new JobCategory();
             jobCategory.setJobCategoryId(jobCategoryMap.get(jobCategoryCode));
             jobCategory.setJobCategoryName(jobCategoryMap.get(jobCategoryName));
@@ -239,7 +228,7 @@ public class ASDataServiceImpl implements ASDataService {
             return countrylist;
         }
         for (Object object : externalCountrylist) {
-            LinkedHashMap<String, String> countrymap = (LinkedHashMap<String, String>) object;
+            Map<String, String> countrymap = (LinkedHashMap<String, String>) object;
             Country country = new Country();
 
             String externalcountrymap = countrymap.get("id");
@@ -276,7 +265,7 @@ public class ASDataServiceImpl implements ASDataService {
 
         for (Object statelist : externalstatelist) {
 
-            LinkedHashMap<String, String> statemap = (LinkedHashMap<String, String>) statelist;
+            Map<String, String> statemap = (LinkedHashMap<String, String>) statelist;
 
             State state = new State();
             state.setStateCode(statemap.get(stateCode));
@@ -416,29 +405,7 @@ public class ASDataServiceImpl implements ASDataService {
 
         LOGGER.info("inside getAdminRoles method ");
 
-//        List<Roles> daoRolesList = aSDataDAO.getAdminRoles(roleType);
         List<Role> adminRoles = new ArrayList<Role>();
-//        Role adminRole = null;
-       
-
-//        if (daoRolesList != null && !daoRolesList.isEmpty()) {
-//
-//            for (Roles roles : daoRolesList) {
-//                adminRole = new Role();
-//                adminRole.setRoleId(roles.getRoleId() + "");
-//                adminRole.setRoleName(roles.getRoleName());
-//                adminRole.setRoleDescription(roles.getDescription());
-//                if (roles.getRoleType() != null
-//                        && roles.getRoleType().equals(
-//                                AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
-//                    adminRole.setAdminRole(true);
-//                }
-//                        adminRole.setNoOfPermissions(String.valueOf(aSDataDAO.getCount(roles
-//                                .getRoleId().intValue())));
-//                adminRoles.add(adminRole);
-//            }
-
-//        }
         return adminRoles;
     }
 

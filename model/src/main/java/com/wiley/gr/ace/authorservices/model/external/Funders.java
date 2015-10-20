@@ -14,7 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class Funders.
@@ -22,14 +22,14 @@ import java.util.ArrayList;
 public class Funders {
 
     /** The funder. */
-    ArrayList<Funder> funder;
+    List<Funder> funder;
 
     /**
      * Gets the funder.
      *
      * @return the funder
      */
-    public final ArrayList<Funder> getFunder() {
+    public final List<Funder> getFunder() {
         return funder;
     }
 
@@ -38,7 +38,7 @@ public class Funders {
      *
      * @param funder the new funder
      */
-    public final void setFunder(final ArrayList<Funder> funder) {
+    public final void setFunder(final List<Funder> funder) {
         this.funder = funder;
     }
 

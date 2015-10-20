@@ -27,6 +27,8 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.util.StringUtils;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Address;
@@ -90,18 +92,23 @@ public class OrcidServiceImpl implements OrcidService {
      * @param user
      *            the user
      * @return the work
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the as exception
      */
     @Override
     public final User getWork(final OrcidAccessToken token, final User user)
-            throws Exception {
-        String orcidMessageJSON = oricdInterfaceService.getWork(token);
-        if (null != orcidMessageJSON && !orcidMessageJSON.isEmpty()) {
-            /**
-             * Code to map the orcid JSON to user model object
-             */
-            parseOrcidJSONForWork(orcidMessageJSON, user);
+            throws ASException {
+        try {
+            String orcidMessageJSON = oricdInterfaceService.getWork(token);
+            if (null != orcidMessageJSON && !orcidMessageJSON.isEmpty()) {
+                /**
+                 * Code to map the orcid JSON to user model object
+                 */
+                parseOrcidJSONForWork(orcidMessageJSON, user);
+            }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException();
         }
         return user;
     }
@@ -112,19 +119,24 @@ public class OrcidServiceImpl implements OrcidService {
      * @param token
      *            the access token
      * @return the bio
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the as exception
      */
     @Override
-    public final User getBio(final OrcidAccessToken token) throws Exception {
+    public final User getBio(final OrcidAccessToken token) throws ASException {
 
         User user = new User();
-        String orcidMessageJSON = oricdInterfaceService.getBio(token);
-        if (null != orcidMessageJSON && !orcidMessageJSON.isEmpty()) {
-            /**
-             * Code to map the orcid JSON to user model object
-             */
-            parseOrcidJSON(orcidMessageJSON, user);
+        try {
+            String orcidMessageJSON = oricdInterfaceService.getBio(token);
+            if (null != orcidMessageJSON && !orcidMessageJSON.isEmpty()) {
+                /**
+                 * Code to map the orcid JSON to user model object
+                 */
+                parseOrcidJSON(orcidMessageJSON, user);
+            }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException();
         }
         return user;
     }
@@ -136,30 +148,35 @@ public class OrcidServiceImpl implements OrcidService {
      *            the orcid message json
      * @param user
      *            the user
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the as exception
      */
     private void parseOrcidJSON(final String orcidMessageJSON, final User user)
-            throws Exception {
-
-        JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
-                .parse(orcidMessageJSON);
-        JSONObject orcidProfile = (JSONObject) orcidProfileJSON
-                .get("orcid-profile");
-        LOGGER.info("orcidProfile ##### ", orcidProfile);
-        if (null != orcidProfile) {
-            LOGGER.error("Orcid Message found");
-            parseOrcidIdentifier(orcidProfile, user);
-            JSONObject orcidBioJSON = (JSONObject) new JSONParser()
-                    .parse(orcidProfile.toJSONString());
-            JSONObject orcidBio = (JSONObject) orcidBioJSON.get("orcid-bio");
-            LOGGER.info("orcidBio ##### ", orcidBio);
-            if (null != orcidBio) {
-                JSONObject personalDetailsJSON = (JSONObject) new JSONParser()
-                        .parse(orcidBio.toJSONString());
-                parsePersonalDetails(personalDetailsJSON, user);
-                parseContactDetails(personalDetailsJSON, user);
+            throws ASException {
+        try {
+            JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
+                    .parse(orcidMessageJSON);
+            JSONObject orcidProfile = (JSONObject) orcidProfileJSON
+                    .get("orcid-profile");
+            LOGGER.info("orcidProfile ##### ", orcidProfile);
+            if (null != orcidProfile) {
+                LOGGER.error("Orcid Message found");
+                parseOrcidIdentifier(orcidProfile, user);
+                JSONObject orcidBioJSON = (JSONObject) new JSONParser()
+                        .parse(orcidProfile.toJSONString());
+                JSONObject orcidBio = (JSONObject) orcidBioJSON
+                        .get("orcid-bio");
+                LOGGER.info("orcidBio ##### ", orcidBio);
+                if (null != orcidBio) {
+                    JSONObject personalDetailsJSON = (JSONObject) new JSONParser()
+                            .parse(orcidBio.toJSONString());
+                    parsePersonalDetails(personalDetailsJSON, user);
+                    parseContactDetails(personalDetailsJSON, user);
+                }
             }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException();
         }
 
     }
@@ -171,21 +188,26 @@ public class OrcidServiceImpl implements OrcidService {
      *            the orcid profile
      * @param user
      *            the user
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the as exception
      */
     private void parseOrcidIdentifier(final JSONObject orcidProfile,
-            final User user) throws Exception {
-        JSONObject orcidIdentifierJSON = (JSONObject) new JSONParser()
-                .parse(orcidProfile.toJSONString());
-        JSONObject orcidIdentifier = (JSONObject) orcidIdentifierJSON
-                .get("orcid-identifier");
-        LOGGER.info("orcidIdentifier ##### ", orcidIdentifier);
-        if (!StringUtils.isEmpty(orcidIdentifier)) {
-            LOGGER.info("orcidId Found ##### ", orcidIdentifier);
-            JSONObject orcidIdentifierValueJSON = (JSONObject) new JSONParser()
-                    .parse(orcidIdentifier.toJSONString());
-            user.setOrcidId((String) orcidIdentifierValueJSON.get("path"));
+            final User user) throws ASException {
+        try {
+            JSONObject orcidIdentifierJSON = (JSONObject) new JSONParser()
+                    .parse(orcidProfile.toJSONString());
+            JSONObject orcidIdentifier = (JSONObject) orcidIdentifierJSON
+                    .get("orcid-identifier");
+            LOGGER.info("orcidIdentifier ##### ", orcidIdentifier);
+            if (!StringUtils.isEmpty(orcidIdentifier)) {
+                LOGGER.info("orcidId Found ##### ", orcidIdentifier);
+                JSONObject orcidIdentifierValueJSON = (JSONObject) new JSONParser()
+                        .parse(orcidIdentifier.toJSONString());
+                user.setOrcidId((String) orcidIdentifierValueJSON.get("path"));
+            }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException();
         }
     }
 
@@ -196,39 +218,43 @@ public class OrcidServiceImpl implements OrcidService {
      *            the personal details json
      * @param user
      *            the user
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the as exception
      */
     private void parsePersonalDetails(final JSONObject personalDetailsJSON,
-            final User user) throws Exception {
-
-        JSONObject personalDetails = (JSONObject) personalDetailsJSON
-                .get("personal-details");
-        if (null != personalDetails) {
-            /**
-             * Code to fetch FN and LN.
-             */
-            LOGGER.error("Person Details Found");
-            JSONObject givenNamesJSON = (JSONObject) new JSONParser()
-                    .parse(personalDetails.toJSONString());
-            JSONObject givenNames = (JSONObject) givenNamesJSON
-                    .get("given-names");
-            LOGGER.info("givenNames ##### ", givenNames);
-            if (null != givenNames) {
-                JSONObject givenNamesValueJSON = (JSONObject) new JSONParser()
-                        .parse(givenNames.toJSONString());
-                user.setFirstName((String) givenNamesValueJSON.get("value"));
+            final User user) throws ASException {
+        try {
+            JSONObject personalDetails = (JSONObject) personalDetailsJSON
+                    .get("personal-details");
+            if (null != personalDetails) {
+                /**
+                 * Code to fetch FN and LN.
+                 */
+                LOGGER.error("Person Details Found");
+                JSONObject givenNamesJSON = (JSONObject) new JSONParser()
+                        .parse(personalDetails.toJSONString());
+                JSONObject givenNames = (JSONObject) givenNamesJSON
+                        .get("given-names");
+                LOGGER.info("givenNames ##### ", givenNames);
+                if (null != givenNames) {
+                    JSONObject givenNamesValueJSON = (JSONObject) new JSONParser()
+                            .parse(givenNames.toJSONString());
+                    user.setFirstName((String) givenNamesValueJSON.get("value"));
+                }
+                JSONObject familyNamesJSON = (JSONObject) new JSONParser()
+                        .parse(personalDetails.toJSONString());
+                JSONObject familyNames = (JSONObject) familyNamesJSON
+                        .get("family-name");
+                LOGGER.info("familyNames ##### ", familyNames);
+                if (null != familyNames) {
+                    JSONObject familyNamesValueJSON = (JSONObject) new JSONParser()
+                            .parse(familyNames.toJSONString());
+                    user.setLastName((String) familyNamesValueJSON.get("value"));
+                }
             }
-            JSONObject familyNamesJSON = (JSONObject) new JSONParser()
-                    .parse(personalDetails.toJSONString());
-            JSONObject familyNames = (JSONObject) familyNamesJSON
-                    .get("family-name");
-            LOGGER.info("familyNames ##### ", familyNames);
-            if (null != familyNames) {
-                JSONObject familyNamesValueJSON = (JSONObject) new JSONParser()
-                        .parse(familyNames.toJSONString());
-                user.setLastName((String) familyNamesValueJSON.get("value"));
-            }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException();
         }
 
     }
@@ -240,37 +266,41 @@ public class OrcidServiceImpl implements OrcidService {
      *            the personal details json
      * @param user
      *            the user
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the as exception
      */
     private void parseContactDetails(final JSONObject personalDetailsJSON,
-            final User user) throws Exception {
+            final User user) throws ASException {
+        try {
+            JSONObject contactDetails = (JSONObject) personalDetailsJSON
+                    .get("contact-details");
+            if (null != contactDetails) {
+                LOGGER.error("Contact Details Found");
+                JSONObject emailArrayJSON = (JSONObject) new JSONParser()
+                        .parse(contactDetails.toJSONString());
+                JSONArray emailArray = (JSONArray) emailArrayJSON.get("email");
+                LOGGER.info("emailArray ##### ", emailArray);
+                if (null != emailArray) {
+                    Iterator<JSONObject> emailItr = emailArray.iterator();
+                    Boolean isPrimary;
+                    while (emailItr.hasNext()) {
+                        JSONObject emailJSON = (JSONObject) new JSONParser()
+                                .parse(emailItr.next().toJSONString());
+                        isPrimary = (Boolean) emailJSON.get("primary");
 
-        JSONObject contactDetails = (JSONObject) personalDetailsJSON
-                .get("contact-details");
-        if (null != contactDetails) {
-            LOGGER.error("Contact Details Found");
-            JSONObject emailArrayJSON = (JSONObject) new JSONParser()
-                    .parse(contactDetails.toJSONString());
-            JSONArray emailArray = (JSONArray) emailArrayJSON.get("email");
-            LOGGER.info("emailArray ##### ", emailArray);
-            if (null != emailArray) {
-                Iterator<JSONObject> emailItr = emailArray.iterator();
-                Boolean isPrimary;
-                while (emailItr.hasNext()) {
-                    JSONObject emailJSON = (JSONObject) new JSONParser()
-                            .parse(emailItr.next().toJSONString());
-                    isPrimary = (Boolean) emailJSON.get("primary");
-
-                    LOGGER.info("isPrimary ---->" + isPrimary);
-                    if (isPrimary) {
-                        user.setPrimaryEmailAddr((String) emailJSON
-                                .get("value"));
+                        LOGGER.info("isPrimary ---->" + isPrimary);
+                        if (isPrimary) {
+                            user.setPrimaryEmailAddr((String) emailJSON
+                                    .get("value"));
+                        }
                     }
                 }
+                Addresses addresses = parseAddressesDetails(contactDetails);
+                user.setAddresses(addresses);
             }
-            Addresses addresses = parseAddressesDetails(contactDetails);
-            user.setAddresses(addresses);
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException();
         }
 
     }
@@ -287,23 +317,27 @@ public class OrcidServiceImpl implements OrcidService {
     private Addresses parseAddressesDetails(final JSONObject contactDetails)
             throws Exception {
         Addresses addresses = null;
-
-        JSONObject addressJSON = (JSONObject) new JSONParser()
-                .parse(contactDetails.toJSONString());
-        JSONObject addressDetails = (JSONObject) addressJSON.get("address");
-        LOGGER.info("addressDetails ##### ", addressDetails);
-        if (null != addressDetails) {
-            LOGGER.error("Address Details found");
-            JSONObject countryJSON = (JSONObject) new JSONParser()
-                    .parse(addressDetails.toJSONString());
-            JSONObject countryDetails = (JSONObject) countryJSON.get("country");
-            addresses = new Addresses();
-            Address address = new Address();
-            Country country = parseCountryDetails(countryDetails);
-            address.setCountry(country);
-            addresses.setCorrespondenceAddress(address);
+        try {
+            JSONObject addressJSON = (JSONObject) new JSONParser()
+                    .parse(contactDetails.toJSONString());
+            JSONObject addressDetails = (JSONObject) addressJSON.get("address");
+            LOGGER.info("addressDetails ##### ", addressDetails);
+            if (null != addressDetails) {
+                LOGGER.error("Address Details found");
+                JSONObject countryJSON = (JSONObject) new JSONParser()
+                        .parse(addressDetails.toJSONString());
+                JSONObject countryDetails = (JSONObject) countryJSON
+                        .get("country");
+                addresses = new Addresses();
+                Address address = new Address();
+                Country country = parseCountryDetails(countryDetails);
+                address.setCountry(country);
+                addresses.setCorrespondenceAddress(address);
+            }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException();
         }
-
         return addresses;
     }
 
@@ -313,11 +347,11 @@ public class OrcidServiceImpl implements OrcidService {
      * @param countryDetails
      *            the country details
      * @return the country
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the as exception
      */
     private Country parseCountryDetails(final JSONObject countryDetails)
-            throws Exception {
+            throws ASException {
         Country country = null;
         country = new Country();
         country.setCountryCode((String) countryDetails.get("value"));
@@ -340,36 +374,41 @@ public class OrcidServiceImpl implements OrcidService {
      *            the orcid message json
      * @param user
      *            the user
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the as exception
      */
     private void parseOrcidJSONForWork(final String orcidMessageJSON,
-            final User user) throws Exception {
-        JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
-                .parse(orcidMessageJSON);
-        JSONObject orcidProfile = (JSONObject) orcidProfileJSON
-                .get("orcid-profile");
-        LOGGER.info("orcidProfile ##### ", orcidProfile);
-        if (null != orcidProfile) {
-            LOGGER.error("OrcId Profile not null");
-            JSONObject orcidActivitiesJSON = (JSONObject) new JSONParser()
-                    .parse(orcidProfile.toJSONString());
-            JSONObject orcidActivities = (JSONObject) orcidActivitiesJSON
-                    .get("orcid-activities");
-            LOGGER.info("orcidActivities ##### ", orcidActivities);
-            if (null != orcidActivities) {
-                JSONObject orcidWorkJSON = (JSONObject) new JSONParser()
-                        .parse(orcidActivities.toJSONString());
-                JSONObject orcidWork = (JSONObject) orcidWorkJSON
-                        .get("orcid-work");
-                LOGGER.info("orcidWork ##### ", orcidWork);
-                JSONObject affiliations = (JSONObject) orcidActivities
-                        .get("affiliations");
-                LOGGER.info("affiliations ##### ", affiliations);
-                if (null != affiliations) {
-                    parseAffiliations(affiliations, user);
+            final User user) throws ASException {
+        try {
+            JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
+                    .parse(orcidMessageJSON);
+            JSONObject orcidProfile = (JSONObject) orcidProfileJSON
+                    .get("orcid-profile");
+            LOGGER.info("orcidProfile ##### ", orcidProfile);
+            if (null != orcidProfile) {
+                LOGGER.error("OrcId Profile not null");
+                JSONObject orcidActivitiesJSON = (JSONObject) new JSONParser()
+                        .parse(orcidProfile.toJSONString());
+                JSONObject orcidActivities = (JSONObject) orcidActivitiesJSON
+                        .get("orcid-activities");
+                LOGGER.info("orcidActivities ##### ", orcidActivities);
+                if (null != orcidActivities) {
+                    JSONObject orcidWorkJSON = (JSONObject) new JSONParser()
+                            .parse(orcidActivities.toJSONString());
+                    JSONObject orcidWork = (JSONObject) orcidWorkJSON
+                            .get("orcid-work");
+                    LOGGER.info("orcidWork ##### ", orcidWork);
+                    JSONObject affiliations = (JSONObject) orcidActivities
+                            .get("affiliations");
+                    LOGGER.info("affiliations ##### ", affiliations);
+                    if (null != affiliations) {
+                        parseAffiliations(affiliations, user);
+                    }
                 }
             }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException();
         }
     }
 
@@ -380,28 +419,34 @@ public class OrcidServiceImpl implements OrcidService {
      *            the affiliations
      * @param user
      *            the user
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the as exception
      */
     private void parseAffiliations(final JSONObject affiliations,
-            final User user) throws Exception {
-        JSONObject affiliationArrayJSON = (JSONObject) new JSONParser()
-                .parse(affiliations.toJSONString());
-        JSONArray affiliationArray = (JSONArray) affiliationArrayJSON
-                .get("affiliation");
-        LOGGER.info("affiliationArray ##### ", affiliationArray);
-        if (null != affiliationArray) {
-            LOGGER.error("Affiliation Array not null");
-            Iterator<JSONObject> affiliationItr = affiliationArray.iterator();
-            Affiliation affiliation = null;
-            while (affiliationItr.hasNext()) {
-                JSONObject affiliationJSON = (JSONObject) new JSONParser()
-                        .parse(affiliationItr.next().toJSONString());
-                affiliation = parseAffiliationJSON(affiliationJSON);
-                if (null != affiliation) {
-                    user.setAffiliation(affiliation);
+            final User user) throws ASException {
+        try {
+            JSONObject affiliationArrayJSON = (JSONObject) new JSONParser()
+                    .parse(affiliations.toJSONString());
+            JSONArray affiliationArray = (JSONArray) affiliationArrayJSON
+                    .get("affiliation");
+            LOGGER.info("affiliationArray ##### ", affiliationArray);
+            if (null != affiliationArray) {
+                LOGGER.error("Affiliation Array not null");
+                Iterator<JSONObject> affiliationItr = affiliationArray
+                        .iterator();
+                Affiliation affiliation = null;
+                while (affiliationItr.hasNext()) {
+                    JSONObject affiliationJSON = (JSONObject) new JSONParser()
+                            .parse(affiliationItr.next().toJSONString());
+                    affiliation = parseAffiliationJSON(affiliationJSON);
+                    if (null != affiliation) {
+                        user.setAffiliation(affiliation);
+                    }
                 }
             }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException();
         }
     }
 
@@ -411,31 +456,38 @@ public class OrcidServiceImpl implements OrcidService {
      * @param affiliationJSON
      *            the affiliation json
      * @return the affiliation
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the as exception
      */
     private Affiliation parseAffiliationJSON(final JSONObject affiliationJSON)
-            throws Exception {
+            throws ASException {
         Affiliation affiliation = null;
         Organization organization = null;
         DisambiguatedOrganization disambiguatedOrganization = null;
-
-        affiliation = new Affiliation();
-        affiliation.setVisibility((String) affiliationJSON.get("-visibility"));
-        affiliation.setType((String) affiliationJSON.get("type"));
-        affiliation.setDepartmentName((String) affiliationJSON
-                .get("department-name"));
-        affiliation.setRoleTitle((String) affiliationJSON.get("role-title"));
-        affiliation.setStartDate(affiliationJSON.get("start-date").toString());
-        organization = parseOrganization(affiliationJSON);
-        if (null != organization) {
-            affiliation.setOrganization(organization);
+        try {
+            affiliation = new Affiliation();
+            affiliation.setVisibility((String) affiliationJSON
+                    .get("-visibility"));
+            affiliation.setType((String) affiliationJSON.get("type"));
+            affiliation.setDepartmentName((String) affiliationJSON
+                    .get("department-name"));
+            affiliation
+                    .setRoleTitle((String) affiliationJSON.get("role-title"));
+            affiliation.setStartDate(affiliationJSON.get("start-date")
+                    .toString());
+            organization = parseOrganization(affiliationJSON);
+            if (null != organization) {
+                affiliation.setOrganization(organization);
+            }
+            disambiguatedOrganization = parseDisambiguatedOrganization(affiliationJSON);
+            if (null != disambiguatedOrganization) {
+                affiliation
+                        .setDisambiguatedOrganization(disambiguatedOrganization);
+            }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException();
         }
-        disambiguatedOrganization = parseDisambiguatedOrganization(affiliationJSON);
-        if (null != disambiguatedOrganization) {
-            affiliation.setDisambiguatedOrganization(disambiguatedOrganization);
-        }
-
         return affiliation;
     }
 
@@ -445,25 +497,29 @@ public class OrcidServiceImpl implements OrcidService {
      * @param affiliationJSON
      *            the affiliation json
      * @return the organization
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the as exception
      */
     private Organization parseOrganization(final JSONObject affiliationJSON)
-            throws Exception {
+            throws ASException {
         Organization organization = null;
-        JSONObject organizationJSON = (JSONObject) new JSONParser()
-                .parse(affiliationJSON.toJSONString());
-        JSONObject organizationDetails = (JSONObject) organizationJSON
-                .get("organization");
-        if (null != organizationDetails) {
-            organization = new Organization();
-            organization.setName((String) organizationDetails.get("name"));
-            Address address = parseAddress(organizationDetails);
-            if (null != address) {
-                organization.setAddress(address);
+        try {
+            JSONObject organizationJSON = (JSONObject) new JSONParser()
+                    .parse(affiliationJSON.toJSONString());
+            JSONObject organizationDetails = (JSONObject) organizationJSON
+                    .get("organization");
+            if (null != organizationDetails) {
+                organization = new Organization();
+                organization.setName((String) organizationDetails.get("name"));
+                Address address = parseAddress(organizationDetails);
+                if (null != address) {
+                    organization.setAddress(address);
+                }
             }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException();
         }
-
         return organization;
     }
 
@@ -473,19 +529,24 @@ public class OrcidServiceImpl implements OrcidService {
      * @param organizationDetails
      *            the organization details
      * @return the address
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the asexception
      */
     private Address parseAddress(final JSONObject organizationDetails)
-            throws Exception {
+            throws ASException {
         Address address = null;
-        JSONObject addressJSON = (JSONObject) new JSONParser()
-                .parse(organizationDetails.toJSONString());
-        JSONObject addressDetails = (JSONObject) addressJSON.get("address");
-        if (null != addressDetails) {
-            address = new Address();
-            address.setCity((String) addressDetails.get("city"));
-            address.setRegion((String) addressDetails.get("region"));
+        try {
+            JSONObject addressJSON = (JSONObject) new JSONParser()
+                    .parse(organizationDetails.toJSONString());
+            JSONObject addressDetails = (JSONObject) addressJSON.get("address");
+            if (null != addressDetails) {
+                address = new Address();
+                address.setCity((String) addressDetails.get("city"));
+                address.setRegion((String) addressDetails.get("region"));
+            }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException();
         }
         return address;
     }
@@ -496,24 +557,29 @@ public class OrcidServiceImpl implements OrcidService {
      * @param affiliationJSON
      *            the affiliation json
      * @return the disambiguated organization
-     * @throws Exception
-     *             the exception
+     * @throws ASException
+     *             the as exception
      */
     private DisambiguatedOrganization parseDisambiguatedOrganization(
-            final JSONObject affiliationJSON) throws Exception {
+            final JSONObject affiliationJSON) throws ASException {
         DisambiguatedOrganization disambiguatedOrganization = null;
-        JSONObject disambiguatedOrganizationJSON = (JSONObject) new JSONParser()
-                .parse(affiliationJSON.toJSONString());
-        JSONObject disambiguatedOrganizationDetails = (JSONObject) disambiguatedOrganizationJSON
-                .get("disambiguated-organization");
-        if (null != disambiguatedOrganizationDetails) {
-            disambiguatedOrganization = new DisambiguatedOrganization();
-            disambiguatedOrganization
-                    .setDisambiguatedOrganizationIdentifier((String) disambiguatedOrganizationDetails
-                            .get("disambiguated-organization-identifier"));
-            disambiguatedOrganization
-                    .setDisambiguationSource((String) disambiguatedOrganizationDetails
-                            .get("disambiguation-source"));
+        try {
+            JSONObject disambiguatedOrganizationJSON = (JSONObject) new JSONParser()
+                    .parse(affiliationJSON.toJSONString());
+            JSONObject disambiguatedOrganizationDetails = (JSONObject) disambiguatedOrganizationJSON
+                    .get("disambiguated-organization");
+            if (null != disambiguatedOrganizationDetails) {
+                disambiguatedOrganization = new DisambiguatedOrganization();
+                disambiguatedOrganization
+                        .setDisambiguatedOrganizationIdentifier((String) disambiguatedOrganizationDetails
+                                .get("disambiguated-organization-identifier"));
+                disambiguatedOrganization
+                        .setDisambiguationSource((String) disambiguatedOrganizationDetails
+                                .get("disambiguation-source"));
+            }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException();
         }
         return disambiguatedOrganization;
     }
@@ -546,7 +612,7 @@ public class OrcidServiceImpl implements OrcidService {
 
     @Override
     @Cacheable(value = "user", key = "#authorizationCode")
-    public User getCachedOrcidData(User user,String authorizationCode) {
+    public User getCachedOrcidData(User user, String authorizationCode) {
         return user;
     }
 }

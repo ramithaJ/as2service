@@ -145,13 +145,13 @@ public class RegistrationServiceImpl implements RegistrationService {
      * @return the user from first name last name
      */
     @Override
-    public final ArrayList<User> getUserFromFirstNameLastName(
+    public final List<User> getUserFromFirstNameLastName(
             final String firstName, final String lastName) {
 
-        ArrayList<User> userList = new ArrayList<User>();
+        List<User> userList = new ArrayList<User>();
         if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
             try {
-                ArrayList<Participant> participantList = participantInterfaceService
+                List<Participant> participantList = participantInterfaceService
                         .searchParticipantByName(firstName, lastName);
 
                 if (!StringUtils.isEmpty(participantList)) {
@@ -165,15 +165,15 @@ public class RegistrationServiceImpl implements RegistrationService {
                             tempUser.setFirstName(participant.getGivenName());
                             tempUser.setLastName(participant.getFamilyName());
                             tempUser.setPrimaryEmailAddr(participant.getEmail());
-                            // tempUser.setInstituition(participant.geti);
+
                             tempUser.setOrcidId(participant.getOrcidId());
                             userList.add(tempUser);
                         }
 
                     }
                 } else {
-                    ArrayList<CDMUser> cdmUserList = cdmInterfaceService
-                            .searchCDM(firstName, lastName);
+                    List<CDMUser> cdmUserList = cdmInterfaceService.searchCDM(
+                            firstName, lastName);
                     if (!StringUtils.isEmpty(cdmUserList)) {
                         for (CDMUser cdmUser : cdmUserList) {
                             User tempUser = new User();
@@ -186,7 +186,8 @@ public class RegistrationServiceImpl implements RegistrationService {
                     }
                 }
             } catch (Exception e) {
-                throw new UserException("Some Error", e.getMessage());
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+                throw new UserException();
             }
         }
 
@@ -235,6 +236,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 }
 
             } catch (Exception e) {
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new UserException();
             }
         }
@@ -342,6 +344,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
             }
         } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(createUserErrorCode, createUserErrorMessage);
         }
 
@@ -381,6 +384,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                         createUserErrorMessage);
             }
         } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(createUserErrorCode, createUserErrorMessage);
         }
         return status;
@@ -471,8 +475,9 @@ public class RegistrationServiceImpl implements RegistrationService {
             User user = returnUserFromDB(AuthorServicesUtil
                     .decrypt(almUserIdEncrypted));
 
-            List<ALMUser> almUserList = almInterfaceService.searchUser(
-                    user.getPrimaryEmailAddr()).getUserPayload().getUserPayload();
+            List<ALMUser> almUserList = almInterfaceService
+                    .searchUser(user.getPrimaryEmailAddr()).getUserPayload()
+                    .getUserPayload();
             if (!StringUtils.isEmpty(almUserList)) {
                 for (ALMUser almUser : almUserList) {
                     if (almUser.getEmail().equals(user.getPrimaryEmailAddr())) {
@@ -498,6 +503,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 }
             }
         } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new ASException(noUserFoundErrorCode, noUserFoundErrorMessage);
         }
 

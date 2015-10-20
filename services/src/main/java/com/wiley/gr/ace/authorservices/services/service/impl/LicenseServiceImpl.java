@@ -125,12 +125,12 @@ public class LicenseServiceImpl implements LicenseService {
      * @return the license choice
      */
     @Override
-    public ArrayList<String> getLicenseChoice(final String dhId,
+    public List<String> getLicenseChoice(final String dhId,
             final LicenseObject licenseObject) {
 
         LicenseChoiceRequest licenseChoiceRequest = new LicenseChoiceRequest();
         Funders funders = new Funders();
-        ArrayList<Funder> funderList = new ArrayList<Funder>();
+        List<Funder> funderList = new ArrayList<Funder>();
 
         licenseChoiceRequest.setDhId(dhId);
 
@@ -183,13 +183,6 @@ public class LicenseServiceImpl implements LicenseService {
             final String userId, final String articleId) {
         SavedLicenses savedLicenses = new SavedLicenses();
         Integer licenseId = null;
-        // Users users = new Users();
-        // Products products = new Products();
-        // users.setUserId(Long.valueOf(userId));
-        // products.setDhId(Integer.parseInt(articleId));
-        //
-        // savedLicenses.setProducts(products);
-        // savedLicenses.setUsersByUserId(users);
         savedLicenses.setCreatedDate(new Date());
 
         licenseId = licenseDAO.saveLicense(savedLicenses);
@@ -437,7 +430,7 @@ public class LicenseServiceImpl implements LicenseService {
             List<Id> lisOfId = programData.getFunder().getSecondaryIds()
                     .getId();
             for (Id id : lisOfId) {
-                if (id.getType().equalsIgnoreCase("DOI")) {
+                if ("DOI".equalsIgnoreCase(id.getType())){
                     grantRecipients.setRecipentsName(programData.getFunder()
                             .getName());
                     break;

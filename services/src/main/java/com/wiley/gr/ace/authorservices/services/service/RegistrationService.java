@@ -11,7 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -33,7 +33,7 @@ public interface RegistrationService {
      * @return the user from first name last name
      * 
      */
-    ArrayList<User> getUserFromFirstNameLastName(String firstName,
+    List<User> getUserFromFirstNameLastName(String firstName,
             String lastName);
 
     /**

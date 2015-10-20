@@ -22,8 +22,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
-import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
 import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -37,7 +37,6 @@ import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantError;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
-import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
 /**
@@ -51,10 +50,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserAccountServiceImpl.class);
 
-    /** getting bean of userProfile. */
-    @Autowired
-    private UserProfiles userProfile;
-
+    
     /** The as data dao. */
     @Autowired(required = true)
     private ASDataDAO asDataDao;
@@ -64,11 +60,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     @Autowired(required = true)
     private AutocompleteService autoCompleteService;
-    /**
-     * This field holds the value of asdataService.
-     */
-    @Autowired(required = true)
-    private ASDataService asdataService;
+    
 
     /** The participants interface service. */
     @Autowired(required = true)
@@ -89,41 +81,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Value("${jobCategories}")
     private String jobCategories;
 
-    /**
-     * This field holds the value of physicalAddress.
-     */
-    @Value("${PhysicalAddress}")
-    private String physicalAddress;
-
-    /**
-     * This field holds the value of billingAddress.
-     */
-    @Value("${BillingAddress}")
-    private String billingAddress;
-
-    /**
-     * This field holds the value of shippingAddress.
-     */
-    @Value("${ShippingAddress}")
-    private String shippingAddress;
-
-    /**
-     * This field holds the value of institutions.
-     */
-    @Value("${institutions}")
-    private String institutions;
-
-    /**
-     * This field holds the value of departments.
-     */
-    @Value("${departments}")
-    private String departments;
-
-    /**
-     * This field holds the value of countries.
-     */
-    @Value("${countries}")
-    private String countries;
+ 
 
     /**
      * This field holds the value of participantService.
@@ -182,7 +140,7 @@ public class UserAccountServiceImpl implements UserAccountService {
             user.setSuffix(suffixId);
             user.setSuffixName(asDataDao.getData(suffixId));
         }
-        user.setAlternateName(""); // TODO
+        user.setAlternateName(AuthorServicesConstants.EMPTY); 
         user.setPrimaryEmailAddr(participantResponse.getEmail());
         user.setRecoveryEmailAddress(participantResponse.getRecoveryEmail());
         final String industryCode = participantResponse.getIndustryId();
@@ -199,7 +157,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         }
 
         user.setOrcidId(participantResponse.getOrcidId());
-        // user.setTermsOfUseFlg(customerDetails.getOptInFlag()); TODO
+        
 
         return user;
     }
@@ -255,7 +213,8 @@ public class UserAccountServiceImpl implements UserAccountService {
                 isUpdated = false;
                 final ParticipantError participantError = (ParticipantError) resposeEntity
                         .getBody();
-                throw new Exception(participantError.getMessage());
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,participantError);
+                throw new Exception();
             }
             return isUpdated;
         } else {
@@ -275,7 +234,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Override
     public List<AddressData> validateAddress(final AddressData address)
             throws Exception {
-        ArrayList<AddressData> validAddressList = new ArrayList<>();
+        List<AddressData> validAddressList = new ArrayList<>();
         final AddressValidationRequest addressValidationRequest = new AddressValidationRequest();
         final AddressValidationMultiReq addressValidationMultiReq = new AddressValidationMultiReq();
         addressValidationMultiReq.setStreet1(address.getAddressLine1());
@@ -286,7 +245,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         addressValidationMultiReq.setCountryName(address.getCountryName());
         addressValidationRequest
                 .setAddressValidationMultiReq(addressValidationMultiReq);
-        final ArrayList<AddressValidationMultiRes> validAddressListFromAddressDoctor = validationService
+        final List<AddressValidationMultiRes> validAddressListFromAddressDoctor = validationService
                 .validateAddress(addressValidationRequest);
 
         if (!StringUtils.isEmpty(validAddressListFromAddressDoctor)) {

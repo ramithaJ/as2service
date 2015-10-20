@@ -15,7 +15,7 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
@@ -39,7 +39,7 @@ public interface LicenseService {
      *            the license object
      * @return the license choice
      */
-    ArrayList<String> getLicenseChoice(String dhId, LicenseObject licenseObject);
+    List<String> getLicenseChoice(String dhId, LicenseObject licenseObject);
 
     /**
      * Gets the license text.

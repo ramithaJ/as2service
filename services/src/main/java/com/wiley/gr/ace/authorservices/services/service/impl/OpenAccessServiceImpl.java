@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
@@ -88,14 +89,6 @@ public class OpenAccessServiceImpl implements OpenAccessService {
     @Autowired(required = true)
     OrderOnlineOpenService orderOnlineOpenService;
 
-    // /** This field holds the value of articleAcceptanceCode. */
-    // @Value("${articleAcceptance.code}")
-    // private String articleAcceptanceCode;
-    //
-    // /** This field holds the value of articleAcceptanceMessage. */
-    // @Value("${articleAcceptance.message}")
-    // private String articleAcceptanceMessage;
-
     /** This field holds the value of savedOrderCode. */
     @Value("${savedOrder.code}")
     private String savedOrderCode;
@@ -111,10 +104,6 @@ public class OpenAccessServiceImpl implements OpenAccessService {
     /** This field holds the value of orderExistenceMessage. */
     @Value("${orderExistence.message}")
     private String orderExistenceMessage;
-
-    // /** This field holds the value of correspondingAuthorId. */
-    // @Value("${CorrespondingAuthorId}")
-    // private String correspondingAuthorId;
 
     /**
      * Gets the open access details.
@@ -132,22 +121,9 @@ public class OpenAccessServiceImpl implements OpenAccessService {
     @Override
     public final OpenAccessPaymentData getOpenAccessDetails(
             final String userId, final String articleId, final String journalId)
-                    throws Exception {
+            throws Exception {
 
         OpenAccessPaymentData openAccessPaymentData = null;
-
-        // ProductPersonRelations articleAssignmentData = orderOnlineDAO
-        // .getProductPersonRelations(userId, articleId);
-        // if (articleAssignmentData == null) {
-        // throw new ASException(articleAcceptanceCode,
-        // articleAcceptanceMessage);
-        // }
-
-        // ProductRoles productRoles = articleAssignmentData.getProductRoles();
-        //
-        // if (!StringUtils.isEmpty(productRoles)
-        // && productRoles.getProductRoleCd().equalsIgnoreCase(
-        // correspondingAuthorId)) {
 
         SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(articleId,
                 userId);
@@ -250,7 +226,7 @@ public class OpenAccessServiceImpl implements OpenAccessService {
         taxRequestItem.setJournalElectronicISSN(journalDetails
                 .getJournalElectronicIssn());
         taxRequestItem
-        .setJournalPrintISSN(journalDetails.getJournalPrintIssn());
+                .setJournalPrintISSN(journalDetails.getJournalPrintIssn());
         taxRequestItem.setProductCode(articleId);
         taxRequestItemList.add(taxRequestItem);
         taxRequest.setItem(taxRequestItemList);
@@ -309,10 +285,10 @@ public class OpenAccessServiceImpl implements OpenAccessService {
         final Country billingCountry = new Country();
         billingCountry.setCountryCode(addressOnFile.getBillingCountry());
         address.setCountry(billingCountry);
-        // address.setDepartment(addressOnFile.getBillingDepartment());
+
         address.setEmailId(addressOnFile.getBillingEmail());
         address.setFirstName(addressOnFile.getBillingCustomerName());
-        // address.setInstitution(addressOnFile.getBillingInstitution());
+
         address.setPhoneNumber(addressOnFile.getBillingPhoneNumber());
         address.setPostCode(addressOnFile.getBillingZipPostalCode());
         address.setState(addressOnFile.getBillingStateProv());
@@ -337,10 +313,10 @@ public class OpenAccessServiceImpl implements OpenAccessService {
         final Country billingCountry = new Country();
         billingCountry.setCountryCode(addressOnFile.getContactCountry());
         address.setCountry(billingCountry);
-        // address.setDepartment(addressOnFile.getContactDepartment());
+
         address.setEmailId(addressOnFile.getContactEmail());
         address.setFirstName(addressOnFile.getContactName());
-        // address.setInstitution(addressOnFile.getContactInstitution());
+
         address.setPhoneNumber(addressOnFile.getContactPhoneNumber());
         address.setPostCode(addressOnFile.getContactZipPostalCode());
         address.setStateCode(addressOnFile.getContactStateProv());
@@ -354,13 +330,13 @@ public class OpenAccessServiceImpl implements OpenAccessService {
      * @param address
      *            the address
      * @return true, if successful
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     @Override
-    public final ArrayList<Address> validateAddress(final Address address)
-            throws Exception {
-        ArrayList<Address> validAddressList = new ArrayList<>();
+    public final List<Address> validateAddress(final Address address)
+            throws UserException {
+        List<Address> validAddressList = new ArrayList<>();
         AddressValidationRequest addressValidationRequest = new AddressValidationRequest();
         AddressValidationMultiReq addressValidationMultiReq = new AddressValidationMultiReq();
         addressValidationMultiReq.setStreet1(address.getAddressLine1());
@@ -372,9 +348,9 @@ public class OpenAccessServiceImpl implements OpenAccessService {
                 .getCountryName());
 
         addressValidationRequest
-        .setAddressValidationMultiReq(addressValidationMultiReq);
+                .setAddressValidationMultiReq(addressValidationMultiReq);
 
-        ArrayList<AddressValidationMultiRes> validAddressListFromAddressDoctor = validationService
+        List<AddressValidationMultiRes> validAddressListFromAddressDoctor = validationService
                 .validateAddress(addressValidationRequest);
 
         if (!StringUtils.isEmpty(validAddressListFromAddressDoctor)) {
@@ -435,10 +411,10 @@ public class OpenAccessServiceImpl implements OpenAccessService {
                 .getOnlineOpenOrderDetails(userId, orderId);
         onlineOpenOrder.setFunderDetails(null);
         DiscountDetail discountDetail = new DiscountDetail();
-        // TODO we have to call discount service to get discount details
-        discountDetail.setDiscountAmount("12.33");
-        discountDetail.setDiscountPercent("20");
-        discountDetail.setDiscountType("special");
+
+        discountDetail.setDiscountAmount(new String());
+        discountDetail.setDiscountPercent(new String());
+        discountDetail.setDiscountType(new String());
         onlineOpenOrder.setDiscountDetail(discountDetail);
         return onlineOpenOrder;
     }

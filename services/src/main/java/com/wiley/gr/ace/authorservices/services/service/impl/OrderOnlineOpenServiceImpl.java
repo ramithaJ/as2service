@@ -24,6 +24,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -105,6 +107,10 @@ import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
  * @author virtusa version 1.0
  */
 public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
+
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DashboardServiceImpl.class);
 
     /** Getting Bean Of Order Service. */
     @Autowired(required = true)
@@ -610,7 +616,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             final List<WOAAccount> woaAccountList) {
 
         if (woaAccountList != null) {
-            nonRestrictedWOAAccountList = new ArrayList<WOAAccount>();
 
             for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
                     .hasNext();) {
@@ -642,7 +647,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             final List<WOAAccount> woaAccountList) {
 
         if (woaAccountList != null) {
-            restrictedWOAAccountList = new ArrayList<WOAAccount>();
 
             for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
                     .hasNext();) {
@@ -663,18 +667,18 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * This method returns the Discounted WOA Funder List.
      *
-     * @param DHID
+     * @param dhId
      *            - the request value
      * @return List
      */
     @Override
     public final List<WOAFunder> retrieveDiscountedWOAFunderList(
-            final String DHID) {
+            final String dhId) {
 
         List<WOAFunder> woaFunderList = null;
 
         PdhArticleResponse pdhArticleResponse = orderservice
-                .pdhLookUpArticle(Integer.parseInt(DHID));
+                .pdhLookUpArticle(Integer.parseInt(dhId));
 
         woaFunderList = pdhArticleResponse.getWOAFunders().getWOAFunder();
 
@@ -685,13 +689,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * This method returns the List of Societies which provide Society discounts
      * for the journal.
      *
-     * @param DHID
+     * @param dhId
      *            the dhid
      * @return List
      */
     @Override
     public final List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
-            final String DHID) {
+            final String dhId) {
         List<DiscountedSociety> discountedSocietyListForJournal = null;
         String journalAcronym = null;
 
@@ -1146,18 +1150,22 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 onlineOpenOrder = new ObjectMapper().readValue(
                         object.toJSONString(), OnlineOpenOrder.class);
             } catch (JsonParseException e) {
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new ASException(
                         AuthorServicesConstants.INTERNAL_SERVER_ERROR,
                         e.getMessage());
             } catch (JsonMappingException e) {
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new ASException(
                         AuthorServicesConstants.INTERNAL_SERVER_ERROR,
                         e.getMessage());
             } catch (ParseException e) {
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new ASException(
                         AuthorServicesConstants.INTERNAL_SERVER_ERROR,
                         e.getMessage());
             } catch (IOException e) {
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new ASException(
                         AuthorServicesConstants.INTERNAL_SERVER_ERROR,
                         e.getMessage());
@@ -1283,9 +1291,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                     .getMessage());
             try {
                 orderOnlineDAO.requestOnlineOpen(coauthorRequestsOoorders);
-            } catch (Exception exception) {
-                throw new ASException("2434",
-                        " Already Requested by some one For Online Open");
+            } catch (Exception e) {
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,e);
+                throw new ASException();
             }
             TaskServiceRequest taskServiceRequest = new TaskServiceRequest();
 
