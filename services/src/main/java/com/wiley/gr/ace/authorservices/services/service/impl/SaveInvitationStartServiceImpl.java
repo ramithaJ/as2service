@@ -26,45 +26,40 @@ import com.wiley.gr.ace.authorservices.services.service.SaveInvitationStartEvent
  * @author virtusa version 1.0
  */
 public class SaveInvitationStartServiceImpl implements
-		SaveInvitationStartEventService {
+        SaveInvitationStartEventService {
 
-	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(SaveInvitationStartServiceImpl.class);
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(SaveInvitationStartServiceImpl.class);
 
-	/** The invitation start dao. */
+    /** The invitation start dao. */
 
-	@Autowired(required = true)
-	private InvitationStartDAO invitationStartDAO;
+    @Autowired(required = true)
+    private InvitationStartDAO invitationStartDAO;
 
-	/**
-	 * Parses the invitation start event.
-	 *
-	 * @param invitationStartEvent
-	 *            the invitation start event data
-	 * @throws Exception
-	 *             the exception
-	 */
-	@Override
-	public final void parseInvitationStartEvent(
-			final InvitationStartEventData invitationStartEvent)
-			throws Exception {
-		LOGGER.info("inside parseInvitationStartEvent of SaveInvitationStartServiceImpl");
-		if (!StringUtils.isEmpty(invitationStartEvent)) {
-			//String articleId = invitationStartEvent.getArticleId();
-			String email = invitationStartEvent.getEmail();
-			//String userRole = invitationStartEvent.getUserRole();
+    /**
+     * Parses the invitation start event.
+     *
+     * @param invitationStartEvent
+     *            the invitation start event data
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public final void parseInvitationStartEvent(
+            final InvitationStartEventData invitationStartEvent)
+            throws Exception {
+        LOGGER.info("inside parseInvitationStartEvent of SaveInvitationStartServiceImpl");
+        if (!StringUtils.isEmpty(invitationStartEvent)) {
 
-			String guId = invitationStartEvent.getUserID();
-			//String notificationId = invitationStartEvent.getNotificationId();
-			invitationStartDAO.updateInviteResetPWDLog(guId, email);
-//			InvitationLog invitationLog = new InvitationLog();
-//			invitationLog.setEmailAddr(email);
-//			invitationLog.setNotificationId(Long.parseLong(notificationId));
-//			invitationStartDAO.createInvitationLog(invitationLog);
+            String email = invitationStartEvent.getEmail();
 
-		}
+            String guId = invitationStartEvent.getUserID();
 
-	}
+            invitationStartDAO.updateInviteResetPWDLog(guId, email);
+
+        }
+
+    }
 
 }
