@@ -21,7 +21,6 @@ import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
 import com.wiley.gr.ace.authorservices.services.service.impl.SaveArticleDataImpl;
 
-// TODO: Auto-generated Javadoc
 /**
  * The listener interface for receiving queue events. The class that is
  * interested in processing a queue event implements this interface, and the

@@ -16,16 +16,28 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
-import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
-import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
-import com.wiley.gr.ace.authorservices.model.external.*;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
-import java.nio.charset.StandardCharsets;
-import java.util.List;
+import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
+import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
+import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
+import com.wiley.gr.ace.authorservices.model.external.AddressData;
+import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
+import com.wiley.gr.ace.authorservices.model.external.AlertRequest;
+import com.wiley.gr.ace.authorservices.model.external.EntityValue;
+import com.wiley.gr.ace.authorservices.model.external.Participant;
+import com.wiley.gr.ace.authorservices.model.external.ParticipantErrorResponse;
+import com.wiley.gr.ace.authorservices.model.external.ParticipantGetResponse;
+import com.wiley.gr.ace.authorservices.model.external.PreferenceMapper;
+import com.wiley.gr.ace.authorservices.model.external.PreferenceValue;
+import com.wiley.gr.ace.authorservices.model.external.Preferences;
+import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
+import com.wiley.gr.ace.authorservices.model.external.ProfileResponse;
 
 /**
  * The Class ParticipantsInterfaceServiceImpl.
@@ -55,7 +67,8 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Creates the participant.
      *
-     * @param participant the participant
+     * @param participant
+     *            the participant
      * @return the string
      */
     @Override
@@ -69,7 +82,8 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Search participant by participant id.
      *
-     * @param participantId the participant id
+     * @param participantId
+     *            the participant id
      * @return the participant
      */
     @Override
@@ -83,7 +97,8 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Search participant by user id.
      *
-     * @param userId the user id
+     * @param userId
+     *            the user id
      * @return the participant
      */
     @Override
@@ -100,8 +115,10 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Search participant by name.
      *
-     * @param firstName the first name
-     * @param lastName  the last name
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
      * @return the list
      */
     @Override
@@ -119,9 +136,11 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Gets the address.
      *
-     * @param participantId the participant id
+     * @param participantId
+     *            the participant id
      * @return the address
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
 
     @Override
@@ -134,47 +153,55 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Update address.
      *
-     * @param participantId the participant id
-     * @param address       the address
+     * @param participantId
+     *            the participant id
+     * @param address
+     *            the address
      * @return the response entity
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final ResponseEntity updateAddress(final String participantId,
-                                              final AddressData address) {
+            final AddressData address) {
         final String url = "http://demo7580012.mockable.io/address";
         EntityValue entityValue = new EntityValue();
         entityValue.setAddressData(address);
         ProfileEntity profileEntity = new ProfileEntity();
         profileEntity.setEntityValue(entityValue);
         return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
-                HttpMethod.POST, profileEntity, ParticipantError.class, null);
+                HttpMethod.POST, profileEntity, ParticipantErrorResponse.class,
+                null);
     }
 
     /**
      * Upload profile image.
      *
-     * @param participantId the participant id
-     * @param imageFile     the image file
+     * @param participantId
+     *            the participant id
+     * @param imageFile
+     *            the image file
      * @return the response entity
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final ResponseEntity uploadProfileImage(final String participantId,
-                                                   final byte[] imageFile) {
+            final byte[] imageFile) {
         final String url = URL + participantId + "/profileImage";
         return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
                 HttpMethod.PUT, new String(imageFile, StandardCharsets.UTF_8),
-                ParticipantError.class, null);
+                ParticipantErrorResponse.class, null);
 
     }
 
     /**
      * Gets the profile image.
      *
-     * @param participantId the participant id
+     * @param participantId
+     *            the participant id
      * @return the profile image
      */
     @Override
@@ -187,31 +214,37 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Update alerts.
      *
-     * @param participantId the participant id
-     * @param alert         the alert
+     * @param participantId
+     *            the participant id
+     * @param alert
+     *            the alert
      * @return the response entity
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final ResponseEntity updateAlerts(final String participantId,
-                                             final AlertRequest alert) {
+            final AlertRequest alert) {
         final String url = "http://demo7580012.mockable.io/alert";
         EntityValue entityValue = new EntityValue();
         entityValue.setAlertRequest(alert);
         ProfileEntity profileEntity = new ProfileEntity();
         profileEntity.setEntityValue(entityValue);
         return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
-                HttpMethod.POST, profileEntity, ParticipantError.class, null);
+                HttpMethod.POST, profileEntity, ParticipantErrorResponse.class,
+                null);
 
     }
 
     /**
      * Gets the alerts.
      *
-     * @param participantId the participant id
+     * @param participantId
+     *            the participant id
      * @return the alerts
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final PreferenceValue getAlerts(final String participantId) {
@@ -224,10 +257,11 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Update profile.
      *
-     * @param profileEntity the profile entity
+     * @param profileEntity
+     *            the profile entity
      * @return the response entity
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public final ResponseEntity updateProfile(final ProfileEntity profileEntity) {
 
@@ -240,7 +274,8 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Gets the preferred journals.
      *
-     * @param participantId the participant id
+     * @param participantId
+     *            the participant id
      * @return the preferred journals
      */
     @Override
@@ -255,7 +290,8 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Delete preferred journal.
      *
-     * @param profileEntity the profile entity
+     * @param profileEntity
+     *            the profile entity
      * @return true, if successful
      */
     @Override
@@ -270,7 +306,8 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Adds the preferred journals.
      *
-     * @param profileEntity the profile entity
+     * @param profileEntity
+     *            the profile entity
      */
     @Override
     public final void addPreferredJournals(final ProfileEntity profileEntity) {
@@ -283,7 +320,8 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Update participant.
      *
-     * @param participant the participant
+     * @param participant
+     *            the participant
      */
     @Override
     public final void updateParticipant(final Participant participant) {
@@ -298,7 +336,8 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Search participant by orcid id.
      *
-     * @param orcidId the orcid id
+     * @param orcidId
+     *            the orcid id
      * @return the participant
      */
     @Override
@@ -310,13 +349,13 @@ public class ParticipantsInterfaceServiceImpl implements
     }
 
     @Override
-    public Participant searchParticipantByEmailId(String userId) {
+    public Participant searchParticipantByEmailId(final String userId) {
         final String participantSearchUrl = participantCrudUrl
                 .concat("?email=").concat(userId);
         ParticipantGetResponse participantGetResponse = (ParticipantGetResponse) RestServiceInvokerUtil
                 .getServiceData(participantSearchUrl,
                         ParticipantGetResponse.class);
-        return (Participant) participantGetResponse.getParticipantList().get(0);
+        return participantGetResponse.getParticipantList().get(0);
     }
 
 }

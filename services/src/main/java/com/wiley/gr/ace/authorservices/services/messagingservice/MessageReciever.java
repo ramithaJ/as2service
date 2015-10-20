@@ -70,7 +70,7 @@ public class MessageReciever {
         MetadataModel eventModelData = (MetadataModel) unmarshall(message,
                 "com.wiley.gr.ace.authorservices.model.event.MetadataModel");
         String eventType = eventModelData.getEventMetaData().getEventTypeName();
-        if (eventType.equalsIgnoreCase("InvitationStartEvent")) {
+        if ("InvitationStartEvent".equalsIgnoreCase(eventType)) {
             InvitationStartModel startModel = (InvitationStartModel) unmarshall(
                     message,
                     "com.wiley.gr.ace.authorservices.model.event.InvitationStartModel");

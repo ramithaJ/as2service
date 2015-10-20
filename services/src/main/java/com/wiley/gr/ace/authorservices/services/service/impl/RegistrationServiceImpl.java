@@ -502,7 +502,8 @@ public class RegistrationServiceImpl implements RegistrationService {
      * @param userStatus
      *            the user status
      */
-    private void verifyAccountChecking(ALMUser almUser, String userStatus) {
+    private void verifyAccountChecking(final ALMUser almUser,
+            final String userStatus) {
         if (AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE
                 .equalsIgnoreCase(userStatus)) {
             throw new ASException(accountActivatedErrorCode,
@@ -513,8 +514,9 @@ public class RegistrationServiceImpl implements RegistrationService {
                     accountSuspendedErrorMessage);
         } else if (AuthorServicesConstants.VERIFY_ACCOUNT_AWAITING_ACTIVATION
                 .equalsIgnoreCase(userStatus)) {
-            userStatus = AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE;
-            almUser.setUserStatus(userStatus);
+            String userStatusString = null;
+            userStatusString = AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE;
+            almUser.setUserStatus(userStatusString);
             almInterfaceService.updateUser(almUser);
         }
     }

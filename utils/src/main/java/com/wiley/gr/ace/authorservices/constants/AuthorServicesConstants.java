@@ -271,6 +271,11 @@ public class AuthorServicesConstants {
     public static final String ASTRISK = "*";
 
     /**
+     * This field holds the value of JOUNALNOTOO
+     */
+    public static final String JOUNALNOTOO = "journal Doesnot allows to OO";
+
+    /**
      * constructor.
      */
     private AuthorServicesConstants() {

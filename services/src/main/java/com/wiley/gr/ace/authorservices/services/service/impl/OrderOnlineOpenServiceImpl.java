@@ -612,7 +612,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return list
      */
     private final List<WOAAccount> retrieveNonRestrictedWOAAccountList(
-            List<WOAAccount> nonRestrictedWOAAccountList,
+            final List<WOAAccount> nonRestrictedWOAAccountList,
             final List<WOAAccount> woaAccountList) {
 
         if (woaAccountList != null) {
@@ -643,7 +643,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return list
      */
     private final List<WOAAccount> retrieveRestrictedWOAAccountList(
-            List<WOAAccount> restrictedWOAAccountList,
+            final List<WOAAccount> restrictedWOAAccountList,
             final List<WOAAccount> woaAccountList) {
 
         if (woaAccountList != null) {
@@ -797,9 +797,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Override
     public final List<GrantRecipients> getGrantRecipients(final String articleId) {
 
-        List<GrantRecipients> grantRecipientsList = new ArrayList<GrantRecipients>();
-
-        return grantRecipientsList;
+        return new ArrayList<GrantRecipients>();
     }
 
     /**
@@ -1292,7 +1290,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             try {
                 orderOnlineDAO.requestOnlineOpen(coauthorRequestsOoorders);
             } catch (Exception e) {
-                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,e);
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new ASException();
             }
             TaskServiceRequest taskServiceRequest = new TaskServiceRequest();
@@ -1302,8 +1300,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             taskServiceRequest.setJustifications(articleId);
             taskServiceRequest.setRequestorId(requestOnlineOpen.getUserId());
 
-        } else if (journalAllows == false) {
-            throw new ASException("1234", "journal Doesnot allows to OO");
+        } else if (!journalAllows) {
+            throw new ASException(AuthorServicesConstants.NODATAFOUNDCODE,
+                    AuthorServicesConstants.JOUNALNOTOO);
         }
 
     }
