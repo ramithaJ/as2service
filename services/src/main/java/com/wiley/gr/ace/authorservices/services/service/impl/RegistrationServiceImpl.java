@@ -150,46 +150,44 @@ public class RegistrationServiceImpl implements RegistrationService {
             final String firstName, final String lastName) {
 
         List<User> userList = new ArrayList<User>();
-        if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
-            try {
-                List<Participant> participantList = participantInterfaceService
-                        .searchParticipantByName(firstName, lastName);
+        try {
+            List<Participant> participantList = participantInterfaceService
+                    .searchParticipantByName(firstName, lastName);
 
-                if (!StringUtils.isEmpty(participantList)) {
-                    for (Participant participant : participantList) {
-                        if ("ACTIVE".equalsIgnoreCase(participant.getState())) {
+            if (!StringUtils.isEmpty(participantList)) {
+                for (Participant participant : participantList) {
+                    if (AuthorServicesConstants.PARTICIPANT_STATUS_ACTIVE
+                            .equalsIgnoreCase(participant.getState())) {
 
-                            User tempUser = new User();
-                            tempUser.setCountryCode(participant
-                                    .getParticipantCountry());
+                        User tempUser = new User();
+                        tempUser.setCountryCode(participant
+                                .getParticipantCountry());
 
-                            tempUser.setFirstName(participant.getGivenName());
-                            tempUser.setLastName(participant.getFamilyName());
-                            tempUser.setPrimaryEmailAddr(participant.getEmail());
+                        tempUser.setFirstName(participant.getGivenName());
+                        tempUser.setLastName(participant.getFamilyName());
+                        tempUser.setPrimaryEmailAddr(participant.getEmail());
 
-                            tempUser.setOrcidId(participant.getOrcidId());
-                            userList.add(tempUser);
-                        }
-
+                        tempUser.setOrcidId(participant.getOrcidId());
+                        userList.add(tempUser);
                     }
-                } else {
-                    List<CDMUser> cdmUserList = cdmInterfaceService.searchCDM(
-                            firstName, lastName);
-                    if (!StringUtils.isEmpty(cdmUserList)) {
-                        for (CDMUser cdmUser : cdmUserList) {
-                            User tempUser = new User();
-                            tempUser.setFirstName(cdmUser.getFirstName());
-                            tempUser.setLastName(cdmUser.getLastName());
-                            tempUser.setPrimaryEmailAddr(cdmUser
-                                    .getPrimaryEmail());
-                            userList.add(tempUser);
-                        }
+
+                }
+            } else {
+                List<CDMUser> cdmUserList = cdmInterfaceService.searchCDM(
+                        firstName, lastName);
+                if (!StringUtils.isEmpty(cdmUserList)) {
+                    for (CDMUser cdmUser : cdmUserList) {
+                        User tempUser = new User();
+                        tempUser.setFirstName(cdmUser.getFirstName());
+                        tempUser.setLastName(cdmUser.getLastName());
+                        tempUser.setPrimaryEmailAddr(cdmUser.getPrimaryEmail());
+                        userList.add(tempUser);
                     }
                 }
-            } catch (Exception e) {
-                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
-                throw new UserException();
             }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException();
         }
 
         return userList;
@@ -205,42 +203,40 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public final User checkEmailIdExists(final String emailId) {
         User user = null;
-        if (!StringUtils.isEmpty(emailId)) {
-            try {
-                LOGGER.info("checking if user exists in ALM");
-                ALMSearchUserResponse almSearchUserResponse = almInterfaceService
-                        .searchUser(emailId);
-                if (StringUtils.isEmpty(almSearchUserResponse)) {
-                    LOGGER.info("User is not found in ALM, Searching the invitation records");
-                    if (!StringUtils.isEmpty(sharedService
-                            .searchInvitationRecord(emailId))) {
-                        LOGGER.info("User is an invited user");
-                        Participant participant = participantInterfaceService
-                                .searchParticipantByEmailId(emailId);
-                        user = new User();
-                        user.setFirstName(participant.getGivenName());
-                        user.setLastName(participant.getFamilyName());
+        try {
+            LOGGER.info("checking if user exists in ALM");
+            ALMSearchUserResponse almSearchUserResponse = almInterfaceService
+                    .searchUser(emailId);
+            if (StringUtils.isEmpty(almSearchUserResponse)) {
+                LOGGER.info("User is not found in ALM, Searching the invitation records");
+                if (!StringUtils.isEmpty(sharedService
+                        .searchInvitationRecord(emailId))) {
+                    LOGGER.info("User is an invited user");
+                    Participant participant = participantInterfaceService
+                            .searchParticipantByEmailId(emailId);
+                    user = new User();
+                    user.setFirstName(participant.getGivenName());
+                    user.setLastName(participant.getFamilyName());
 
-                        Country userCountry = new Country();
-                        userCountry.setCountryCode(participant
-                                .getParticipantCountry());
-                        userCountry.setCountryName(autoCompleteService
-                                .getNameByCode("countries",
-                                        participant.getParticipantCountry(),
-                                        null));
-                        user.setCountry(userCountry);
-                        user.setParticipantId(participant.getParticipantId());
-                    }
-                } else {
-                    throw new UserException(checkUserExistsErrorCode,
-                            checkUserExistsErrorMessage);
+                    Country userCountry = new Country();
+                    userCountry.setCountryCode(participant
+                            .getParticipantCountry());
+                    userCountry.setCountryName(autoCompleteService
+                            .getNameByCode("countries",
+                                    participant.getParticipantCountry(), null));
+                    user.setCountry(userCountry);
+                    user.setParticipantId(participant.getParticipantId());
                 }
-
-            } catch (Exception e) {
-                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
-                throw new UserException();
+            } else {
+                throw new UserException(checkUserExistsErrorCode,
+                        checkUserExistsErrorMessage);
             }
+
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException();
         }
+
         return user;
     }
 

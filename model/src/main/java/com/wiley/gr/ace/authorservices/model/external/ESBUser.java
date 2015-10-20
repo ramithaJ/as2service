@@ -11,7 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -170,16 +169,6 @@ public class ESBUser {
      */
     public final void setPrimaryEmailAddr(final String primaryEmailAddr) {
         this.primaryEmailAddr = primaryEmailAddr;
-    }
-
-    /**
-     * Sets the addresses.
-     *
-     * @param addresses
-     *            the new addresses
-     */
-    public final void setAddresses(final ArrayList<ESBUserAddress> addresses) {
-        this.addresses = addresses;
     }
 
     /**

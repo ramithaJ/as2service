@@ -28,23 +28,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class InvitationCeaseEventData {
 
     /** The article id. */
-	@XmlElement(name="articleId")
+    @XmlElement(name = "articleId")
     private String articleID;
 
     /** The email. */
-	@XmlElement(name="email")
+    @XmlElement(name = "email")
     private String email;
 
     /** The user role. */
-	@XmlElement(name="userRole")
+    @XmlElement(name = "userRole")
     private String userRole;
 
     /** The user id. */
-	@XmlElement(name="userID")
+    @XmlElement(name = "userID")
     private String userID;
 
     /** The persistent invitation ind. */
-	@XmlElement(name="persistentInvitationInd")
+    @XmlElement(name = "persistentInvitationInd")
     private boolean persistentInvitationInd;
 
     /**

@@ -67,6 +67,93 @@ public class OrcidServiceImpl implements OrcidService {
     /** The Constant COUNT. */
     private static final int COUNT = 10;
 
+    /** The Constant ORCID_IDENTIFIER. */
+    public static final String ORCID_IDENTIFIER = "orcid-identifier";
+
+    /** The Constant AFFILIATION. */
+    public static final String AFFILIATION = "affiliation";
+
+    /** The Constant ORCID_ACTIVITIES. */
+    public static final String ORCID_ACTIVITIES = "orcid-activities";
+
+    /** The Constant TYPE. */
+    public static final String TYPE = "type";
+
+    /** The Constant AFFILIATIONS. */
+    public static final String AFFILIATIONS = "affiliations";
+
+    /** The Constant ORCID_WORK. */
+    public static final String ORCID_WORK = "orcid-work";
+
+    /** The Constant NAME. */
+    public static final String NAME = "name";
+
+    /** The Constant VISIBILITY. */
+    public static final String VISIBILITY = "-visibility";
+
+    /** The Constant CITY. */
+    public static final String CITY = "city";
+
+    /** The Constant ORCID_PROFILE. */
+    public static final String ORCID_PROFILE = "orcid-profile";
+
+    /** The Constant ORCID_BIO. */
+    public static final String ORCID_BIO = "orcid-bio";
+
+    /** The Constant PATH. */
+    public static final String PATH = "path";
+
+    /** The Constant VALUE. */
+    public static final String VALUE = "value";
+
+    /** The Constant PERSONAL_DETAILS. */
+    public static final String PERSONAL_DETAILS = "personal-details";
+
+    /** The Constant CONTACT_DETAILS. */
+    public static final String CONTACT_DETAILS = "contact-details";
+
+    /** The Constant EMAIL. */
+    public static final String EMAIL = "email";
+
+    /** The Constant PRIMARY. */
+    public static final String PRIMARY = "primary";
+
+    /** The Constant GIVEN_NAMES. */
+    public static final String GIVEN_NAMES = "given-names";
+
+    /** The Constant FAMILY_NAME. */
+    public static final String FAMILY_NAME = "family-name";
+
+    /** The Constant COUNTRY. */
+    public static final String COUNTRY = "country";
+
+    /** The Constant ADDRESS. */
+    public static final String ADDRESS = "address";
+
+    /** The Constant DEPARTMENT_NAME. */
+    public static final String DEPARTMENT_NAME = "department-name";
+
+    /** The Constant ROLE_TITLE. */
+    public static final String ROLE_TITLE = "role-title";
+
+    /** The Constant START_DATE. */
+    public static final String START_DATE = "start-date";
+
+    /** The Constant ORGANIZATION. */
+    public static final String ORGANIZATION = "organization";
+
+    /** The Constant REGION. */
+    public static final String REGION = "region";
+
+    /** The Constant DISAMBIGUATED_ORGANIZATION. */
+    public static final String DISAMBIGUATED_ORGANIZATION = "disambiguated-organization";
+
+    /** The Constant DISAMBIGUATED_ORGANIZATION_IDENTIFIER. */
+    public static final String DISAMBIGUATED_ORGANIZATION_IDENTIFIER = "disambiguated-organization-identifier";
+
+    /** The Constant DISAMBIGUATION_SOURCE. */
+    public static final String DISAMBIGUATION_SOURCE = "disambiguation-source";
+
     /**
      * This method will take authorizationCode and call external service
      * oricdInterfaceService to authorize.
@@ -154,15 +241,14 @@ public class OrcidServiceImpl implements OrcidService {
             JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
                     .parse(orcidMessageJSON);
             JSONObject orcidProfile = (JSONObject) orcidProfileJSON
-                    .get("orcid-profile");
+                    .get(ORCID_PROFILE);
             LOGGER.info("orcidProfile ##### ", orcidProfile);
             if (null != orcidProfile) {
                 LOGGER.error("Orcid Message found");
                 parseOrcidIdentifier(orcidProfile, user);
                 JSONObject orcidBioJSON = (JSONObject) new JSONParser()
                         .parse(orcidProfile.toJSONString());
-                JSONObject orcidBio = (JSONObject) orcidBioJSON
-                        .get("orcid-bio");
+                JSONObject orcidBio = (JSONObject) orcidBioJSON.get(ORCID_BIO);
                 LOGGER.info("orcidBio ##### ", orcidBio);
                 if (null != orcidBio) {
                     JSONObject personalDetailsJSON = (JSONObject) new JSONParser()
@@ -194,13 +280,13 @@ public class OrcidServiceImpl implements OrcidService {
             JSONObject orcidIdentifierJSON = (JSONObject) new JSONParser()
                     .parse(orcidProfile.toJSONString());
             JSONObject orcidIdentifier = (JSONObject) orcidIdentifierJSON
-                    .get("orcid-identifier");
+                    .get(ORCID_IDENTIFIER);
             LOGGER.info("orcidIdentifier ##### ", orcidIdentifier);
             if (!StringUtils.isEmpty(orcidIdentifier)) {
                 LOGGER.info("orcidId Found ##### ", orcidIdentifier);
                 JSONObject orcidIdentifierValueJSON = (JSONObject) new JSONParser()
                         .parse(orcidIdentifier.toJSONString());
-                user.setOrcidId((String) orcidIdentifierValueJSON.get("path"));
+                user.setOrcidId((String) orcidIdentifierValueJSON.get(PATH));
             }
         } catch (Exception e) {
             LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
@@ -222,7 +308,7 @@ public class OrcidServiceImpl implements OrcidService {
             final User user) throws ASException {
         try {
             JSONObject personalDetails = (JSONObject) personalDetailsJSON
-                    .get("personal-details");
+                    .get(PERSONAL_DETAILS);
             if (null != personalDetails) {
                 /**
                  * Code to fetch FN and LN.
@@ -231,22 +317,22 @@ public class OrcidServiceImpl implements OrcidService {
                 JSONObject givenNamesJSON = (JSONObject) new JSONParser()
                         .parse(personalDetails.toJSONString());
                 JSONObject givenNames = (JSONObject) givenNamesJSON
-                        .get("given-names");
+                        .get(GIVEN_NAMES);
                 LOGGER.info("givenNames ##### ", givenNames);
                 if (null != givenNames) {
                     JSONObject givenNamesValueJSON = (JSONObject) new JSONParser()
                             .parse(givenNames.toJSONString());
-                    user.setFirstName((String) givenNamesValueJSON.get("value"));
+                    user.setFirstName((String) givenNamesValueJSON.get(VALUE));
                 }
                 JSONObject familyNamesJSON = (JSONObject) new JSONParser()
                         .parse(personalDetails.toJSONString());
                 JSONObject familyNames = (JSONObject) familyNamesJSON
-                        .get("family-name");
+                        .get(FAMILY_NAME);
                 LOGGER.info("familyNames ##### ", familyNames);
                 if (null != familyNames) {
                     JSONObject familyNamesValueJSON = (JSONObject) new JSONParser()
                             .parse(familyNames.toJSONString());
-                    user.setLastName((String) familyNamesValueJSON.get("value"));
+                    user.setLastName((String) familyNamesValueJSON.get(VALUE));
                 }
             }
         } catch (Exception e) {
@@ -270,12 +356,12 @@ public class OrcidServiceImpl implements OrcidService {
             final User user) throws ASException {
         try {
             JSONObject contactDetails = (JSONObject) personalDetailsJSON
-                    .get("contact-details");
+                    .get(CONTACT_DETAILS);
             if (null != contactDetails) {
                 LOGGER.error("Contact Details Found");
                 JSONObject emailArrayJSON = (JSONObject) new JSONParser()
                         .parse(contactDetails.toJSONString());
-                JSONArray emailArray = (JSONArray) emailArrayJSON.get("email");
+                JSONArray emailArray = (JSONArray) emailArrayJSON.get(EMAIL);
                 LOGGER.info("emailArray ##### ", emailArray);
                 if (null != emailArray) {
                     Iterator<JSONObject> emailItr = emailArray.iterator();
@@ -283,12 +369,12 @@ public class OrcidServiceImpl implements OrcidService {
                     while (emailItr.hasNext()) {
                         JSONObject emailJSON = (JSONObject) new JSONParser()
                                 .parse(emailItr.next().toJSONString());
-                        isPrimary = (Boolean) emailJSON.get("primary");
+                        isPrimary = (Boolean) emailJSON.get(PRIMARY);
 
                         LOGGER.info("isPrimary ---->" + isPrimary);
                         if (isPrimary) {
                             user.setPrimaryEmailAddr((String) emailJSON
-                                    .get("value"));
+                                    .get(VALUE));
                         }
                     }
                 }
@@ -317,18 +403,18 @@ public class OrcidServiceImpl implements OrcidService {
         try {
             JSONObject addressJSON = (JSONObject) new JSONParser()
                     .parse(contactDetails.toJSONString());
-            JSONObject addressDetails = (JSONObject) addressJSON.get("address");
+            JSONObject addressDetails = (JSONObject) addressJSON.get(ADDRESS);
             LOGGER.info("addressDetails ##### ", addressDetails);
             if (null != addressDetails) {
                 LOGGER.error("Address Details found");
                 JSONObject countryJSON = (JSONObject) new JSONParser()
                         .parse(addressDetails.toJSONString());
                 JSONObject countryDetails = (JSONObject) countryJSON
-                        .get("country");
+                        .get(COUNTRY);
                 addresses = new Addresses();
                 Address address = new Address();
-                Country country = parseCountryDetails(countryDetails);
-                address.setCountry(country);
+                Country countryObj = parseCountryDetails(countryDetails);
+                address.setCountry(countryObj);
                 addresses.setCorrespondenceAddress(address);
             }
         } catch (Exception e) {
@@ -351,7 +437,7 @@ public class OrcidServiceImpl implements OrcidService {
             throws ASException {
         Country country = null;
         country = new Country();
-        country.setCountryCode((String) countryDetails.get("value"));
+        country.setCountryCode((String) countryDetails.get(VALUE));
         List<Country> countryList = asDataService.getCountries(COUNT);
         for (Country countryEntity : countryList) {
             if (countryEntity.getCountryCode().startsWith(
@@ -380,23 +466,23 @@ public class OrcidServiceImpl implements OrcidService {
             JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
                     .parse(orcidMessageJSON);
             JSONObject orcidProfile = (JSONObject) orcidProfileJSON
-                    .get("orcid-profile");
+                    .get(ORCID_PROFILE);
             LOGGER.info("orcidProfile ##### ", orcidProfile);
             if (null != orcidProfile) {
                 LOGGER.error("OrcId Profile not null");
                 JSONObject orcidActivitiesJSON = (JSONObject) new JSONParser()
                         .parse(orcidProfile.toJSONString());
                 JSONObject orcidActivities = (JSONObject) orcidActivitiesJSON
-                        .get("orcid-activities");
+                        .get(ORCID_ACTIVITIES);
                 LOGGER.info("orcidActivities ##### ", orcidActivities);
                 if (null != orcidActivities) {
                     JSONObject orcidWorkJSON = (JSONObject) new JSONParser()
                             .parse(orcidActivities.toJSONString());
                     JSONObject orcidWork = (JSONObject) orcidWorkJSON
-                            .get("orcid-work");
+                            .get(ORCID_WORK);
                     LOGGER.info("orcidWork ##### ", orcidWork);
                     JSONObject affiliations = (JSONObject) orcidActivities
-                            .get("affiliations");
+                            .get(AFFILIATIONS);
                     LOGGER.info("affiliations ##### ", affiliations);
                     if (null != affiliations) {
                         parseAffiliations(affiliations, user);
@@ -425,7 +511,7 @@ public class OrcidServiceImpl implements OrcidService {
             JSONObject affiliationArrayJSON = (JSONObject) new JSONParser()
                     .parse(affiliations.toJSONString());
             JSONArray affiliationArray = (JSONArray) affiliationArrayJSON
-                    .get("affiliation");
+                    .get(AFFILIATION);
             LOGGER.info("affiliationArray ##### ", affiliationArray);
             if (null != affiliationArray) {
                 LOGGER.error("Affiliation Array not null");
@@ -463,15 +549,13 @@ public class OrcidServiceImpl implements OrcidService {
         DisambiguatedOrganization disambiguatedOrganization = null;
         try {
             affiliation = new Affiliation();
-            affiliation.setVisibility((String) affiliationJSON
-                    .get("-visibility"));
-            affiliation.setType((String) affiliationJSON.get("type"));
+            affiliation.setVisibility((String) affiliationJSON.get(VISIBILITY));
+            affiliation.setType((String) affiliationJSON.get(TYPE));
             affiliation.setDepartmentName((String) affiliationJSON
-                    .get("department-name"));
+                    .get(DEPARTMENT_NAME));
+            affiliation.setRoleTitle((String) affiliationJSON.get(ROLE_TITLE));
             affiliation
-                    .setRoleTitle((String) affiliationJSON.get("role-title"));
-            affiliation.setStartDate(affiliationJSON.get("start-date")
-                    .toString());
+                    .setStartDate(affiliationJSON.get(START_DATE).toString());
             organization = parseOrganization(affiliationJSON);
             if (null != organization) {
                 affiliation.setOrganization(organization);
@@ -504,10 +588,10 @@ public class OrcidServiceImpl implements OrcidService {
             JSONObject organizationJSON = (JSONObject) new JSONParser()
                     .parse(affiliationJSON.toJSONString());
             JSONObject organizationDetails = (JSONObject) organizationJSON
-                    .get("organization");
+                    .get(ORGANIZATION);
             if (null != organizationDetails) {
                 organization = new Organization();
-                organization.setName((String) organizationDetails.get("name"));
+                organization.setName((String) organizationDetails.get(NAME));
                 Address address = parseAddress(organizationDetails);
                 if (null != address) {
                     organization.setAddress(address);
@@ -535,11 +619,11 @@ public class OrcidServiceImpl implements OrcidService {
         try {
             JSONObject addressJSON = (JSONObject) new JSONParser()
                     .parse(organizationDetails.toJSONString());
-            JSONObject addressDetails = (JSONObject) addressJSON.get("address");
+            JSONObject addressDetails = (JSONObject) addressJSON.get(ADDRESS);
             if (null != addressDetails) {
                 address = new Address();
-                address.setCity((String) addressDetails.get("city"));
-                address.setRegion((String) addressDetails.get("region"));
+                address.setCity((String) addressDetails.get(CITY));
+                address.setRegion((String) addressDetails.get(REGION));
             }
         } catch (Exception e) {
             LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
@@ -564,15 +648,15 @@ public class OrcidServiceImpl implements OrcidService {
             JSONObject disambiguatedOrganizationJSON = (JSONObject) new JSONParser()
                     .parse(affiliationJSON.toJSONString());
             JSONObject disambiguatedOrganizationDetails = (JSONObject) disambiguatedOrganizationJSON
-                    .get("disambiguated-organization");
+                    .get(DISAMBIGUATED_ORGANIZATION);
             if (null != disambiguatedOrganizationDetails) {
                 disambiguatedOrganization = new DisambiguatedOrganization();
                 disambiguatedOrganization
                         .setDisambiguatedOrganizationIdentifier((String) disambiguatedOrganizationDetails
-                                .get("disambiguated-organization-identifier"));
+                                .get(DISAMBIGUATED_ORGANIZATION_IDENTIFIER));
                 disambiguatedOrganization
                         .setDisambiguationSource((String) disambiguatedOrganizationDetails
-                                .get("disambiguation-source"));
+                                .get(DISAMBIGUATION_SOURCE));
             }
         } catch (Exception e) {
             LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
@@ -601,13 +685,14 @@ public class OrcidServiceImpl implements OrcidService {
 
     @Override
     @CachePut(value = "user", key = "#authorizationCode")
-    public User putOrcidData(User user, String authorizationCode) {
+    public User putOrcidData(final User user, final String authorizationCode) {
         return user;
     }
 
     @Override
     @Cacheable(value = "user", key = "#authorizationCode")
-    public User getCachedOrcidData(User user, String authorizationCode) {
+    public User getCachedOrcidData(final User user,
+            final String authorizationCode) {
         return user;
     }
 }

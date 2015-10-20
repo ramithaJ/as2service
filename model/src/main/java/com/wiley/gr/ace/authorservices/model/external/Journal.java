@@ -25,6 +25,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Journal implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    /** The id. */
+    @JsonProperty("Id")
+    private String id;
+
+    /** The journal id. */
+    @JsonProperty("JournalID")
+    private String journalID;
+
+    /** The journal title. */
+    @JsonProperty("JournalTitle")
+    private String journalTitle;
+
+    /** The status. */
+    @JsonProperty("Status")
+    private String status;
+
     /** The journal image link. */
     private String journalImageLink;
 
@@ -46,29 +64,6 @@ public class Journal implements Serializable {
     public final void setJournalImageLink(final String journalImageLink) {
         this.journalImageLink = journalImageLink;
     }
-
-    /**
-     * Gets the journal doi.
-     *
-     * @return the journal doi
-     */
-    private static final long serialVersionUID = 1L;
-
-    /** The id. */
-    @JsonProperty("Id")
-    private String id;
-
-    /** The journal id. */
-    @JsonProperty("JournalID")
-    private String journalID;
-
-    /** The journal title. */
-    @JsonProperty("JournalTitle")
-    private String journalTitle;
-
-    /** The status. */
-    @JsonProperty("Status")
-    private String status;
 
     /**
      * Gets the id.

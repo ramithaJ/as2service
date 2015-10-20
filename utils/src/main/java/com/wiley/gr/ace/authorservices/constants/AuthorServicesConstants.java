@@ -275,6 +275,9 @@ public class AuthorServicesConstants {
      */
     public static final String JOUNALNOTOO = "journal Doesnot allows to OO";
 
+    /** The Constant PARTICIPANT_STATUS_ACTIVE. */
+    public static final String PARTICIPANT_STATUS_ACTIVE = "ACTIVE";
+
     /**
      * constructor.
      */

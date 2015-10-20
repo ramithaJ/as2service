@@ -25,11 +25,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.model.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.ViewAssignedArticle;
-import com.wiley.gr.ace.authorservices.model.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
 /**
@@ -94,21 +95,21 @@ public class ArticleAssignmentController {
                         .getArticleInfoDetails(emailId);
                 if (!StringUtils.isEmpty(articleInfoDetails)) {
                     LOGGER.info("Article Info Details Found");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(articleInfoDetails);
                 } else {
                     LOGGER.info("Article Info Details Not Found");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(noDataFound);
                 }
             } catch (final Exception e) {
-                LOGGER.error("Print Stack Trace- ", e);
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new ASException(getArticleInfoErrorCode,
                         getArticleInfoErrorMessage);
             }
         } else {
             LOGGER.info("input Parameter emailId is Not Found");
-            service.setStatus("FAILURE");
+            service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(inputParameterNotFound);
         }
         return service;
@@ -135,21 +136,21 @@ public class ArticleAssignmentController {
                         .associationConfirmation(associationConfirmation);
                 if (isAssociationconfirmed) {
                     LOGGER.info(" Article Association is Confirmed");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(isAssociationconfirmed);
                 } else {
                     LOGGER.info(" Article Association is Not Confirmed");
-                    service.setStatus("FAILURE");
+                    service.setStatus(AuthorServicesConstants.FAILURE);
                     service.setPayload(isAssociationconfirmed);
                 }
             } catch (final Exception e) {
-                LOGGER.error("Print Stack Trace- ", e);
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new ASException(associationConfirmationErrorCode,
                         associationConfirmationErrorMessage);
             }
         } else {
             LOGGER.info("input Parameters are Not Found");
-            service.setStatus("FAILURE");
+            service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(inputParameterNotFound);
         }
         return service;
@@ -176,23 +177,21 @@ public class ArticleAssignmentController {
                         .viewAssignedArticle(articleId);
                 if (!StringUtils.isEmpty(viewAssignedArticle)) {
                     LOGGER.info(" View Assigned Article Data Found");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(viewAssignedArticle);
                 } else {
                     LOGGER.info(" View Assigned Article Data Not Found");
-                    service.setStatus("SUCCESS");
+                    service.setStatus(AuthorServicesConstants.SUCCESS);
                     service.setPayload(noDataFound);
                 }
             } catch (final Exception e) {
-                LOGGER.error("Print Stack Trace- ", e);
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 throw new ASException("viewAssignedArticleErrorCode",
-                        "viewAssignedArticleErrorMessage"); // create mapping
-                                                            // from properties
-                                                            // :MERGE
+                        "viewAssignedArticleErrorMessage");
             }
         } else {
             LOGGER.info("input Parameter emailId is Not Found");
-            service.setStatus("FAILURE");
+            service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(inputParameterNotFound);
         }
         return service;
