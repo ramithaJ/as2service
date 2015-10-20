@@ -9,9 +9,6 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-/**
- * 
- */
 package com.wiley.gr.ace.authorservices.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;

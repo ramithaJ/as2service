@@ -9,6 +9,7 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+
 package com.wiley.gr.ace.authorservices.model;
 
 /**
@@ -17,43 +18,44 @@ package com.wiley.gr.ace.authorservices.model;
  */
 public class Permissions {
 
-	/**
-	 * This field holds the value of permissionCd
-	 */
-	private String permissionCd;
-	
-	/**
-	 * This field holds the value of permissionName
-	 */
-	private String permissionName;
+    /**
+     * This field holds the value of permissionCd
+     */
+    private String permissionCd;
 
-	/**
-	 * @return the permissionCd
-	 */
-	public String getPermissionCd() {
-		return permissionCd;
-	}
+    /**
+     * This field holds the value of permissionName
+     */
+    private String permissionName;
 
-	/**
-	 * @param permissionCd the permissionCd to set
-	 */
-	public void setPermissionCd(final String permissionCd) {
-		this.permissionCd = permissionCd;
-	}
+    /**
+     * @return the permissionCd
+     */
+    public String getPermissionCd() {
+        return permissionCd;
+    }
 
-	/**
-	 * @return the permissionName
-	 */
-	public String getPermissionName() {
-		return permissionName;
-	}
+    /**
+     * @param permissionCd
+     *            the permissionCd to set
+     */
+    public void setPermissionCd(final String permissionCd) {
+        this.permissionCd = permissionCd;
+    }
 
-	/**
-	 * @param permissionName the permissionName to set
-	 */
-	public void setPermissionName(final String permissionName) {
-		this.permissionName = permissionName;
-	}
-	
-	
+    /**
+     * @return the permissionName
+     */
+    public String getPermissionName() {
+        return permissionName;
+    }
+
+    /**
+     * @param permissionName
+     *            the permissionName to set
+     */
+    public void setPermissionName(final String permissionName) {
+        this.permissionName = permissionName;
+    }
+
 }
