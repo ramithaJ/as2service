@@ -185,12 +185,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @param affiliation
      *            the affiliation
      * @return true, if successful
-     * @throws Exception
-     *             the exception
      */
     @Override
     public boolean updateAffiliation(final String userId,
-            final Affiliation affiliation) throws Exception {
+            final Affiliation affiliation) {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
         return authorProfileDao.updateAffiliation(userId, affiliation);
@@ -471,17 +469,15 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @param userId
      *            the user id
      * @return the affiliation list
-     * @throws Exception
-     *             the exception
      */
     @Override
     public List<Affiliation> getAffiliationList(final String userId)
-            throws Exception {
+             {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside getAffiliationList Method ");
+        List<Affiliation> affiliations = new ArrayList<>();
         List<UserAffiliations> userAffiliations = authorProfileDao
                 .getAffiliationList(userId);
-        List<Affiliation> affiliations = new ArrayList<>();
         for (UserAffiliations userAffiliation : userAffiliations) {
             Affiliation affiliation = new Affiliation();
             Country country = new Country();
@@ -598,9 +594,15 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public PreferenceValue getAlerts(final String participantId)
-            throws Exception {
+            throws ASException {
         AuthorProfileServiceImpl.LOGGER.info("inside getAlerts Method ");
-        return participantsInterfaceService.getAlerts(participantId);
+        PreferenceValue preferenceValue=null;
+        try{
+            preferenceValue=participantsInterfaceService.getAlerts(participantId);
+        }catch(Exception e){
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,e);
+        }
+        return preferenceValue;
     }
 
     /**
@@ -721,11 +723,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @param userId
      *            the user id
      * @return true, if successful
-     * @throws Exception
-     *             the exception
      */
     @Override
-    public boolean deleteAffiliations(final String userId) throws Exception {
+    public boolean deleteAffiliations(final String userId)  {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside deleteAffiliations Method ");
         return authorProfileDao.deleteAffiliations(userId);

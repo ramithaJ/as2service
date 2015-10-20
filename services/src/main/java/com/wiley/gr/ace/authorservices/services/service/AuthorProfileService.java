@@ -163,10 +163,10 @@ public interface AuthorProfileService {
      * @param participantId
      *            the participant id
      * @return the alerts
-     * @throws Exception
+     * @throws ASException
      *             the exception
      */
-    PreferenceValue getAlerts(String participantId) throws Exception;
+    PreferenceValue getAlerts(String participantId) throws ASException;
 
     /**
      * Gets the preffered journals.
@@ -243,10 +243,8 @@ public interface AuthorProfileService {
      * @param userId
      *            the user id
      * @return the affiliation list
-     * @throws Exception
-     *             the exception
      */
-    List<Affiliation> getAffiliationList(String userId) throws Exception;
+    List<Affiliation> getAffiliationList(String userId);
 
     /**
      * Delete affiliations.
@@ -254,10 +252,8 @@ public interface AuthorProfileService {
      * @param userId
      *            the user id
      * @return true, if successful
-     * @throws Exception
-     *             the exception
      */
-    boolean deleteAffiliations(String userId) throws Exception;
+    boolean deleteAffiliations(String userId);
 
     /**
      * Update affiliation.
@@ -267,11 +263,8 @@ public interface AuthorProfileService {
      * @param affiliation
      *            the affiliation
      * @return true, if successful
-     * @throws Exception
-     *             the exception
      */
-    boolean updateAffiliation(String userId, Affiliation affiliation)
-            throws Exception;
+    boolean updateAffiliation(String userId, Affiliation affiliation);
 
     /**
      * Adds the preferred journal.
