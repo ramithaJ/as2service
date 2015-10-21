@@ -50,6 +50,7 @@ import com.wiley.gr.ace.authorservices.model.external.AlertRequest;
 import com.wiley.gr.ace.authorservices.model.external.AlertType;
 import com.wiley.gr.ace.authorservices.model.external.EntityValue;
 import com.wiley.gr.ace.authorservices.model.external.JournalElement;
+import com.wiley.gr.ace.authorservices.model.external.Name;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantErrorResponse;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
@@ -135,6 +136,17 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Autowired(required = true)
     private ResearchFunderDAO researchFunderDAO;
+
+    /**
+     * This field holds the value of participantService.
+     */
+    @Autowired(required = true)
+    private ParticipantsInterfaceService participantService;
+
+    /**
+     * This field holds the value of PROFILE
+     */
+    private static final String PROFILE = "PROFILE";
 
     /**
      * Update society details.
@@ -253,15 +265,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return isUpdated;
     }
 
-    /**
-     * Update email details.
-     *
-     * @param userId
-     *            the user id
-     * @param emailDetails
-     *            the email details
-     * @return true, if successful
-     */
     @Override
     public final boolean updateEmailDetails(final String userId,
             final User emailDetails) {
@@ -270,16 +273,51 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .info("inside updateEmailDetails Method ");
 
         final ProfileEntity profileEntity = new ProfileEntity();
-        profileEntity.setEntityType("EMAIL");
+        profileEntity.setEntityType(PROFILE);
 
         final EntityValue entityValue = new EntityValue();
 
-        final ProfileRequest profileRequest = new ProfileRequest();
-        final Participant participantResponse = participantsInterfaceService
+        ProfileRequest profileRequest = settingProfileFields(userId);
+        profileRequest.setPrimaryEmail(emailDetails.getPrimaryEmailAddr());
+        profileRequest.setRecoveryEmail(emailDetails.getRecoveryEmailAddress());
+
+        if (emailDetails.getPrimaryEmailAddr() != profileRequest
+                .getPrimaryEmail()) {
+            profileRequest.setOldEmail(profileRequest.getPrimaryEmail());
+        }
+
+        entityValue.setProfile(profileRequest);
+        profileEntity.setEntityValue(entityValue);
+        profileEntity.setSourceSystem("AS");
+        profileEntity.setEntityId(userId);
+
+        boolean status = participantsInterfaceService
+                .updateProfile(profileEntity);
+        // check this code
+        if (status) {
+            sendNotification.updateSecEmailNotification(
+                    emailDetails.getPrimaryEmailAddr(),
+                    secEmailUpdateTemplateId);
+        }
+
+        return status;
+    }
+
+    private ProfileRequest settingProfileFields(final String userId) {
+
+        ProfileRequest profileRequest = new ProfileRequest();
+        Participant participantResponse = participantsInterfaceService
                 .searchParticipantByParticipantId(userId);
-        profileRequest.setAlternativeName(AuthorServicesConstants.EMPTY);
+        List<Name> alternateNamesList = participantResponse.getAlternateNames();
+        if (!alternateNamesList.isEmpty()) {
+            for (Name name : alternateNamesList) {
+                profileRequest.setAlternativeName(name.getValue());
+            }
+        }
+
         profileRequest.setFirstName(participantResponse.getGivenName());
-        profileRequest.setMiddleName(participantResponse.getAdditionalName());
+        profileRequest.setMiddleName(AuthorServicesConstants.EMPTY); // check
+                                                                     // this
         profileRequest.setLastName(participantResponse.getFamilyName());
         profileRequest.setPrimaryEmail(participantResponse.getEmail());
         profileRequest.setRecoveryEmail(participantResponse.getRecoveryEmail());
@@ -289,27 +327,16 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .getJobCategoryId());
         profileRequest.setTitleCode(participantResponse.getHonorificPrefix());
         profileRequest.setSuffixCode(participantResponse.getHonorificSuffix());
-
-        final List<String> interestList = new ArrayList<String>();
-        interestList.add("");
+        List<String> areaofInterestList = participantResponse
+                .getAreasOfInterest();
+        List<String> interestList = new ArrayList<String>();
+        for (String areaofInterest : areaofInterestList) {
+            interestList.add(areaofInterest);
+        }
+        profileRequest.setInterestList(interestList);
 
         profileRequest.setOrcid(participantResponse.getOrcidId());
-
-        entityValue.setProfile(profileRequest);
-        profileEntity.setEntityValue(entityValue);
-        profileEntity.setSourceSystem("AS2.0");
-        profileEntity.setEntityId(userId);
-
-        participantsInterfaceService.updateProfile(profileEntity);
-
-        final boolean status = false;
-        if (status) {
-            sendNotification.updateSecEmailNotification(
-                    emailDetails.getPrimaryEmailAddr(),
-                    secEmailUpdateTemplateId);
-        }
-
-        return status;
+        return profileRequest;
     }
 
     /**
@@ -327,9 +354,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateUserProfileInfo Method ");
+
+        Participant participantResponse = participantService
+                .searchParticipantByParticipantId(userId);
+
         final ProfileEntity profileEntity = new ProfileEntity();
 
-        profileEntity.setEntityType("PROFILE");
+        profileEntity.setEntityType(PROFILE);
         final EntityValue entityValue = new EntityValue();
 
         final ProfileRequest profileRequest = new ProfileRequest();
@@ -342,16 +373,18 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         profileRequest.setIndustryCode(user.getIndustry());
         profileRequest.setJobCategoryCode(user.getJobCategory());
         profileRequest.setSendEmail(user.getSendEmailFlag());
-        profileRequest.setPrimaryEmail(""); // primary email Address
-
-        profileRequest.setRecoveryEmail(""); // recovery email
+        profileRequest.setPrimaryEmail(participantResponse.getEmail());
+        profileRequest.setRecoveryEmail(participantResponse.getRecoveryEmail());
         profileRequest.setOldEmail("");
         profileRequest.setRegistrantFlag("");
         profileRequest.setAuthorFlag("");
 
-        final List<String> interestList = new ArrayList<String>();
-        interestList.add("shiva");
-        interestList.add("kumar");
+        List<String> areaofInterestList = participantResponse
+                .getAreasOfInterest();
+        List<String> interestList = new ArrayList<String>();
+        for (String areaofInterest : areaofInterestList) {
+            interestList.add(areaofInterest);
+        }
         profileRequest.setInterestList(interestList);
 
         profileRequest.setOrcid(user.getOrcidId());
