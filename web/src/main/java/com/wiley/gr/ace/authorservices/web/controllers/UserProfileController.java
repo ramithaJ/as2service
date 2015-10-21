@@ -368,7 +368,7 @@ public class UserProfileController {
      * @return service
      */
 
-    @RequestMapping(value = "/preferredJournals/{participantId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/preferredJournals/{participantId}/", method = RequestMethod.GET)
     public final Service getPreferredJournals(
             @PathVariable("participantId") final String participantId) {
 

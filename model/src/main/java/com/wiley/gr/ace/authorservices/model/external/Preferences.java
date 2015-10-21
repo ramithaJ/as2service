@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.List;
+
 /**
  * The Class Preferences.
  */
@@ -20,7 +22,7 @@ public class Preferences {
     private String preferenceKey;
 
     /** The preference value. */
-    private String preferenceValue;
+    private List<String> preferenceValue;
 
     /**
      * Gets the preference key.
@@ -46,7 +48,7 @@ public class Preferences {
      *
      * @return the preference value
      */
-    public final String getPreferenceValue() {
+    public final List<String> getPreferenceValue() {
         return preferenceValue;
     }
 
@@ -56,7 +58,7 @@ public class Preferences {
      * @param preferenceValue
      *            the new preference value
      */
-    public final void setPreferenceValue(final String preferenceValue) {
+    public final void setPreferenceValue(final List<String> preferenceValue) {
         this.preferenceValue = preferenceValue;
     }
 

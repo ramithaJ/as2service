@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -631,29 +630,27 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public final List<PreferredJournals> getPrefferedJournals(
             final String participantId) {
-        final String value = participantsInterfaceService.getPreferredJournals(
-                participantId).getPreferenceValue();
-        String journalTitle = null;
-        String journalImage = null;
-        try {
-            final PdhLookupJournalResponse pdhLookupJournalResponse = eSBInterfaceService
-                    .getPdhLookupJournalResponse(participantId);
-            journalTitle = pdhLookupJournalResponse.getTitle();
-            journalImage = pdhLookupJournalResponse.getBannerImage();
-        } catch (final Exception e) {
-            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
-            throw new ASException();
-        }
-        final List<PreferredJournals> listdata = new ArrayList<PreferredJournals>();
-        final JSONArray jsonArray = new JSONArray(value);
-        final List<String> list = new ArrayList<String>();
+        List<String> preferredJournalData = participantsInterfaceService
+                .getPreferredJournals(participantId).getPreferenceValue();
 
-        for (int i = 0; i < jsonArray.length(); i++) {
-            final PreferredJournals preferredJournals = new PreferredJournals();
-            preferredJournals.setJournalTitle(journalTitle);
-            preferredJournals.setJournalImage(journalImage);
-            list.add(AuthorServicesConstants.EMPTY);
+        List<PreferredJournals> listdata = new ArrayList<PreferredJournals>();
+        if (!preferredJournalData.isEmpty()) {
 
+            for (String string : preferredJournalData) {
+                PreferredJournals preferredJournals = new PreferredJournals();
+                preferredJournals.setJournalId(string);
+                PdhLookupJournalResponse pdhLookupJournalResponse = eSBInterfaceService
+                        .getPdhLookupJournalResponse(string);
+                if (pdhLookupJournalResponse != null) {
+                    preferredJournals.setJournalImage(pdhLookupJournalResponse
+                            .getBannerImage());
+                    preferredJournals.setJournalTitle(pdhLookupJournalResponse
+                            .getTitle());
+                }
+
+                listdata.add(preferredJournals);
+
+            }
         }
 
         return listdata;
