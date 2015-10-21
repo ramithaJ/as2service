@@ -680,7 +680,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         PdhArticleResponse pdhArticleResponse = orderservice
                 .pdhLookUpArticle(Integer.parseInt(dhId));
 
-        woaFunderList = pdhArticleResponse.getWOAFunders().getWOAFunder();
+        woaFunderList = pdhArticleResponse.getWoaFunders().getWOAFunder();
 
         return woaFunderList;
     }
