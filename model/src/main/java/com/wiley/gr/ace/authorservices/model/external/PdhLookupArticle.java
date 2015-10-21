@@ -32,8 +32,6 @@ public class PdhLookupArticle {
     @XmlElement(name = "Header")
     private Header articleHeader;
 
- 
-
     /** The article product entities. */
     @XmlElement(name = "Product-Entities")
     ArticleProductEntities articleProductEntities;
@@ -44,20 +42,21 @@ public class PdhLookupArticle {
      * @return the article product entities
      */
     public ArticleProductEntities getArticleProductEntities() {
-		return articleProductEntities;
-	}
+        return articleProductEntities;
+    }
 
-	/**
-	 * Sets the article product entities.
-	 *
-	 * @param articleProductEntities the new article product entities
-	 */
-	public void setArticleProductEntities(
-			ArticleProductEntities articleProductEntities) {
-		this.articleProductEntities = articleProductEntities;
-	}
+    /**
+     * Sets the article product entities.
+     *
+     * @param articleProductEntities
+     *            the new article product entities
+     */
+    public void setArticleProductEntities(
+            ArticleProductEntities articleProductEntities) {
+        this.articleProductEntities = articleProductEntities;
+    }
 
-	/**
+    /**
      * Gets the article header.
      *
      * @return the article header
@@ -76,6 +75,4 @@ public class PdhLookupArticle {
         this.articleHeader = articleHeader;
     }
 
-
-  
 }

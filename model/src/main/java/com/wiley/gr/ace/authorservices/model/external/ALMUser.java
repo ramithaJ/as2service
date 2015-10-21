@@ -16,7 +16,6 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ALMUser.
  */
@@ -65,7 +64,7 @@ public class ALMUser {
     /** The send email. */
     @JsonProperty("SendEmail")
     private String sendEmail;
-    
+
     /** The alm user id. */
     @JsonProperty("AlmInternalKey")
     private String almUserId;
@@ -279,21 +278,22 @@ public class ALMUser {
         this.sendEmail = sendEmail;
     }
 
-	/**
-	 * Gets the alm user id.
-	 *
-	 * @return the alm user id
-	 */
-	public String getAlmUserId() {
-		return almUserId;
-	}
+    /**
+     * Gets the alm user id.
+     *
+     * @return the alm user id
+     */
+    public String getAlmUserId() {
+        return almUserId;
+    }
 
-	/**
-	 * Sets the alm user id.
-	 *
-	 * @param almUserId the new alm user id
-	 */
-	public void setAlmUserId(String almUserId) {
-		this.almUserId = almUserId;
-	}
+    /**
+     * Sets the alm user id.
+     *
+     * @param almUserId
+     *            the new alm user id
+     */
+    public void setAlmUserId(String almUserId) {
+        this.almUserId = almUserId;
+    }
 }

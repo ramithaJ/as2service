@@ -38,6 +38,9 @@ public class CreditCard {
     /** The bank id. */
     private String bankId;
 
+    /** The bank name. */
+    private String bankName;
+
     /**
      * @return the tokenForCreditCard
      */
@@ -142,8 +145,4 @@ public class CreditCard {
     public final void setBankName(final String bankName) {
         this.bankName = bankName;
     }
-
-    /** The bank name. */
-    private String bankName;
-
 }

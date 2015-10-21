@@ -1,15 +1,27 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * @author virtusa version1.0
+ *
+ */
 public class UserData {
-	
-	private String userId;
 
-	public String getUserId() {
-		return userId;
-	}
+    /** The user id. */
+    private String userId;
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    /**
+     * @return the userId
+     */
+    public String getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId
+     *            the userId to set
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
 }

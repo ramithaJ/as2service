@@ -25,12 +25,12 @@ public class InstitutionDiscountsResponse {
     /**
      * This field holds the value of status
      */
-	@JsonProperty("status")
+    @JsonProperty("status")
     private String status;
 
     @JsonProperty("payload")
     private InstitutionDetails institutionDetails;
-    
+
     /**
      * @return the status
      */
@@ -46,19 +46,19 @@ public class InstitutionDiscountsResponse {
         this.status = status;
     }
 
-	/**
-	 * @return the institutionDetails
-	 */
-	public InstitutionDetails getInstitutionDetails() {
-		return institutionDetails;
-	}
+    /**
+     * @return the institutionDetails
+     */
+    public InstitutionDetails getInstitutionDetails() {
+        return institutionDetails;
+    }
 
-	/**
-	 * @param institutionDetails the institutionDetails to set
-	 */
-	public void setInstitutionDetails(InstitutionDetails institutionDetails) {
-		this.institutionDetails = institutionDetails;
-	}
-    
+    /**
+     * @param institutionDetails
+     *            the institutionDetails to set
+     */
+    public void setInstitutionDetails(InstitutionDetails institutionDetails) {
+        this.institutionDetails = institutionDetails;
+    }
 
 }

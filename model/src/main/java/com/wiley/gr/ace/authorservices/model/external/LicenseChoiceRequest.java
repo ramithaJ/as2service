@@ -14,7 +14,6 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-
 /**
  * The Class LicenseChoiceRequest.
  * 
@@ -24,26 +23,12 @@ public class LicenseChoiceRequest extends WALSRequest {
 
     /** The online open. */
     private String onlineOpen;
-    
+
+    /** The user id. */
     private String userId;
-    
+
+    /** The request id. */
     private String requestId;
-
-    public final String getUserId() {
-        return userId;
-    }
-
-    public final String getRequestId() {
-        return requestId;
-    }
-
-    public final void setUserId(final String userId) {
-        this.userId = userId;
-    }
-
-    public final void setRequestId(final String requestId) {
-        this.requestId = requestId;
-    }
 
     /** The funders. */
     private Funders funders;
@@ -60,7 +45,8 @@ public class LicenseChoiceRequest extends WALSRequest {
     /**
      * Sets the online open.
      *
-     * @param onlineOpen the new online open
+     * @param onlineOpen
+     *            the new online open
      */
     public final void setOnlineOpen(final String onlineOpen) {
         this.onlineOpen = onlineOpen;
@@ -78,10 +64,41 @@ public class LicenseChoiceRequest extends WALSRequest {
     /**
      * Sets the funders.
      *
-     * @param funders the new funders
+     * @param funders
+     *            the new funders
      */
     public final void setFunders(final Funders funders) {
         this.funders = funders;
+    }
+
+    /**
+     * @return the userId
+     */
+    public String getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId
+     *            the userId to set
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * @return the requestId
+     */
+    public String getRequestId() {
+        return requestId;
+    }
+
+    /**
+     * @param requestId
+     *            the requestId to set
+     */
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
     }
 
 }

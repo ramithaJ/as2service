@@ -16,22 +16,28 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 /**
  * The Class ALMSearchUserResponse.
  */
 public class ALMSearchUserResponse extends ALMResponse {
 
-	@JsonProperty("UserPayloads")
-	private UserPayload userPayload;
+    /** The user pay loads */
+    @JsonProperty("UserPayloads")
+    private UserPayload userPayload;
 
-	public UserPayload getUserPayload() {
-		return userPayload;
-	}
+    /**
+     * @return the userPayload
+     */
+    public UserPayload getUserPayload() {
+        return userPayload;
+    }
 
-	public void setUserPayload(UserPayload userPayload) {
-		this.userPayload = userPayload;
-	}
+    /**
+     * @param userPayload
+     *            the userPayload to set
+     */
+    public void setUserPayload(UserPayload userPayload) {
+        this.userPayload = userPayload;
+    }
 
-    
 }

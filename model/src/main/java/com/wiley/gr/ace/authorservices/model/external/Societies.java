@@ -13,6 +13,10 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * @author virtusa version1.0
+ *
+ */
 public class Societies {
 
     /**
@@ -29,7 +33,7 @@ public class Societies {
      * This field holds the value of societyName
      */
     private String societyName;
-    
+
     /**
      * This field holds the value of societyCode
      */
@@ -80,20 +84,19 @@ public class Societies {
         this.societyName = societyName;
     }
 
-	/**
-	 * @return the societyCode
-	 */
-	public String getSocietyCode() {
-		return societyCode;
-	}
+    /**
+     * @return the societyCode
+     */
+    public String getSocietyCode() {
+        return societyCode;
+    }
 
-	/**
-	 * @param societyCode the societyCode to set
-	 */
-	public void setSocietyCode(String societyCode) {
-		this.societyCode = societyCode;
-	}
-    
-    
+    /**
+     * @param societyCode
+     *            the societyCode to set
+     */
+    public void setSocietyCode(String societyCode) {
+        this.societyCode = societyCode;
+    }
 
 }

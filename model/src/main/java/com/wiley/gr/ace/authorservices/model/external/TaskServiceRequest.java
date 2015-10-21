@@ -14,89 +14,92 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class TaskServiceRequest {
 
-	@JsonProperty("requestorEmail")
-	private String requestorEmail;
+    /** The requestor email. */
+    @JsonProperty("requestorEmail")
+    private String requestorEmail;
 
-	@JsonProperty("justifications")
-	private List<String> justifications = new ArrayList<String>();
+    /** The justifications. */
+    @JsonProperty("justifications")
+    private List<String> justifications = new ArrayList<String>();
 
-	@JsonProperty("requestorId")
-	private String requestorId;
+    /** The requestor id. */
+    @JsonProperty("requestorId")
+    private String requestorId;
 
-	/**
-	 * 
-	 * @return The requestorEmail
-	 */
-	@JsonProperty("requestorEmail")
-	public String getRequestorEmail() {
-		return requestorEmail;
-	}
+    /**
+     * 
+     * @return The requestorEmail
+     */
+    @JsonProperty("requestorEmail")
+    public String getRequestorEmail() {
+        return requestorEmail;
+    }
 
-	/**
-	 * 
-	 * @param requestorEmail
-	 *            The requestorEmail
-	 */
-	@JsonProperty("requestorEmail")
-	public void setRequestorEmail(String requestorEmail) {
-		this.requestorEmail = requestorEmail;
-	}
+    /**
+     * 
+     * @param requestorEmail
+     *            The requestorEmail
+     */
+    @JsonProperty("requestorEmail")
+    public void setRequestorEmail(String requestorEmail) {
+        this.requestorEmail = requestorEmail;
+    }
 
-	/**
-	 * 
-	 * @return The justifications
-	 */
-	@JsonProperty("justifications")
-	public List<String> getJustifications() {
-		return justifications;
-	}
+    /**
+     * 
+     * @return The justifications
+     */
+    @JsonProperty("justifications")
+    public List<String> getJustifications() {
+        return justifications;
+    }
 
-	/**
-	 * 
-	 * @param justifications
-	 *            The justifications
-	 */
-	@JsonProperty("justifications")
-	public void setJustifications(List<String> justifications) {
-		this.justifications = justifications;
-	}
+    /**
+     * 
+     * @param justifications
+     *            The justifications
+     */
+    @JsonProperty("justifications")
+    public void setJustifications(List<String> justifications) {
+        this.justifications = justifications;
+    }
 
-	/**
-	 * 
-	 * @return The requestorId
-	 */
-	@JsonProperty("requestorId")
-	public String getRequestorId() {
-		return requestorId;
-	}
+    /**
+     * 
+     * @return The requestorId
+     */
+    @JsonProperty("requestorId")
+    public String getRequestorId() {
+        return requestorId;
+    }
 
-	/**
-	 * 
-	 * @param requestorId
-	 *            The requestorId
-	 */
-	@JsonProperty("requestorId")
-	public void setRequestorId(String requestorId) {
-		this.requestorId = requestorId;
-	}
+    /**
+     * 
+     * @param requestorId
+     *            The requestorId
+     */
+    @JsonProperty("requestorId")
+    public void setRequestorId(String requestorId) {
+        this.requestorId = requestorId;
+    }
 
-	@SuppressWarnings("unchecked")
-	public String getJsonString(TaskServiceRequest taskServiceRequest) {
+    @SuppressWarnings("unchecked")
+    public String getJsonString(TaskServiceRequest taskServiceRequest) {
 
-		JSONObject object = new JSONObject();
+        JSONObject object = new JSONObject();
 
-		object.put("requestorEmail", taskServiceRequest.getRequestorEmail());
-		object.put("justifications", taskServiceRequest.getJustifications());
-		object.put("requestorId", taskServiceRequest.getRequestorId());
+        object.put("requestorEmail", taskServiceRequest.getRequestorEmail());
+        object.put("justifications", taskServiceRequest.getJustifications());
+        object.put("requestorId", taskServiceRequest.getRequestorId());
 
-		return object.toJSONString().toString();
+        return object.toJSONString().toString();
 
-	}
+    }
 
-	@Override
-	public String toString() {
-		return "{\"requestorEmail\":\"" + requestorEmail
-				+ "\", \"justifications\":\"" + justifications
-				+ "\", \"requestorId\":\"" + requestorId + "\"}";
-	}
+    @Override
+    public String toString() {
+        return "{\"requestorEmail\":\"" + requestorEmail
+                + "\", \"justifications\":\"" + justifications
+                + "\", \"requestorId\":\"" + requestorId + "\"}";
+    }
 }

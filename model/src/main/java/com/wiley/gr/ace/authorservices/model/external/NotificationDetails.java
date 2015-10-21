@@ -19,119 +19,124 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class NotificationDetails {
 
-	/**
-	 * This field holds the value of articleId
-	 */
-	private String articleId;
-	
-	/**
-	 * This field holds the value of notificationId
-	 */
-	private String notificationId;
-	
-	/**
-	 * This field holds the value of userEmailId
-	 */
-	private String userEmailId;
-	
-	/**
-	 * This field holds the value of type
-	 */
-	private String type;
-	
-	/**
-	 * This field holds the value of subType
-	 */
-	private String subType;
-	
-	/**
-	 * This field holds the value of recievedDate
-	 */
-	private String recievedDate;
+    /**
+     * This field holds the value of articleId
+     */
+    private String articleId;
 
-	/**
-	 * @return the articleId
-	 */
-	public final String getArticleId() {
-		return articleId;
-	}
+    /**
+     * This field holds the value of notificationId
+     */
+    private String notificationId;
 
-	/**
-	 * @param articleId the articleId to set
-	 */
-	public final void setArticleId(final String articleId) {
-		this.articleId = articleId;
-	}
+    /**
+     * This field holds the value of userEmailId
+     */
+    private String userEmailId;
 
-	/**
-	 * @return the notificationId
-	 */
-	public final String getNotificationId() {
-		return notificationId;
-	}
+    /**
+     * This field holds the value of type
+     */
+    private String type;
 
-	/**
-	 * @param notificationId the notificationId to set
-	 */
-	public final void setNotificationId(final String notificationId) {
-		this.notificationId = notificationId;
-	}
+    /**
+     * This field holds the value of subType
+     */
+    private String subType;
 
-	/**
-	 * @return the userEmailId
-	 */
-	public final String getUserEmailId() {
-		return userEmailId;
-	}
+    /**
+     * This field holds the value of recievedDate
+     */
+    private String recievedDate;
 
-	/**
-	 * @param userEmailId the userEmailId to set
-	 */
-	public final void setUserEmailId(final String userEmailId) {
-		this.userEmailId = userEmailId;
-	}
+    /**
+     * @return the articleId
+     */
+    public final String getArticleId() {
+        return articleId;
+    }
 
-	/**
-	 * @return the type
-	 */
-	public final String getType() {
-		return type;
-	}
+    /**
+     * @param articleId
+     *            the articleId to set
+     */
+    public final void setArticleId(final String articleId) {
+        this.articleId = articleId;
+    }
 
-	/**
-	 * @param type the type to set
-	 */
-	public final void setType(final String type) {
-		this.type = type;
-	}
+    /**
+     * @return the notificationId
+     */
+    public final String getNotificationId() {
+        return notificationId;
+    }
 
-	/**
-	 * @return the subType
-	 */
-	public final String getSubType() {
-		return subType;
-	}
+    /**
+     * @param notificationId
+     *            the notificationId to set
+     */
+    public final void setNotificationId(final String notificationId) {
+        this.notificationId = notificationId;
+    }
 
-	/**
-	 * @param subType the subType to set
-	 */
-	public final void setSubType(final String subType) {
-		this.subType = subType;
-	}
+    /**
+     * @return the userEmailId
+     */
+    public final String getUserEmailId() {
+        return userEmailId;
+    }
 
-	/**
-	 * @return the recievedDate
-	 */
-	public final String getRecievedDate() {
-		return recievedDate;
-	}
+    /**
+     * @param userEmailId
+     *            the userEmailId to set
+     */
+    public final void setUserEmailId(final String userEmailId) {
+        this.userEmailId = userEmailId;
+    }
 
-	/**
-	 * @param recievedDate the recievedDate to set
-	 */
-	public final void setRecievedDate(final String recievedDate) {
-		this.recievedDate = recievedDate;
-	}
-	
-	
+    /**
+     * @return the type
+     */
+    public final String getType() {
+        return type;
+    }
+
+    /**
+     * @param type
+     *            the type to set
+     */
+    public final void setType(final String type) {
+        this.type = type;
+    }
+
+    /**
+     * @return the subType
+     */
+    public final String getSubType() {
+        return subType;
+    }
+
+    /**
+     * @param subType
+     *            the subType to set
+     */
+    public final void setSubType(final String subType) {
+        this.subType = subType;
+    }
+
+    /**
+     * @return the recievedDate
+     */
+    public final String getRecievedDate() {
+        return recievedDate;
+    }
+
+    /**
+     * @param recievedDate
+     *            the recievedDate to set
+     */
+    public final void setRecievedDate(final String recievedDate) {
+        this.recievedDate = recievedDate;
+    }
+
 }

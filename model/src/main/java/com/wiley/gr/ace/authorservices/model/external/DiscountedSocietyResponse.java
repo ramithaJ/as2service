@@ -11,59 +11,64 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author virtusa version 1.0
  */
 public class DiscountedSocietyResponse {
-	
-	@JsonProperty("societyName")
-	private String societyName;
-	
-	@JsonProperty("societyCode")
-	private String societyCode;
 
-	@JsonProperty("discount")
-	private List<DiscountedSociety> societies = new ArrayList<DiscountedSociety>();
+    /** The society name. */
+    @JsonProperty("societyName")
+    private String societyName;
 
-	/**
-	 * 
-	 * @return The societies
-	 */
-	public List<DiscountedSociety> getSocieties() {
-		return societies;
-	}
+    /** The society code. */
+    @JsonProperty("societyCode")
+    private String societyCode;
 
-	/**
-	 * 
-	 * @param societies
-	 *            The societies
-	 */
-	public void setSocieties(List<DiscountedSociety> societies) {
-		this.societies = societies;
-	}
+    /** The societies. */
+    @JsonProperty("discount")
+    private List<DiscountedSociety> societies = new ArrayList<DiscountedSociety>();
 
-	/**
-	 * @return the societyName
-	 */
-	public String getSocietyName() {
-		return societyName;
-	}
+    /**
+     * 
+     * @return The societies
+     */
+    public List<DiscountedSociety> getSocieties() {
+        return societies;
+    }
 
-	/**
-	 * @param societyName the societyName to set
-	 */
-	public void setSocietyName(String societyName) {
-		this.societyName = societyName;
-	}
+    /**
+     * 
+     * @param societies
+     *            The societies
+     */
+    public void setSocieties(List<DiscountedSociety> societies) {
+        this.societies = societies;
+    }
 
-	/**
-	 * @return the societyCode
-	 */
-	public String getSocietyCode() {
-		return societyCode;
-	}
+    /**
+     * @return the societyName
+     */
+    public String getSocietyName() {
+        return societyName;
+    }
 
-	/**
-	 * @param societyCode the societyCode to set
-	 */
-	public void setSocietyCode(String societyCode) {
-		this.societyCode = societyCode;
-	}
-	
+    /**
+     * @param societyName
+     *            the societyName to set
+     */
+    public void setSocietyName(String societyName) {
+        this.societyName = societyName;
+    }
+
+    /**
+     * @return the societyCode
+     */
+    public String getSocietyCode() {
+        return societyCode;
+    }
+
+    /**
+     * @param societyCode
+     *            the societyCode to set
+     */
+    public void setSocietyCode(String societyCode) {
+        this.societyCode = societyCode;
+    }
+
 }

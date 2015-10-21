@@ -4,33 +4,50 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author kalyancj
- *
+ * @author virtusa version 1.0
+ * 
  */
 public class Payment {
-	private CreditCard creditCard;
 
-	private String paymentMethod;
+    /** The credit card. */
+    private CreditCard creditCard;
 
-	public CreditCard getCreditCard() {
-		return creditCard;
-	}
+    /** The payment method. */
+    private String paymentMethod;
 
-	public void setCreditCard(CreditCard creditCard) {
-		this.creditCard = creditCard;
-	}
+    /**
+     * @return the creditCard
+     */
+    public CreditCard getCreditCard() {
+        return creditCard;
+    }
 
-	public String getPaymentMethod() {
-		return paymentMethod;
-	}
+    /**
+     * @param creditCard
+     *            the creditCard to set
+     */
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
+    }
 
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
-	}
+    /**
+     * @return the paymentMethod
+     */
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
 
-	@Override
-	public String toString() {
-		return "ClassPojo [creditCard = " + creditCard + ", paymentMethod = "
-				+ paymentMethod + "]";
-	}
+    /**
+     * @param paymentMethod
+     *            the paymentMethod to set
+     */
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    @Override
+    public String toString() {
+        return "ClassPojo [creditCard = " + creditCard + ", paymentMethod = "
+                + paymentMethod + "]";
+    }
 }

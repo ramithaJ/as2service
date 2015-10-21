@@ -1,6 +1,5 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
-
 /**
  * The Class PdhJournalResponse.
  *
@@ -8,131 +7,161 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class PdhJournalResponse {
 
-	private String journalId;
-	private String title;
-	private String pdmSalesModel;
-	private String discountsAllowed;
-	private String additionalDiscountAllowed;
-	private String discountReason;
-	private String journalPrintISSN;
-	private String journalElectronicISSN;
+    /** The journal id. */
+    private String journalId;
 
-	/**
-	 * 
-	 * @return The journalId
-	 */
-	public String getJournalId() {
-		return journalId;
-	}
+    /** The title. */
+    private String title;
 
-	/**
-	 * 
-	 * @param journalId
-	 *            The journalId
-	 */
-	public void setJournalId(final String journalId) {
-		this.journalId = journalId;
-	}
+    /** The pdm sales model. */
+    private String pdmSalesModel;
 
-	/**
-	 * 
-	 * @return The title
-	 */
-	public String getTitle() {
-		return title;
-	}
+    /** The discount allowed. */
+    private String discountsAllowed;
 
-	/**
-	 * 
-	 * @param title
-	 *            The title
-	 */
-	public void setTitle(final String title) {
-		this.title = title;
-	}
+    /** The additional discount allowed. */
+    private String additionalDiscountAllowed;
 
-	/**
-	 * 
-	 * @return The pdmSalesModel
-	 */
-	public String getPdmSalesModel() {
-		return pdmSalesModel;
-	}
+    /** The discount reason. */
+    private String discountReason;
 
-	/**
-	 * 
-	 * @param pdmSalesModel
-	 *            The pdmSalesModel
-	 */
-	public void setPdmSalesModel(final String pdmSalesModel) {
-		this.pdmSalesModel = pdmSalesModel;
-	}
+    /** The journal print issn. */
+    private String journalPrintISSN;
 
-	/**
-	 * 
-	 * @return The discountsAllowed
-	 */
-	public String getDiscountsAllowed() {
-		return discountsAllowed;
-	}
+    /** The journal electronic issn. */
+    private String journalElectronicISSN;
 
-	/**
-	 * 
-	 * @param discountsAllowed
-	 *            The discountsAllowed
-	 */
-	public void setDiscountsAllowed(final String discountsAllowed) {
-		this.discountsAllowed = discountsAllowed;
-	}
+    /**
+     * 
+     * @return The journalId
+     */
+    public String getJournalId() {
+        return journalId;
+    }
 
-	/**
-	 * 
-	 * @return The additionalDiscountAllowed
-	 */
-	public String getAdditionalDiscountAllowed() {
-		return additionalDiscountAllowed;
-	}
+    /**
+     * 
+     * @param journalId
+     *            The journalId
+     */
+    public void setJournalId(final String journalId) {
+        this.journalId = journalId;
+    }
 
-	/**
-	 * 
-	 * @param additionalDiscountAllowed
-	 *            The additionalDiscountAllowed
-	 */
-	public void setAdditionalDiscountAllowed(final String additionalDiscountAllowed) {
-		this.additionalDiscountAllowed = additionalDiscountAllowed;
-	}
+    /**
+     * 
+     * @return The title
+     */
+    public String getTitle() {
+        return title;
+    }
 
-	/**
-	 * 
-	 * @return The discountReason
-	 */
-	public String getDiscountReason() {
-		return discountReason;
-	}
+    /**
+     * 
+     * @param title
+     *            The title
+     */
+    public void setTitle(final String title) {
+        this.title = title;
+    }
 
-	/**
-	 * 
-	 * @param discountReason
-	 *            The discountReason
-	 */
-	public void setDiscountReason(final String discountReason) {
-		this.discountReason = discountReason;
-	}
+    /**
+     * 
+     * @return The pdmSalesModel
+     */
+    public String getPdmSalesModel() {
+        return pdmSalesModel;
+    }
 
-	public final String getJournalPrintISSN() {
-		return journalPrintISSN;
-	}
+    /**
+     * 
+     * @param pdmSalesModel
+     *            The pdmSalesModel
+     */
+    public void setPdmSalesModel(final String pdmSalesModel) {
+        this.pdmSalesModel = pdmSalesModel;
+    }
 
-	public final void setJournalPrintISSN(final String journalPrintISSN) {
-		this.journalPrintISSN = journalPrintISSN;
-	}
+    /**
+     * 
+     * @return The discountsAllowed
+     */
+    public String getDiscountsAllowed() {
+        return discountsAllowed;
+    }
 
-	public final String getJournalElectronicISSN() {
-		return journalElectronicISSN;
-	}
+    /**
+     * 
+     * @param discountsAllowed
+     *            The discountsAllowed
+     */
+    public void setDiscountsAllowed(final String discountsAllowed) {
+        this.discountsAllowed = discountsAllowed;
+    }
 
-	public final void setJournalElectronicISSN(final String journalElectronicISSN) {
-		this.journalElectronicISSN = journalElectronicISSN;
-	}
+    /**
+     * 
+     * @return The additionalDiscountAllowed
+     */
+    public String getAdditionalDiscountAllowed() {
+        return additionalDiscountAllowed;
+    }
+
+    /**
+     * 
+     * @param additionalDiscountAllowed
+     *            The additionalDiscountAllowed
+     */
+    public void setAdditionalDiscountAllowed(
+            final String additionalDiscountAllowed) {
+        this.additionalDiscountAllowed = additionalDiscountAllowed;
+    }
+
+    /**
+     * 
+     * @return The discountReason
+     */
+    public String getDiscountReason() {
+        return discountReason;
+    }
+
+    /**
+     * 
+     * @param discountReason
+     *            The discountReason
+     */
+    public void setDiscountReason(final String discountReason) {
+        this.discountReason = discountReason;
+    }
+
+    /**
+     * @return the journalPrintISSN
+     */
+    public String getJournalPrintISSN() {
+        return journalPrintISSN;
+    }
+
+    /**
+     * @param journalPrintISSN
+     *            the journalPrintISSN to set
+     */
+    public void setJournalPrintISSN(String journalPrintISSN) {
+        this.journalPrintISSN = journalPrintISSN;
+    }
+
+    /**
+     * @return the journalElectronicISSN
+     */
+    public String getJournalElectronicISSN() {
+        return journalElectronicISSN;
+    }
+
+    /**
+     * @param journalElectronicISSN
+     *            the journalElectronicISSN to set
+     */
+    public void setJournalElectronicISSN(String journalElectronicISSN) {
+        this.journalElectronicISSN = journalElectronicISSN;
+    }
 
 }

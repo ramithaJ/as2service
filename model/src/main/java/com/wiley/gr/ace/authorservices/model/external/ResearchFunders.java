@@ -12,12 +12,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class ResearchFunders {
 
-    /** The researchfunder. */
+    /** The research funder. */
     @JsonProperty("ResearchFunder")
     private List<ResearchFunderElement> researchfunder;
 
     /**
-     * @return the researchfunder
+     * @return the research funder
      */
     public final List<ResearchFunderElement> getResearchfunder() {
         return researchfunder;
@@ -25,7 +25,7 @@ public class ResearchFunders {
 
     /**
      * @param researchfunder
-     *            the researchfunder to set
+     *            the research funder to set
      */
     public final void setResearchfunder(
             final List<ResearchFunderElement> researchfunder) {

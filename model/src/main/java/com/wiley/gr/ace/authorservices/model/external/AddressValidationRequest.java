@@ -1,15 +1,29 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * 
+ * @author virtusa
+ * @version 1.0
+ */
 public class AddressValidationRequest {
 
-	private AddressValidationMultiReq addressValidationMultiReq;
+    /** The address validation multi req. */
+    private AddressValidationMultiReq addressValidationMultiReq;
 
-	public final AddressValidationMultiReq getAddressValidationMultiReq() {
-		return addressValidationMultiReq;
-	}
+    /**
+     * @return the addressValidationMultiReq
+     */
+    public AddressValidationMultiReq getAddressValidationMultiReq() {
+        return addressValidationMultiReq;
+    }
 
-	public final void setAddressValidationMultiReq(
-			final AddressValidationMultiReq addressValidationMultiReq) {
-		this.addressValidationMultiReq = addressValidationMultiReq;
-	}
+    /**
+     * @param addressValidationMultiReq
+     *            the addressValidationMultiReq to set
+     */
+    public void setAddressValidationMultiReq(
+            AddressValidationMultiReq addressValidationMultiReq) {
+        this.addressValidationMultiReq = addressValidationMultiReq;
+    }
+
 }

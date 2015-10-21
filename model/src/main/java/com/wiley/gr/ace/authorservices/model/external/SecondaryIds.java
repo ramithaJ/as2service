@@ -20,9 +20,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * The Class SecondaryIds.
  */
 public class SecondaryIds {
-    
+
     /** The id. */
-	@JsonProperty("id")
+    @JsonProperty("id")
     private List<Id> id;
 
     /**
@@ -37,14 +37,11 @@ public class SecondaryIds {
     /**
      * Sets the id.
      *
-     * @param id the new id
+     * @param id
+     *            the new id
      */
     public final void setId(final List<Id> id) {
         this.id = id;
     }
-    
 
 }
-
-
-

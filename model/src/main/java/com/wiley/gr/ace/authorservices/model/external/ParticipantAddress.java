@@ -79,6 +79,12 @@ public class ParticipantAddress {
     /** The language. */
     private String language;
 
+    /** The valid from. */
+    private String validFrom;
+
+    /** The valid to. */
+    private String validTo;
+
     /**
      * Gets the address id.
      *
@@ -154,12 +160,6 @@ public class ParticipantAddress {
     public final void setValidTo(final String validTo) {
         this.validTo = validTo;
     }
-
-    /** The valid from. */
-    private String validFrom;
-
-    /** The valid to. */
-    private String validTo;
 
     /**
      * Gets the address type.

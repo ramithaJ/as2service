@@ -19,24 +19,25 @@ import java.util.List;
  */
 public class AdditionalPermissions {
 
-	/**
-	 * This field holds the value of permissions
-	 */
-	private List<AdditionalPermissionsRequest> permissions;
+    /**
+     * This field holds the value of permissions
+     */
+    private List<AdditionalPermissionsRequest> permissions;
 
-	/**
-	 * @return the permissions
-	 */
-	public List<AdditionalPermissionsRequest> getPermissions() {
-		return permissions;
-	}
+    /**
+     * @return the permissions
+     */
+    public List<AdditionalPermissionsRequest> getPermissions() {
+        return permissions;
+    }
 
-	/**
-	 * @param permissions the permissions to set
-	 */
-	public void setPermissions(final List<AdditionalPermissionsRequest> permissions) {
-		this.permissions = permissions;
-	}
-	
-	
+    /**
+     * @param permissions
+     *            the permissions to set
+     */
+    public void setPermissions(
+            final List<AdditionalPermissionsRequest> permissions) {
+        this.permissions = permissions;
+    }
+
 }

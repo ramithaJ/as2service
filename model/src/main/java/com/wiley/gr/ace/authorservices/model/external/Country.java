@@ -20,6 +20,12 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class Country {
 
+    /** The country name. */
+    private String countryName;
+
+    /** The country code. */
+    private String countryCode;
+
     /**
      * @return the countryName
      */
@@ -49,11 +55,4 @@ public class Country {
     public final void setCountryCode(final String countryCode) {
         this.countryCode = countryCode;
     }
-
-    /** The country name. */
-    private String countryName;
-
-    /** The country code. */
-    private String countryCode;
-
 }

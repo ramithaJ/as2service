@@ -6,58 +6,63 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class OrderResponse {
 
-	private String responseCode;
-	private String responseDescription;
-	private String ooUniqueId;
+    /** The response code. */
+    private String responseCode;
 
-	/**
-	 * 
-	 * @return The responseCode
-	 */
-	public String getResponseCode() {
-		return responseCode;
-	}
+    /** The response description. */
+    private String responseDescription;
 
-	/**
-	 * 
-	 * @param responseCode
-	 *            The responseCode
-	 */
-	public void setResponseCode(String responseCode) {
-		this.responseCode = responseCode;
-	}
+    /** The oo unique id. */
+    private String ooUniqueId;
 
-	/**
-	 * 
-	 * @return The responseDescription
-	 */
-	public String getResponseDescription() {
-		return responseDescription;
-	}
+    /**
+     * 
+     * @return The responseCode
+     */
+    public String getResponseCode() {
+        return responseCode;
+    }
 
-	/**
-	 * 
-	 * @param responseDescription
-	 *            The responseDescription
-	 */
-	public void setResponseDescription(String responseDescription) {
-		this.responseDescription = responseDescription;
-	}
+    /**
+     * 
+     * @param responseCode
+     *            The responseCode
+     */
+    public void setResponseCode(String responseCode) {
+        this.responseCode = responseCode;
+    }
 
-	/**
-	 * 
-	 * @return The ooUniqueId
-	 */
-	public String getOoUniqueId() {
-		return ooUniqueId;
-	}
+    /**
+     * 
+     * @return The responseDescription
+     */
+    public String getResponseDescription() {
+        return responseDescription;
+    }
 
-	/**
-	 * 
-	 * @param ooUniqueId
-	 *            The ooUniqueId
-	 */
-	public void setOoUniqueId(String ooUniqueId) {
-		this.ooUniqueId = ooUniqueId;
-	}
+    /**
+     * 
+     * @param responseDescription
+     *            The responseDescription
+     */
+    public void setResponseDescription(String responseDescription) {
+        this.responseDescription = responseDescription;
+    }
+
+    /**
+     * 
+     * @return The ooUniqueId
+     */
+    public String getOoUniqueId() {
+        return ooUniqueId;
+    }
+
+    /**
+     * 
+     * @param ooUniqueId
+     *            The ooUniqueId
+     */
+    public void setOoUniqueId(String ooUniqueId) {
+        this.ooUniqueId = ooUniqueId;
+    }
 }

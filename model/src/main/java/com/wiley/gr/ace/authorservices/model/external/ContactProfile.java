@@ -21,6 +21,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class ContactProfile {
 
+    /** The contact identification. */
+    @JsonProperty("ContactIdentification")
+    private ContactIdentification contactIdentification;
+
     /**
      * Gets the contact identification.
      *
@@ -41,7 +45,4 @@ public class ContactProfile {
         this.contactIdentification = contactIdentification;
     }
 
-    /** The contact identification. */
-    @JsonProperty("ContactIdentification")
-    private ContactIdentification contactIdentification;
 }
