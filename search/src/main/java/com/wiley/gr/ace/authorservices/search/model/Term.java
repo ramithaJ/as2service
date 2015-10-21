@@ -15,26 +15,27 @@ package com.wiley.gr.ace.authorservices.search.model;
  * The Class Term.
  */
 public class Term {
-	
-	/** The journal title. */
-	private String[] journalTitle;
 
-	/**
-	 * Gets the journalTitle.
-	 *
-	 * @return the journalTitle
-	 */
-	public final String[] getJournalTitle() {
-		return journalTitle;
-	}
+    /** The journal title. */
+    private String[] journalTitle;
 
-	/**
-	 * Sets the journal title.
-	 *
-	 * @param journal title the new journal_title
-	 */
-	public final void setJournalTitle(final String[] journalTitle) {
-		this.journalTitle = journalTitle;
-	}
+    /**
+     * Gets the journalTitle.
+     *
+     * @return the journalTitle
+     */
+    public final String[] getJournalTitle() {
+        return journalTitle;
+    }
+
+    /**
+     * Sets the journal title.
+     *
+     * @param journal
+     *            title the new journal_title
+     */
+    public final void setJournalTitle(final String[] journalTitle) {
+        this.journalTitle = journalTitle;
+    }
 
 }

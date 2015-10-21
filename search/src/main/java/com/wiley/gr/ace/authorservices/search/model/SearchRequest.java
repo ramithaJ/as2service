@@ -11,105 +11,191 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.search.model;
 
+/**
+ * The Search Request Class.
+ * 
+ * @author virtusa version 1.0
+ */
 public class SearchRequest {
-	private String enableFacets;
 
-	private String index;
+    /** The enable facets. */
+    private String enableFacets;
 
-	private AdvanceQuery[] advanceQuery;
+    /** The index. */
+    private String index;
 
-	private String simpleQuery;
+    /** The advance query. */
+    private AdvanceQuery[] advanceQuery;
 
-	private Sort[] sort;
+    /** The simnple query. */
+    private String simpleQuery;
 
-	private String offset;
+    /** The sort. */
+    private Sort[] sort;
 
-	private String[] types;
+    /** The offset. */
+    private String offset;
 
-	private Filters filters;
+    /** The types. */
+    private String[] types;
 
-	private String rows;
+    /** The filters. */
+    private Filters filters;
 
-	private String appKey;
+    /** The rows. */
+    private String rows;
 
-	public final String getEnableFacets() {
-		return enableFacets;
-	}
+    /** The appKey. */
+    private String appKey;
 
-	public final void setEnableFacets(final String enableFacets) {
-		this.enableFacets = enableFacets;
-	}
+    /**
+     * @return the enableFacets
+     */
+    public String getEnableFacets() {
+        return enableFacets;
+    }
 
-	public final String getIndex() {
-		return index;
-	}
+    /**
+     * @param enableFacets
+     *            the enableFacets to set
+     */
+    public void setEnableFacets(String enableFacets) {
+        this.enableFacets = enableFacets;
+    }
 
-	public final void setIndex(final String index) {
-		this.index = index;
-	}
+    /**
+     * @return the index
+     */
+    public String getIndex() {
+        return index;
+    }
 
-	public final AdvanceQuery[] getAdvanceQuery() {
-		return advanceQuery;
-	}
+    /**
+     * @param index
+     *            the index to set
+     */
+    public void setIndex(String index) {
+        this.index = index;
+    }
 
-	public final void setAdvanceQuery(final AdvanceQuery[] advanceQuery) {
-		this.advanceQuery = advanceQuery;
-	}
+    /**
+     * @return the advanceQuery
+     */
+    public AdvanceQuery[] getAdvanceQuery() {
+        return advanceQuery;
+    }
 
-	public final String getSimpleQuery() {
-		return simpleQuery;
-	}
+    /**
+     * @param advanceQuery
+     *            the advanceQuery to set
+     */
+    public void setAdvanceQuery(AdvanceQuery[] advanceQuery) {
+        this.advanceQuery = advanceQuery;
+    }
 
-	public final void setSimpleQuery(final String simpleQuery) {
-		this.simpleQuery = simpleQuery;
-	}
+    /**
+     * @return the simpleQuery
+     */
+    public String getSimpleQuery() {
+        return simpleQuery;
+    }
 
-	public final Sort[] getSort() {
-		return sort;
-	}
+    /**
+     * @param simpleQuery
+     *            the simpleQuery to set
+     */
+    public void setSimpleQuery(String simpleQuery) {
+        this.simpleQuery = simpleQuery;
+    }
 
-	public final void setSort(final Sort[] sort) {
-		this.sort = sort;
-	}
+    /**
+     * @return the sort
+     */
+    public Sort[] getSort() {
+        return sort;
+    }
 
-	public final String getOffset() {
-		return offset;
-	}
+    /**
+     * @param sort
+     *            the sort to set
+     */
+    public void setSort(Sort[] sort) {
+        this.sort = sort;
+    }
 
-	public final void setOffset(final String offset) {
-		this.offset = offset;
-	}
+    /**
+     * @return the offset
+     */
+    public String getOffset() {
+        return offset;
+    }
 
-	public final String[] getTypes() {
-		return types;
-	}
+    /**
+     * @param offset
+     *            the offset to set
+     */
+    public void setOffset(String offset) {
+        this.offset = offset;
+    }
 
-	public final void setTypes(final String[] types) {
-		this.types = types;
-	}
+    /**
+     * @return the types
+     */
+    public String[] getTypes() {
+        return types;
+    }
 
-	public final Filters getFilters() {
-		return filters;
-	}
+    /**
+     * @param types
+     *            the types to set
+     */
+    public void setTypes(String[] types) {
+        this.types = types;
+    }
 
-	public final void setFilters(final Filters filters) {
-		this.filters = filters;
-	}
+    /**
+     * @return the filters
+     */
+    public Filters getFilters() {
+        return filters;
+    }
 
-	public final String getRows() {
-		return rows;
-	}
+    /**
+     * @param filters
+     *            the filters to set
+     */
+    public void setFilters(Filters filters) {
+        this.filters = filters;
+    }
 
-	public final void setRows(final String rows) {
-		this.rows = rows;
-	}
+    /**
+     * @return the rows
+     */
+    public String getRows() {
+        return rows;
+    }
 
-	public final String getAppKey() {
-		return appKey;
-	}
+    /**
+     * @param rows
+     *            the rows to set
+     */
+    public void setRows(String rows) {
+        this.rows = rows;
+    }
 
-	public final void setAppKey(final String appKey) {
-		this.appKey = appKey;
-	}
+    /**
+     * @return the appKey
+     */
+    public String getAppKey() {
+        return appKey;
+    }
+
+    /**
+     * @param appKey
+     *            the appKey to set
+     */
+    public void setAppKey(String appKey) {
+        this.appKey = appKey;
+    }
 
 }

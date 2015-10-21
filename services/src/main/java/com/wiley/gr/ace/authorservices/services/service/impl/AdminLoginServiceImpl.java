@@ -53,6 +53,12 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     @Autowired(required = true)
     private TaskService taskService;
 
+    /** The request admin access user. */
+    private static final String REQ_ADMIN_ACCESS_USER = "skpalli";
+
+    /** The request id. */
+    private static final String REQ_ID = "john";
+
     /**
      * This method will call take emailId as input and takes and validate
      * against db.
@@ -85,11 +91,11 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         TaskServiceRequest taskServiceRequest = new TaskServiceRequest();
         taskServiceRequest.setRequestorEmail(emailId);
         taskServiceRequest.setJustifications(accessId);
-        taskServiceRequest.setRequestorId("john");
+        taskServiceRequest.setRequestorId(REQ_ID);
         LOGGER.info("#userId" + taskServiceRequest.toString());
-        String status = taskService.invokeTaskService(taskServiceRequest,
-                "skpalli");
-        return status;
+
+        return taskService.invokeTaskService(taskServiceRequest,
+                REQ_ADMIN_ACCESS_USER);
     }
 
     /**

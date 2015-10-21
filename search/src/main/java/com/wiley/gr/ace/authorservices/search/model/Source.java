@@ -15,107 +15,113 @@ package com.wiley.gr.ace.authorservices.search.model;
  * The Class Source.
  */
 public class Source {
-	
-	/** The journal type. */
-	private String journalType;
 
-	/** The journal ownership type. */
-	private String journalOwnershipType;
+    /** The journal type. */
+    private String journalType;
 
-	/** The journal status. */
-	private String journalStatus;
+    /** The journal ownership type. */
+    private String journalOwnershipType;
 
-	/** The journal title. */
-	private String journalTitle;
+    /** The journal status. */
+    private String journalStatus;
 
-	/** The journal acronym. */
-	private String journalAcronym;
+    /** The journal title. */
+    private String journalTitle;
 
-	/** The journal setup state. */
-	private String journalSetupState;
+    /** The journal acronym. */
+    private String journalAcronym;
 
-	/**
-	 * @return the journalType
-	 */
-	public String getJournalType() {
-		return journalType;
-	}
+    /** The journal setup state. */
+    private String journalSetupState;
 
-	/**
-	 * @param journalType the journalType to set
-	 */
-	public void setJournalType(String journalType) {
-		this.journalType = journalType;
-	}
+    /**
+     * @return the journalType
+     */
+    public String getJournalType() {
+        return journalType;
+    }
 
-	/**
-	 * @return the journalOwnershipType
-	 */
-	public String getJournalOwnershipType() {
-		return journalOwnershipType;
-	}
+    /**
+     * @param journalType
+     *            the journalType to set
+     */
+    public void setJournalType(String journalType) {
+        this.journalType = journalType;
+    }
 
-	/**
-	 * @param journalOwnershipType the journalOwnershipType to set
-	 */
-	public void setJournalOwnershipType(String journalOwnershipType) {
-		this.journalOwnershipType = journalOwnershipType;
-	}
+    /**
+     * @return the journalOwnershipType
+     */
+    public String getJournalOwnershipType() {
+        return journalOwnershipType;
+    }
 
-	/**
-	 * @return the journalStatus
-	 */
-	public String getJournalStatus() {
-		return journalStatus;
-	}
+    /**
+     * @param journalOwnershipType
+     *            the journalOwnershipType to set
+     */
+    public void setJournalOwnershipType(String journalOwnershipType) {
+        this.journalOwnershipType = journalOwnershipType;
+    }
 
-	/**
-	 * @param journalStatus the journalStatus to set
-	 */
-	public void setJournalStatus(String journalStatus) {
-		this.journalStatus = journalStatus;
-	}
+    /**
+     * @return the journalStatus
+     */
+    public String getJournalStatus() {
+        return journalStatus;
+    }
 
-	/**
-	 * @return the journalTitle
-	 */
-	public String getJournalTitle() {
-		return journalTitle;
-	}
+    /**
+     * @param journalStatus
+     *            the journalStatus to set
+     */
+    public void setJournalStatus(String journalStatus) {
+        this.journalStatus = journalStatus;
+    }
 
-	/**
-	 * @param journalTitle the journalTitle to set
-	 */
-	public void setJournalTitle(String journalTitle) {
-		this.journalTitle = journalTitle;
-	}
+    /**
+     * @return the journalTitle
+     */
+    public String getJournalTitle() {
+        return journalTitle;
+    }
 
-	/**
-	 * @return the journalAcronym
-	 */
-	public String getJournalAcronym() {
-		return journalAcronym;
-	}
+    /**
+     * @param journalTitle
+     *            the journalTitle to set
+     */
+    public void setJournalTitle(String journalTitle) {
+        this.journalTitle = journalTitle;
+    }
 
-	/**
-	 * @param journalAcronym the journalAcronym to set
-	 */
-	public void setJournalAcronym(String journalAcronym) {
-		this.journalAcronym = journalAcronym;
-	}
+    /**
+     * @return the journalAcronym
+     */
+    public String getJournalAcronym() {
+        return journalAcronym;
+    }
 
-	/**
-	 * @return the journalSetupState
-	 */
-	public String getJournalSetupState() {
-		return journalSetupState;
-	}
+    /**
+     * @param journalAcronym
+     *            the journalAcronym to set
+     */
+    public void setJournalAcronym(String journalAcronym) {
+        this.journalAcronym = journalAcronym;
+    }
 
-	/**
-	 * @param journalSetupState the journalSetupState to set
-	 */
-	public void setJournalSetupState(String journalSetupState) {
-		this.journalSetupState = journalSetupState;
-	}
+    /**
+     * @return the journalSetupState
+     */
+    public String getJournalSetupState() {
+        return journalSetupState;
+    }
+
+    /**
+     * @param journalSetupState
+     *            the journalSetupState to set
+     */
+    public void setJournalSetupState(String journalSetupState) {
+        this.journalSetupState = journalSetupState;
+    }
 
 }

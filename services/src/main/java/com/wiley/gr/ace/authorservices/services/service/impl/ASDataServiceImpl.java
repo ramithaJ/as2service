@@ -215,6 +215,7 @@ public class ASDataServiceImpl implements ASDataService {
      *            the count
      * @return the countries
      */
+    @SuppressWarnings("unchecked")
     @Override
     public final List<Country> getCountries(final Integer count) {
 
@@ -405,8 +406,7 @@ public class ASDataServiceImpl implements ASDataService {
 
         LOGGER.info("inside getAdminRoles method ");
 
-        List<Role> adminRoles = new ArrayList<Role>();
-        return adminRoles;
+        return new ArrayList<Role>();
     }
 
     /**

@@ -244,9 +244,8 @@ public class LicenseServiceImpl implements LicenseService {
         } catch (IOException e) {
             LOGGER.error("Exception " + e);
         }
-        String content = contentBuilder.toString();
 
-        return content;
+        return contentBuilder.toString();
     }
 
     /**

@@ -15,68 +15,71 @@ package com.wiley.gr.ace.authorservices.search.model;
  * The Class Terms.
  */
 public class Terms {
-	
-	/** The field. */
-	private String field;
 
-	/** The count. */
-	private String count;
+    /** The field. */
+    private String field;
 
-	/** The term. */
-	private String term;
+    /** The count. */
+    private String count;
 
-	/**
-	 * Gets the field.
-	 *
-	 * @return the field
-	 */
-	public final String getField() {
-		return field;
-	}
+    /** The term. */
+    private String term;
 
-	/**
-	 * Sets the field.
-	 *
-	 * @param field the new field
-	 */
-	public final void setField(final String field) {
-		this.field = field;
-	}
+    /**
+     * Gets the field.
+     *
+     * @return the field
+     */
+    public final String getField() {
+        return field;
+    }
 
-	/**
-	 * Gets the count.
-	 *
-	 * @return the count
-	 */
-	public final String getCount() {
-		return count;
-	}
+    /**
+     * Sets the field.
+     *
+     * @param field
+     *            the new field
+     */
+    public final void setField(final String field) {
+        this.field = field;
+    }
 
-	/**
-	 * Sets the count.
-	 *
-	 * @param count the new count
-	 */
-	public final void setCount(final String count) {
-		this.count = count;
-	}
+    /**
+     * Gets the count.
+     *
+     * @return the count
+     */
+    public final String getCount() {
+        return count;
+    }
 
-	/**
-	 * Gets the term.
-	 *
-	 * @return the term
-	 */
-	public final String getTerm() {
-		return term;
-	}
+    /**
+     * Sets the count.
+     *
+     * @param count
+     *            the new count
+     */
+    public final void setCount(final String count) {
+        this.count = count;
+    }
 
-	/**
-	 * Sets the term.
-	 *
-	 * @param term the new term
-	 */
-	public final void setTerm(final String term) {
-		this.term = term;
-	}
+    /**
+     * Gets the term.
+     *
+     * @return the term
+     */
+    public final String getTerm() {
+        return term;
+    }
+
+    /**
+     * Sets the term.
+     *
+     * @param term
+     *            the new term
+     */
+    public final void setTerm(final String term) {
+        this.term = term;
+    }
 
 }
