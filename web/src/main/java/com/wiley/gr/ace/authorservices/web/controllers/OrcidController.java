@@ -55,6 +55,9 @@ public class OrcidController {
     @Value("${orcidForRegister.url}")
     private String orcidRegisterRedirectUrl;
 
+    @Value("${orcidForProfile.url}")
+    private String orcidProfileRedirectUrl;
+
     /**
      * orcidUrl From Props File.
      */
@@ -96,6 +99,10 @@ public class OrcidController {
     /** The get orcid id error message. */
     @Value("{OrcidController.getOrcidDetails.message}")
     private String getOrcidIdErrorMessage;
+
+    public static final String REGISTRATION = "registration";
+
+    public static final String PROFILE = "profile";
 
     /**
      * Gets the orcid url.
@@ -162,8 +169,13 @@ public class OrcidController {
                         }
                     }
                     orcidService.putOrcidData(user, authrizationCode);
-                    response.sendRedirect(orcidRegisterRedirectUrl
-                            + authrizationCode);
+                    if (REGISTRATION.equalsIgnoreCase(type)) {
+                        response.sendRedirect(orcidRegisterRedirectUrl
+                                .concat(authrizationCode));
+                    } else if(PROFILE.equalsIgnoreCase(type)) {
+                        response.sendRedirect(orcidProfileRedirectUrl
+                                .concat(authrizationCode));
+                    }
                 }
             }
         } catch (final Exception e) {
