@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 
+import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
@@ -37,6 +38,7 @@ import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Country;
+import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.PreferredJournals;
@@ -93,6 +95,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     /** The author profile dao. */
     @Autowired
     private AuthorProfileDao authorProfileDao;
+    @Autowired(required = true)
+    private AutocompleteService autocomplete;
 
     /**
      * Injecting SendNotification bean.
@@ -575,11 +579,22 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return the area of interests
      */
     @Override
-    public final List<String> getAreaOfInterests(final String userId) {
+    public final List<Interests> getAreaOfInterests(final String userId) {
         final List<String> areaOfInterest = participantsInterfaceService
                 .searchParticipantByParticipantId(userId).getAreasOfInterest();
+        List<Interests> listAreaOfInterests = new ArrayList<Interests>();
+        String aoeName = null;
+        for (String string : areaOfInterest) {
+            Interests interests = new Interests();
+            interests.setAoeId(string);
+            aoeName = autocomplete.getNameByCode("areasOfInterests", string,
+                    null);
+            interests.setAoeName(aoeName);
+            listAreaOfInterests.add(interests);
 
-        return areaOfInterest;
+        }
+
+        return listAreaOfInterests;
     }
 
     /**
