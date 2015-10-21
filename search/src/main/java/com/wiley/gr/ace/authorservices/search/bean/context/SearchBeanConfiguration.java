@@ -25,25 +25,25 @@ import com.wiley.gr.ace.authorservices.services.search.service.impl.SearchServic
 @Configuration
 public class SearchBeanConfiguration {
 
-	/**
-	 * Search service.
-	 *
-	 * @return the search service
-	 */
-	@Bean(name = "SearchService")
-	public SearchService searchService() {
-		return new SearchServiceImpl();
-	}
+    /**
+     * Search service.
+     *
+     * @return the search service
+     */
+    @Bean(name = "SearchService")
+    public SearchService searchService() {
+        return new SearchServiceImpl();
+    }
 
-	/**
-	 * Search external service.
-	 *
-	 * @return the search external service
-	 */
-	@Bean(name = "SearchExternalService")
-	public SearchExternalService searchExternalService() {
-		return new SearchExternalServiceImpl();
+    /**
+     * Search external service.
+     *
+     * @return the search external service
+     */
+    @Bean(name = "SearchExternalService")
+    public SearchExternalService searchExternalService() {
+        return new SearchExternalServiceImpl();
 
-	}
+    }
 
 }

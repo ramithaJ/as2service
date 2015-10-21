@@ -20,16 +20,17 @@ import com.wiley.gr.ace.authorservices.model.external.AdditionalPermissions;
  */
 public interface AdditionalPermissionService {
 
-	/**
-	 * @param userId
-	 * @return
-	 */
-	AdditionalPermissionsResponse getAdditionalPermissions(String userId);
-	
-	/**
-	 * @param additionalPermissions
-	 * @return
-	 */
-	boolean updateAdditionalPermissions(AdditionalPermissions additionalPermissions);
-	
+    /**
+     * @param userId
+     * @return
+     */
+    AdditionalPermissionsResponse getAdditionalPermissions(String userId);
+
+    /**
+     * @param additionalPermissions
+     * @return
+     */
+    boolean updateAdditionalPermissions(
+            AdditionalPermissions additionalPermissions);
+
 }

@@ -5,37 +5,37 @@ package com.wiley.gr.ace.authorservices.model.external;
  *
  */
 public class LinkData {
-	
-	private String rel;
-	
-	private String href;
 
-	/**
-	 * @return
-	 */
-	public String getRel() {
-		return rel;
-	}
+    private String rel;
 
-	/**
-	 * @param rel
-	 */
-	public void setRel(final String rel) {
-		this.rel = rel;
-	}
+    private String href;
 
-	/**
-	 * @return
-	 */
-	public String getHref() {
-		return href;
-	}
+    /**
+     * @return
+     */
+    public String getRel() {
+        return rel;
+    }
 
-	/**
-	 * @param href
-	 */
-	public void setHref(final String href) {
-		this.href = href;
-	}
-	
+    /**
+     * @param rel
+     */
+    public void setRel(final String rel) {
+        this.rel = rel;
+    }
+
+    /**
+     * @return
+     */
+    public String getHref() {
+        return href;
+    }
+
+    /**
+     * @param href
+     */
+    public void setHref(final String href) {
+        this.href = href;
+    }
+
 }

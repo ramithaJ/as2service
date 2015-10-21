@@ -49,11 +49,9 @@ public class UploadLicenseController {
     @Value("${MAX_NO_FILES}")
     private Integer maxNoFiles;
 
-
     /** The view license input error. */
     @Value("${UploadLicenseController.viewLicenseInputError}")
     private String viewLicenseInputError;
-
 
     /** The view license not found. */
     @Value("${UploadLicenseController.viewLicenseNotFound}")
@@ -83,6 +81,12 @@ public class UploadLicenseController {
     @Value("${UploadLicenseController.uploadLicenseExceptionr.message}")
     private String uploadLicenseExceptionMessage;
 
+    /** The constant success. */
+    private static final String SUCCESS = "SUCCESS";
+
+    /** The constant failure. */
+    private static final String FAILURE = "FAILURE";
+
     /**
      * View license.
      *
@@ -103,9 +107,9 @@ public class UploadLicenseController {
                 String license = uploadLicenseService.viewLicense(dhId, userId);
                 if (!StringUtils.isEmpty(license)) {
                     service.setPayload(license);
-                    service.setStatus("SUCCESS");
+                    service.setStatus(SUCCESS);
                 } else {
-                    service.setStatus("FAILURE");
+                    service.setStatus(FAILURE);
                     service.setPayload(viewLicenseNotFound);
                 }
             } catch (Exception e) {
@@ -115,7 +119,7 @@ public class UploadLicenseController {
             }
 
         } else {
-            service.setStatus("FAILURE");
+            service.setStatus(FAILURE);
             service.setPayload(viewLicenseInputError);
         }
         return service;
@@ -141,7 +145,7 @@ public class UploadLicenseController {
         LOGGER.info("Inside uploadLicense method of UploadLicenseController");
         Service service = new Service();
         if (!StringUtils.isEmpty(dhId) && !StringUtils.isEmpty(userId)
-                && !StringUtils.isEmpty(files) && files.length <= maxNoFiles) { 
+                && !StringUtils.isEmpty(files) && files.length <= maxNoFiles) {
             boolean isUpdated = false;
             try {
                 for (int i = 0; i < files.length; i++) {
@@ -150,11 +154,11 @@ public class UploadLicenseController {
                         isUpdated = uploadLicenseService.uploadLicense(dhId,
                                 userId, file);
                         if (!isUpdated) {
-                            service.setStatus("FAILURE");
+                            service.setStatus(FAILURE);
                             service.setPayload(uploadLicenseNotFound);
                         }
                     }
-                    service.setStatus("SUCCESS");
+                    service.setStatus(SUCCESS);
                 }
 
             } catch (Exception e) {
@@ -164,7 +168,7 @@ public class UploadLicenseController {
             }
 
         } else {
-            service.setStatus("FAILURE");
+            service.setStatus(FAILURE);
             service.setPayload(uploadLicenseInputError);
         }
         return service;

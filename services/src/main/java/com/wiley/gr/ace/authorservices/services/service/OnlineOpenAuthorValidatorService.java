@@ -16,31 +16,26 @@ import com.wiley.gr.ace.authorservices.model.TaxDetails;
  *
  */
 public interface OnlineOpenAuthorValidatorService {
-	
-	
-	 /**
-	  * 
-	  * @param userId
-	  * @param taxDetails
-	  */
-	 void validateTaxDetails(TaxDetails taxDetails);
 
-	/**
-	 * @param userId
-	 * @param funderDetails
-	 */
-	void validateFunderDetails(List<FunderDetails> funderDetailsList);
+    /**
+     * 
+     * @param userId
+     * @param taxDetails
+     */
+    void validateTaxDetails(TaxDetails taxDetails);
 
-	/**
-	 * @param onlineOpenOrder
-	 * @param userId
-	 * @return onlineOpenOrder
-	 */
-	OnlineOpenOrder processAndValidateNext(OnlineOpenOrder onlineOpenOrder, String userId);
-	
+    /**
+     * @param userId
+     * @param funderDetails
+     */
+    void validateFunderDetails(List<FunderDetails> funderDetailsList);
 
-	
-	
-	
+    /**
+     * @param onlineOpenOrder
+     * @param userId
+     * @return onlineOpenOrder
+     */
+    OnlineOpenOrder processAndValidateNext(OnlineOpenOrder onlineOpenOrder,
+            String userId);
 
 }

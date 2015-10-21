@@ -133,10 +133,14 @@ public class DashboardController {
     @Value("${inputParameterNotFound.message}")
     private String inputParameterNotFound;
 
+    /** The parameter not found constant. */
+    private static final String PARAMETER_NOT_FOUND_MSG = "input Parameter userId is Not Found";
+
     /**
      * This method takes userId and return the Service.
      *
-     * @param userId - The request value
+     * @param userId
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET)
@@ -162,7 +166,7 @@ public class DashboardController {
                         getProfileMeterErrorMessage);
             }
         } else {
-            LOGGER.info("input Parameter userId is Not Found");
+            LOGGER.info(PARAMETER_NOT_FOUND_MSG);
             service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(inputParameterNotFound);
         }
@@ -173,7 +177,8 @@ public class DashboardController {
     /**
      * This method takes userId and return the Service.
      *
-     * @param userId the user id
+     * @param userId
+     *            the user id
      * @return service
      */
     @RequestMapping(value = "/viewall/{userId}", method = RequestMethod.GET)
@@ -193,7 +198,7 @@ public class DashboardController {
                         getActionRequiredErrorMessage);
             }
         } else {
-            LOGGER.info("input Parameter userId is Not Found");
+            LOGGER.info(PARAMETER_NOT_FOUND_MSG);
             service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(inputParameterNotFound);
         }
@@ -203,7 +208,8 @@ public class DashboardController {
     /**
      * This method takes userId and return the Service.
      *
-     * @param userId the user id
+     * @param userId
+     *            the user id
      * @return service
      */
     @RequestMapping(value = "/action/{userId}", method = RequestMethod.GET)
@@ -223,7 +229,7 @@ public class DashboardController {
                         getAllAuthorArticlesErrorMessage);
             }
         } else {
-            LOGGER.info("input Parameter userId is Not Found");
+            LOGGER.info(PARAMETER_NOT_FOUND_MSG);
             service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(inputParameterNotFound);
         }
@@ -233,7 +239,8 @@ public class DashboardController {
     /**
      * Gets the email communication history.
      *
-     * @param userId the user id
+     * @param userId
+     *            the user id
      * @return the email communication history
      */
     @RequestMapping(value = "/communication/{userId}", method = RequestMethod.GET)
@@ -262,7 +269,7 @@ public class DashboardController {
                         getEmailCommunicationHistoryErrorMessage);
             }
         } else {
-            LOGGER.info("input Parameter userId is Not Found");
+            LOGGER.info(PARAMETER_NOT_FOUND_MSG);
             service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(inputParameterNotFound);
         }
@@ -272,7 +279,8 @@ public class DashboardController {
     /**
      * Gets the production details.
      *
-     * @param userId the user id
+     * @param userId
+     *            the user id
      * @return the production details
      */
     @RequestMapping(value = "/production/{userId}", method = RequestMethod.GET)
@@ -292,7 +300,7 @@ public class DashboardController {
                         getProductionDetailsErrorMessage);
             }
         } else {
-            LOGGER.info("input Parameter userId is Not Found");
+            LOGGER.info(PARAMETER_NOT_FOUND_MSG);
             service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(inputParameterNotFound);
         }
@@ -302,7 +310,8 @@ public class DashboardController {
     /**
      * Gets the published article details.
      *
-     * @param userId the user id
+     * @param userId
+     *            the user id
      * @return the published article details
      */
     @RequestMapping(value = "/published/{userId}", method = RequestMethod.GET)
@@ -323,7 +332,7 @@ public class DashboardController {
                         getPublishedArticleDetailsErrorMessage);
             }
         } else {
-            LOGGER.info("input Parameter userId is Not Found");
+            LOGGER.info(PARAMETER_NOT_FOUND_MSG);
             service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(inputParameterNotFound);
         }

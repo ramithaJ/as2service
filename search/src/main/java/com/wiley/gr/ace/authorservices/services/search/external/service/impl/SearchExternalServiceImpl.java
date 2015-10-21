@@ -54,10 +54,9 @@ public class SearchExternalServiceImpl implements SearchExternalService {
 
         final HttpEntity<SearchRequest> httpEntity = new HttpEntity<SearchRequest>(
                 searchRequest, headers);
-        final SearchResponse response = new RestTemplate().exchange(searchUrl,
-                HttpMethod.POST, httpEntity, SearchResponse.class).getBody();
 
-        return response;
+        return new RestTemplate().exchange(searchUrl, HttpMethod.POST,
+                httpEntity, SearchResponse.class).getBody();
     }
 
     /**
