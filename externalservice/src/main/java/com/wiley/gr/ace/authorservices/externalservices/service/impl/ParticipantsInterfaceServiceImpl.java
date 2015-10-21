@@ -23,6 +23,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
@@ -33,11 +35,11 @@ import com.wiley.gr.ace.authorservices.model.external.EntityValue;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantErrorResponse;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantGetResponse;
+import com.wiley.gr.ace.authorservices.model.external.ParticipantUpdateSuccessResponse;
 import com.wiley.gr.ace.authorservices.model.external.PreferenceMapper;
 import com.wiley.gr.ace.authorservices.model.external.PreferenceValue;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
-import com.wiley.gr.ace.authorservices.model.external.ProfileResponse;
 
 /**
  * The Class ParticipantsInterfaceServiceImpl.
@@ -263,11 +265,22 @@ public class ParticipantsInterfaceServiceImpl implements
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public final ResponseEntity updateProfile(final ProfileEntity profileEntity) {
+    public final boolean updateProfile(final ProfileEntity profileEntity) {
 
-        final String url = "http://assearchdev.wiley.com:8080/v1/profile/";
-        return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
-                HttpMethod.PUT, profileEntity, ProfileResponse.class, null);
+        final String url = "http://10.201.64.81:8090/profileservice/v1/profile";
+        boolean status = false;
+        ParticipantUpdateSuccessResponse participantUpdateSuccessResponse = (ParticipantUpdateSuccessResponse) StubInvokerUtil
+                .restServiceResponseInvoker(url, HttpMethod.PUT, profileEntity,
+                        ParticipantUpdateSuccessResponse.class, null);
+        if (AuthorServicesConstants.SUCCESS
+                .equalsIgnoreCase(participantUpdateSuccessResponse.getStatus())) {
+            status = true;
+        } else {
+            throw new UserException(participantUpdateSuccessResponse.getError()
+                    .getErrorCode(), participantUpdateSuccessResponse
+                    .getError().getErrorMessage());
+        }
+        return status;
 
     }
 

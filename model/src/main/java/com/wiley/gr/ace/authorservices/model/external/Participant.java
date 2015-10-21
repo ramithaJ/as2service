@@ -28,51 +28,51 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Participant {
 
-	/** The participant id. */
-	private String participantId;
-	
-	/** The email. */
-	private String email;
-	
-	/** The recovery email. */
-	private String recoveryEmail;
-	
-	/** The alternate emails. */
-	private List<String> alternateEmails;
-	
-	/** The honorific prefix. */
-	private String honorificPrefix;
-	
-	/** The job title. */
-	private String jobTitle;
-	
-	/** The additional name. */
-	private String additionalName;
-	
-	/** The honorific suffix. */
-	private String honorificSuffix;
-	
-	/** The alternate names. */
-	private List<Name> alternateNames;
-	
+    /** The participant id. */
+    private String participantId;
+
+    /** The email. */
+    private String email;
+
+    /** The recovery email. */
+    private String recoveryEmail;
+
+    /** The alternate emails. */
+    private List<String> alternateEmails;
+
+    /** The honorific prefix. */
+    private String honorificPrefix;
+
+    /** The job title. */
+    private String jobTitle;
+
+    /** The additional name. */
+    private String additionalName;
+
+    /** The honorific suffix. */
+    private String honorificSuffix;
+
+    /** The alternate names. */
+    private List<Name> alternateNames;
+
     /** The user id. */
     private String userId;
-    
+
     /** The open access accounts. */
     private List<String> openAccessAccounts;
-    
+
     /** The industry id. */
     private String industryId;
-    
+
     /** The job category id. */
     private String jobCategoryId;
 
     /** The personid. */
     private String personId;
-    
+
     /** The orcid id. */
     private String orcidId;
-    
+
     /** The areas of interest. */
     private List<String> areasOfInterest;
 
@@ -101,6 +101,46 @@ public class Participant {
     /** The modified date. */
     @JsonProperty("modified")
     private String modifiedDate;
+
+    /**
+     * This field holds the value of language
+     */
+    private String language;
+
+    /**
+     * This field holds the value of supersedingId
+     */
+    private String supersedingId;
+
+    /**
+     * @return the language
+     */
+    public final String getLanguage() {
+        return language;
+    }
+
+    /**
+     * @param language
+     *            the language to set
+     */
+    public final void setLanguage(final String language) {
+        this.language = language;
+    }
+
+    /**
+     * @return the supersedingId
+     */
+    public final String getSupersedingId() {
+        return supersedingId;
+    }
+
+    /**
+     * @param supersedingId
+     *            the supersedingId to set
+     */
+    public final void setSupersedingId(final String supersedingId) {
+        this.supersedingId = supersedingId;
+    }
 
     /**
      * Gets the user id.
@@ -292,275 +332,289 @@ public class Participant {
         this.modifiedDate = modifiedDate;
     }
 
-	/**
-	 * Gets the participant id.
-	 *
-	 * @return the participant id
-	 */
-	public String getParticipantId() {
-		return participantId;
-	}
+    /**
+     * Gets the participant id.
+     *
+     * @return the participant id
+     */
+    public String getParticipantId() {
+        return participantId;
+    }
 
-	/**
-	 * Sets the participant id.
-	 *
-	 * @param participantId the new participant id
-	 */
-	public void setParticipantId(String participantId) {
-		this.participantId = participantId;
-	}
+    /**
+     * Sets the participant id.
+     *
+     * @param participantId
+     *            the new participant id
+     */
+    public void setParticipantId(final String participantId) {
+        this.participantId = participantId;
+    }
 
-	/**
-	 * Gets the email.
-	 *
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
+    /**
+     * Gets the email.
+     *
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
 
-	/**
-	 * Sets the email.
-	 *
-	 * @param email the new email
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * Sets the email.
+     *
+     * @param email
+     *            the new email
+     */
+    public void setEmail(final String email) {
+        this.email = email;
+    }
 
-	/**
-	 * Gets the recovery email.
-	 *
-	 * @return the recovery email
-	 */
-	public String getRecoveryEmail() {
-		return recoveryEmail;
-	}
+    /**
+     * Gets the recovery email.
+     *
+     * @return the recovery email
+     */
+    public String getRecoveryEmail() {
+        return recoveryEmail;
+    }
 
-	/**
-	 * Sets the recovery email.
-	 *
-	 * @param recoveryEmail the new recovery email
-	 */
-	public void setRecoveryEmail(String recoveryEmail) {
-		this.recoveryEmail = recoveryEmail;
-	}
+    /**
+     * Sets the recovery email.
+     *
+     * @param recoveryEmail
+     *            the new recovery email
+     */
+    public void setRecoveryEmail(final String recoveryEmail) {
+        this.recoveryEmail = recoveryEmail;
+    }
 
-	/**
-	 * Gets the alternate emails.
-	 *
-	 * @return the alternate emails
-	 */
-	public List<String> getAlternateEmails() {
-		return alternateEmails;
-	}
+    /**
+     * Gets the alternate emails.
+     *
+     * @return the alternate emails
+     */
+    public List<String> getAlternateEmails() {
+        return alternateEmails;
+    }
 
-	/**
-	 * Sets the alternate emails.
-	 *
-	 * @param alternateEmails the new alternate emails
-	 */
-	public void setAlternateEmails(List<String> alternateEmails) {
-		this.alternateEmails = alternateEmails;
-	}
+    /**
+     * Sets the alternate emails.
+     *
+     * @param alternateEmails
+     *            the new alternate emails
+     */
+    public void setAlternateEmails(final List<String> alternateEmails) {
+        this.alternateEmails = alternateEmails;
+    }
 
-	/**
-	 * Gets the honorific prefix.
-	 *
-	 * @return the honorific prefix
-	 */
-	public String getHonorificPrefix() {
-		return honorificPrefix;
-	}
+    /**
+     * Gets the honorific prefix.
+     *
+     * @return the honorific prefix
+     */
+    public String getHonorificPrefix() {
+        return honorificPrefix;
+    }
 
-	/**
-	 * Sets the honorific prefix.
-	 *
-	 * @param honorificPrefix the new honorific prefix
-	 */
-	public void setHonorificPrefix(String honorificPrefix) {
-		this.honorificPrefix = honorificPrefix;
-	}
+    /**
+     * Sets the honorific prefix.
+     *
+     * @param honorificPrefix
+     *            the new honorific prefix
+     */
+    public void setHonorificPrefix(final String honorificPrefix) {
+        this.honorificPrefix = honorificPrefix;
+    }
 
-	/**
-	 * Gets the job title.
-	 *
-	 * @return the job title
-	 */
-	public String getJobTitle() {
-		return jobTitle;
-	}
+    /**
+     * Gets the job title.
+     *
+     * @return the job title
+     */
+    public String getJobTitle() {
+        return jobTitle;
+    }
 
-	/**
-	 * Sets the job title.
-	 *
-	 * @param jobTitle the new job title
-	 */
-	public void setJobTitle(String jobTitle) {
-		this.jobTitle = jobTitle;
-	}
+    /**
+     * Sets the job title.
+     *
+     * @param jobTitle
+     *            the new job title
+     */
+    public void setJobTitle(final String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
 
-	/**
-	 * Gets the additional name.
-	 *
-	 * @return the additional name
-	 */
-	public String getAdditionalName() {
-		return additionalName;
-	}
+    /**
+     * Gets the additional name.
+     *
+     * @return the additional name
+     */
+    public String getAdditionalName() {
+        return additionalName;
+    }
 
-	/**
-	 * Sets the additional name.
-	 *
-	 * @param additionalName the new additional name
-	 */
-	public void setAdditionalName(String additionalName) {
-		this.additionalName = additionalName;
-	}
+    /**
+     * Sets the additional name.
+     *
+     * @param additionalName
+     *            the new additional name
+     */
+    public void setAdditionalName(final String additionalName) {
+        this.additionalName = additionalName;
+    }
 
-	/**
-	 * Gets the honorific suffix.
-	 *
-	 * @return the honorific suffix
-	 */
-	public String getHonorificSuffix() {
-		return honorificSuffix;
-	}
+    /**
+     * Gets the honorific suffix.
+     *
+     * @return the honorific suffix
+     */
+    public String getHonorificSuffix() {
+        return honorificSuffix;
+    }
 
-	/**
-	 * Sets the honorific suffix.
-	 *
-	 * @param honorificSuffix the new honorific suffix
-	 */
-	public void setHonorificSuffix(String honorificSuffix) {
-		this.honorificSuffix = honorificSuffix;
-	}
+    /**
+     * Sets the honorific suffix.
+     *
+     * @param honorificSuffix
+     *            the new honorific suffix
+     */
+    public void setHonorificSuffix(final String honorificSuffix) {
+        this.honorificSuffix = honorificSuffix;
+    }
 
-	/**
-	 * Gets the alternate names.
-	 *
-	 * @return the alternate names
-	 */
-	public List<Name> getAlternateNames() {
-		return alternateNames;
-	}
+    /**
+     * Gets the alternate names.
+     *
+     * @return the alternate names
+     */
+    public List<Name> getAlternateNames() {
+        return alternateNames;
+    }
 
-	/**
-	 * Sets the alternate names.
-	 *
-	 * @param alternateNames the new alternate names
-	 */
-	public void setAlternateNames(List<Name> alternateNames) {
-		this.alternateNames = alternateNames;
-	}
+    /**
+     * Sets the alternate names.
+     *
+     * @param alternateNames
+     *            the new alternate names
+     */
+    public void setAlternateNames(final List<Name> alternateNames) {
+        this.alternateNames = alternateNames;
+    }
 
-	/**
-	 * Gets the open access accounts.
-	 *
-	 * @return the open access accounts
-	 */
-	public List<String> getOpenAccessAccounts() {
-		return openAccessAccounts;
-	}
+    /**
+     * Gets the open access accounts.
+     *
+     * @return the open access accounts
+     */
+    public List<String> getOpenAccessAccounts() {
+        return openAccessAccounts;
+    }
 
-	/**
-	 * Sets the open access accounts.
-	 *
-	 * @param openAccessAccounts the new open access accounts
-	 */
-	public void setOpenAccessAccounts(List<String> openAccessAccounts) {
-		this.openAccessAccounts = openAccessAccounts;
-	}
+    /**
+     * Sets the open access accounts.
+     *
+     * @param openAccessAccounts
+     *            the new open access accounts
+     */
+    public void setOpenAccessAccounts(final List<String> openAccessAccounts) {
+        this.openAccessAccounts = openAccessAccounts;
+    }
 
-	/**
-	 * Gets the industry id.
-	 *
-	 * @return the industry id
-	 */
-	public String getIndustryId() {
-		return industryId;
-	}
+    /**
+     * Gets the industry id.
+     *
+     * @return the industry id
+     */
+    public String getIndustryId() {
+        return industryId;
+    }
 
-	/**
-	 * Sets the industry id.
-	 *
-	 * @param industryId the new industry id
-	 */
-	public void setIndustryId(String industryId) {
-		this.industryId = industryId;
-	}
+    /**
+     * Sets the industry id.
+     *
+     * @param industryId
+     *            the new industry id
+     */
+    public void setIndustryId(final String industryId) {
+        this.industryId = industryId;
+    }
 
-	/**
-	 * Gets the job category id.
-	 *
-	 * @return the job category id
-	 */
-	public String getJobCategoryId() {
-		return jobCategoryId;
-	}
+    /**
+     * Gets the job category id.
+     *
+     * @return the job category id
+     */
+    public String getJobCategoryId() {
+        return jobCategoryId;
+    }
 
-	/**
-	 * Sets the job category id.
-	 *
-	 * @param jobCategoryId the new job category id
-	 */
-	public void setJobCategoryId(String jobCategoryId) {
-		this.jobCategoryId = jobCategoryId;
-	}
+    /**
+     * Sets the job category id.
+     *
+     * @param jobCategoryId
+     *            the new job category id
+     */
+    public void setJobCategoryId(final String jobCategoryId) {
+        this.jobCategoryId = jobCategoryId;
+    }
 
-	/**
-	 * Gets the person id.
-	 *
-	 * @return the person id
-	 */
-	public String getPersonId() {
-		return personId;
-	}
+    /**
+     * Gets the person id.
+     *
+     * @return the person id
+     */
+    public String getPersonId() {
+        return personId;
+    }
 
-	/**
-	 * Sets the person id.
-	 *
-	 * @param personId the new person id
-	 */
-	public void setPersonId(String personId) {
-		this.personId = personId;
-	}
+    /**
+     * Sets the person id.
+     *
+     * @param personId
+     *            the new person id
+     */
+    public void setPersonId(final String personId) {
+        this.personId = personId;
+    }
 
-	/**
-	 * Gets the orcid id.
-	 *
-	 * @return the orcid id
-	 */
-	public String getOrcidId() {
-		return orcidId;
-	}
+    /**
+     * Gets the orcid id.
+     *
+     * @return the orcid id
+     */
+    public String getOrcidId() {
+        return orcidId;
+    }
 
-	/**
-	 * Sets the orcid id.
-	 *
-	 * @param orcidId the new orcid id
-	 */
-	public void setOrcidId(String orcidId) {
-		this.orcidId = orcidId;
-	}
+    /**
+     * Sets the orcid id.
+     *
+     * @param orcidId
+     *            the new orcid id
+     */
+    public void setOrcidId(final String orcidId) {
+        this.orcidId = orcidId;
+    }
 
-	/**
-	 * Gets the areas of interest.
-	 *
-	 * @return the areas of interest
-	 */
-	public List<String> getAreasOfInterest() {
-		return areasOfInterest;
-	}
+    /**
+     * Gets the areas of interest.
+     *
+     * @return the areas of interest
+     */
+    public List<String> getAreasOfInterest() {
+        return areasOfInterest;
+    }
 
-	/**
-	 * Sets the areas of interest.
-	 *
-	 * @param areasOfInterest the new areas of interest
-	 */
-	public void setAreasOfInterest(List<String> areasOfInterest) {
-		this.areasOfInterest = areasOfInterest;
-	}
-    
-    
+    /**
+     * Sets the areas of interest.
+     *
+     * @param areasOfInterest
+     *            the new areas of interest
+     */
+    public void setAreasOfInterest(final List<String> areasOfInterest) {
+        this.areasOfInterest = areasOfInterest;
+    }
+
 }

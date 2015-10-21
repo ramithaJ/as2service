@@ -82,9 +82,24 @@ public class ProfileRequest {
     private String oldEmail;
 
     /**
+     * This field holds the value of registrantFlag
+     */
+    private String registrantFlag;
+
+    /**
+     * This field holds the value of authorFlag
+     */
+    private String authorFlag;
+
+    /**
+     * This field holds the value of userRole
+     */
+    private String userRole;
+
+    /**
      * This field holds the value of interestList.
      */
-    private List<InterestList> interestList;
+    private List<String> interestList;
 
     /**
      * This field holds the value of orcid.
@@ -139,7 +154,7 @@ public class ProfileRequest {
     /**
      * @return the interestList
      */
-    public final List<InterestList> getInterestList() {
+    public final List<String> getInterestList() {
         return interestList;
     }
 
@@ -147,7 +162,7 @@ public class ProfileRequest {
      * @param interestList
      *            the interestList to set
      */
-    public final void setInterestList(final List<InterestList> interestList) {
+    public final void setInterestList(final List<String> interestList) {
         this.interestList = interestList;
     }
 
@@ -299,6 +314,51 @@ public class ProfileRequest {
      */
     public final void setSendEmail(final String sendEmail) {
         this.sendEmail = sendEmail;
+    }
+
+    /**
+     * @return the registrantFlag
+     */
+    public final String getRegistrantFlag() {
+        return registrantFlag;
+    }
+
+    /**
+     * @param registrantFlag
+     *            the registrantFlag to set
+     */
+    public final void setRegistrantFlag(final String registrantFlag) {
+        this.registrantFlag = registrantFlag;
+    }
+
+    /**
+     * @return the authorFlag
+     */
+    public final String getAuthorFlag() {
+        return authorFlag;
+    }
+
+    /**
+     * @param authorFlag
+     *            the authorFlag to set
+     */
+    public final void setAuthorFlag(final String authorFlag) {
+        this.authorFlag = authorFlag;
+    }
+
+    /**
+     * @return the userRole
+     */
+    public final String getUserRole() {
+        return userRole;
+    }
+
+    /**
+     * @param userRole
+     *            the userRole to set
+     */
+    public final void setUserRole(final String userRole) {
+        this.userRole = userRole;
     }
 
 }

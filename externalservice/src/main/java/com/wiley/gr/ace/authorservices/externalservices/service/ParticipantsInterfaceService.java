@@ -16,10 +16,17 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import com.wiley.gr.ace.authorservices.model.external.*;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
+import com.wiley.gr.ace.authorservices.model.external.AddressData;
+import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
+import com.wiley.gr.ace.authorservices.model.external.AlertRequest;
+import com.wiley.gr.ace.authorservices.model.external.Participant;
+import com.wiley.gr.ace.authorservices.model.external.PreferenceValue;
+import com.wiley.gr.ace.authorservices.model.external.Preferences;
+import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 
 /**
  * The Interface ParticipantsInterfaceService.
@@ -29,7 +36,8 @@ public interface ParticipantsInterfaceService {
     /**
      * Creates the participant.
      *
-     * @param participant the participant
+     * @param participant
+     *            the participant
      * @return the string
      */
     String createParticipant(Participant participant);
@@ -37,7 +45,8 @@ public interface ParticipantsInterfaceService {
     /**
      * Search participant by participant id.
      *
-     * @param particpantId the particpant id
+     * @param particpantId
+     *            the particpant id
      * @return the participant
      */
     Participant searchParticipantByParticipantId(String particpantId);
@@ -45,7 +54,8 @@ public interface ParticipantsInterfaceService {
     /**
      * Search participant by user id.
      *
-     * @param userId the user id
+     * @param userId
+     *            the user id
      * @return the participant
      */
     Participant searchParticipantByUserId(String userId);
@@ -53,7 +63,8 @@ public interface ParticipantsInterfaceService {
     /**
      * Search participant by email id.
      *
-     * @param userId the user id
+     * @param userId
+     *            the user id
      * @return the participant
      */
     Participant searchParticipantByEmailId(String userId);
@@ -61,8 +72,10 @@ public interface ParticipantsInterfaceService {
     /**
      * Search participant by name.
      *
-     * @param firstName the first name
-     * @param lastName  the last name
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
      * @return the list
      */
     List<Participant> searchParticipantByName(String firstName, String lastName);
@@ -70,27 +83,34 @@ public interface ParticipantsInterfaceService {
     /**
      * Gets the address.
      *
-     * @param participantId the participant id
+     * @param participantId
+     *            the participant id
      * @return the address
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     AddressMapper getAddress(String participantId);
 
     /**
      * Update address.
      *
-     * @param participantId the participant id
-     * @param address       the address
+     * @param participantId
+     *            the participant id
+     * @param address
+     *            the address
      * @return the response entity
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     ResponseEntity updateAddress(String participantId, AddressData address);
 
     /**
      * Upload profile image.
      *
-     * @param participantId the participant id
-     * @param imageFile     the image file
+     * @param participantId
+     *            the participant id
+     * @param imageFile
+     *            the image file
      * @return the response entity
      */
     ResponseEntity uploadProfileImage(String participantId, byte[] imageFile);
@@ -98,7 +118,8 @@ public interface ParticipantsInterfaceService {
     /**
      * Gets the profile image.
      *
-     * @param participantId the participant id
+     * @param participantId
+     *            the participant id
      * @return the profile image
      */
     byte[] getProfileImage(String participantId);
@@ -106,34 +127,41 @@ public interface ParticipantsInterfaceService {
     /**
      * Update alerts.
      *
-     * @param participantId the participant id
-     * @param alert         the alert
+     * @param participantId
+     *            the participant id
+     * @param alert
+     *            the alert
      * @return the response entity
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     ResponseEntity updateAlerts(String participantId, AlertRequest alert);
 
     /**
      * Gets the alerts.
      *
-     * @param participantId the participant id
+     * @param participantId
+     *            the participant id
      * @return the alerts
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     PreferenceValue getAlerts(String participantId);
 
     /**
      * Update profile.
      *
-     * @param profileEntity the profile entity
+     * @param profileEntity
+     *            the profile entity
      * @return the response entity
      */
-    ResponseEntity updateProfile(ProfileEntity profileEntity);
+    boolean updateProfile(ProfileEntity profileEntity);
 
     /**
      * Gets the preferred journals.
      *
-     * @param participantId the participant id
+     * @param participantId
+     *            the participant id
      * @return the preferred journals
      */
     Preferences getPreferredJournals(String participantId);
@@ -141,7 +169,8 @@ public interface ParticipantsInterfaceService {
     /**
      * Delete preferred journal.
      *
-     * @param profileEntity the profile entity
+     * @param profileEntity
+     *            the profile entity
      * @return true, if successful
      */
     boolean deletePreferredJournal(ProfileEntity profileEntity);
@@ -149,21 +178,24 @@ public interface ParticipantsInterfaceService {
     /**
      * Adds the preferred journals.
      *
-     * @param profileEntity the profile entity
+     * @param profileEntity
+     *            the profile entity
      */
     void addPreferredJournals(ProfileEntity profileEntity);
 
     /**
      * Update participant.
      *
-     * @param participant the participant
+     * @param participant
+     *            the participant
      */
     void updateParticipant(Participant participant);
 
     /**
      * Search participant by orcid id.
      *
-     * @param orcidId the orcid id
+     * @param orcidId
+     *            the orcid id
      * @return the participant
      */
     Participant searchParticipantByOrcidId(String orcidId);

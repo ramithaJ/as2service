@@ -50,7 +50,6 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.AlertRequest;
 import com.wiley.gr.ace.authorservices.model.external.AlertType;
 import com.wiley.gr.ace.authorservices.model.external.EntityValue;
-import com.wiley.gr.ace.authorservices.model.external.InterestList;
 import com.wiley.gr.ace.authorservices.model.external.JournalElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantErrorResponse;
@@ -292,10 +291,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         profileRequest.setTitleCode(participantResponse.getHonorificPrefix());
         profileRequest.setSuffixCode(participantResponse.getHonorificSuffix());
 
-        final List<InterestList> interestList = new ArrayList<InterestList>();
-        final InterestList interest = new InterestList();
-        interest.setInterestCode(AuthorServicesConstants.EMPTY);
-        profileRequest.setInterestList(interestList);
+        final List<String> interestList = new ArrayList<String>();
+        interestList.add("");
 
         profileRequest.setOrcid(participantResponse.getOrcidId());
 
@@ -348,21 +345,24 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         profileRequest.setSendEmail(user.getSendEmailFlag());
         profileRequest.setPrimaryEmail(""); // primary email Address
 
-        final List<InterestList> interestList = new ArrayList<InterestList>();
-        final InterestList interest = new InterestList();
-        interest.setInterestCode(""); // interest code
+        profileRequest.setRecoveryEmail(""); // recovery email
+        profileRequest.setOldEmail("");
+        profileRequest.setRegistrantFlag("");
+        profileRequest.setAuthorFlag("");
+
+        final List<String> interestList = new ArrayList<String>();
+        interestList.add("shiva");
+        interestList.add("kumar");
         profileRequest.setInterestList(interestList);
 
-        profileRequest.setOrcid(""); // orcid id
+        profileRequest.setOrcid(user.getOrcidId());
 
         entityValue.setProfile(profileRequest);
         profileEntity.setEntityValue(entityValue);
-        profileEntity.setSourceSystem("AS2.0");
+        profileEntity.setSourceSystem("AS");
         profileEntity.setEntityId(userId);
 
-        participantsInterfaceService.updateProfile(profileEntity);
-
-        return false;
+        return participantsInterfaceService.updateProfile(profileEntity);
     }
 
     /**
@@ -778,10 +778,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         profileRequest.setSendEmail(participant.getEmail());
         profileRequest.setPrimaryEmail(AuthorServicesConstants.EMPTY);
 
-        final List<InterestList> interestList = new ArrayList<InterestList>();
-        final InterestList interest = new InterestList();
-        interest.setInterestCode(AuthorServicesConstants.EMPTY);
-        profileRequest.setInterestList(interestList);
+        final List<String> interestList = new ArrayList<String>();
+        interestList.add("");
 
         profileRequest.setOrcid(AuthorServicesConstants.EMPTY);
 
