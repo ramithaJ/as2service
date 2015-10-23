@@ -395,7 +395,7 @@ public class RegistrationController {
                     service.setError(err);
                     service.setPayload(user);
                 } else {
-                    LOGGER.info("User has already orcid Id");
+                    LOGGER.info("User has No orcid Id");
                     service.setStatus(AuthorServicesConstants.SUCCESS);
                 }
             } catch (Exception e) {

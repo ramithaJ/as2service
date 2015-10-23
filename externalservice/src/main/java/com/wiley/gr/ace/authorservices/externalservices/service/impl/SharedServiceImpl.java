@@ -12,8 +12,6 @@ import com.wiley.gr.ace.authorservices.model.external.ProductPersonRelationObjec
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
-// TODO: Auto-generated Javadoc
-
 /**
  * The Class SharedServiceImpl.
  *
@@ -30,6 +28,8 @@ public class SharedServiceImpl implements SharedService {
     @Value("${productPersonRelation.url}")
     private String productPersonRelationUrl;
 
+    private static String APPID = "24";
+
     /*
      * (non-Javadoc)
      * 
@@ -39,7 +39,7 @@ public class SharedServiceImpl implements SharedService {
      */
     @Override
     public final Service authorLookup(final String firstName,
-                                      final String lastName, final String email) {
+            final String lastName, final String email) {
         return (Service) RestServiceInvokerUtil.getServiceData(authorLookupUrl,
                 Service.class);
 
@@ -49,10 +49,9 @@ public class SharedServiceImpl implements SharedService {
     public Service saveProductPersonRelation(
             final ProductPersonRelationObject productPersonRelationObject) {
 
-        return (Service) RestServiceInvokerUtil
-                .restServiceInvoker(
-                        productPersonRelationUrl,
-                        productPersonRelationObject, Service.class);
+        return (Service) RestServiceInvokerUtil.restServiceInvoker(
+                productPersonRelationUrl, productPersonRelationObject,
+                Service.class);
     }
 
     @Override
@@ -61,7 +60,7 @@ public class SharedServiceImpl implements SharedService {
         Notifications notifications = null;
         NotificationHistory notificationHistory = (NotificationHistory) RestServiceInvokerUtil
                 .getServiceData(
-                        notificationHistroyUrl.concat("appId").concat("?to=")
+                        notificationHistroyUrl.concat(APPID).concat("?to=")
                                 .concat(emailId), NotificationHistory.class);
         if (!StringUtils.isEmpty(notificationHistory)) {
             notifications = notificationHistory.getNotifications().get(0);
