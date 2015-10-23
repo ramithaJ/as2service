@@ -796,39 +796,25 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public boolean deleteInterests(final String userId, final String interestId) {
 
-        final Participant participant = participantsInterfaceService
-                .searchParticipantByUserId(userId);
-
+        ProfileRequest profileRequest = settingProfileFields(userId);
         final ProfileEntity profileEntity = new ProfileEntity();
-
-        profileEntity.setEntityType("PROFILE");
+        profileEntity.setEntityType(PROFILE);
         final EntityValue entityValue = new EntityValue();
 
-        final ProfileRequest profileRequest = new ProfileRequest();
-        profileRequest.setTitleCode(participant.getJobTitle());
-        profileRequest.setSuffixCode(participant.getHonorificSuffix());
-        profileRequest.setMiddleName(AuthorServicesConstants.EMPTY);
-        profileRequest.setLastName(participant.getFamilyName());
-        profileRequest.setFirstName(participant.getName());
-        profileRequest.setAlternativeName(AuthorServicesConstants.EMPTY);
-        profileRequest.setIndustryCode(participant.getIndustryId());
-        profileRequest.setJobCategoryCode(participant.getJobCategoryId());
-        profileRequest.setSendEmail(participant.getEmail());
-        profileRequest.setPrimaryEmail(AuthorServicesConstants.EMPTY);
+        List<String> interestData = profileRequest.getInterestList();
 
-        final List<String> interestList = new ArrayList<String>();
-        interestList.add("");
+        if (interestData.contains(interestId)) {
+            interestData.remove(interestId);
 
-        profileRequest.setOrcid(AuthorServicesConstants.EMPTY);
+        }
 
+        profileRequest.setInterestList(interestData);
         entityValue.setProfile(profileRequest);
         profileEntity.setEntityValue(entityValue);
-        profileEntity.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+        profileEntity.setSourceSystem("AS");
         profileEntity.setEntityId(userId);
 
-        participantsInterfaceService.updateProfile(profileEntity);
-        return false;
-
+        return participantsInterfaceService.updateProfile(profileEntity);
     }
 
     /**
