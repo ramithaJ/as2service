@@ -13,6 +13,7 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,7 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ALMSearchUserResponse;
 import com.wiley.gr.ace.authorservices.model.external.ForcefulReset;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
+import com.wiley.gr.ace.authorservices.model.external.ParticipantGetResponse;
 import com.wiley.gr.ace.authorservices.model.external.PasswordReset;
 import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
 import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
@@ -43,6 +45,8 @@ import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
 import com.wiley.gr.ace.authorservices.model.external.ValidateUserSecurityQA;
+import com.wiley.gr.ace.authorservices.persistence.entity.ResetPasswd;
+import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
@@ -91,6 +95,10 @@ public class UserLoginServiceImpl implements UserLoginService {
     /** This field holds the value of sendNotification. */
     @Autowired(required = true)
     private SendNotification sendNotification;
+
+    /** The alm service. */
+    @Autowired(required = true)
+    private UserLoginServiceDAO userLoginServiceDAO;
 
     /**
      * Method to authenticate user. calling external system to authenticate
@@ -309,9 +317,24 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @return the string
      */
     @Override
-    public final String insertGuid(final String firstName,
-            final String lastName, final String emailAddress) {
-        return emailAddress;
+    public final String insertGuid(final String emailId,
+            final String participantId, final String guid) {
+
+        ResetPasswd resetPasswd = new ResetPasswd();
+        resetPasswd.setEmailAddress(emailId);
+        if (participantId != null) {
+            UUID participantUuid = UUID.fromString(participantId);
+            resetPasswd.setParticipantId(participantUuid);
+            resetPasswd
+                    .setStatus(AuthorServicesConstants.RESET_PASSWORD_STATUS);
+        }
+
+        if (guid != null) {
+            resetPasswd.setGuid(guid);
+
+        }
+        return userLoginServiceDAO.insertGuid(resetPasswd);
+
     }
 
     /*
@@ -353,6 +376,28 @@ public class UserLoginServiceImpl implements UserLoginService {
 
     @Override
     public boolean resetByEmail(final String emailId) {
+
+        ParticipantGetResponse participantGetResponse = participantsInterfaceService
+                .searchParticipantByEmail(emailId);
+
+        if (participantGetResponse.getParticipantList().isEmpty()) {
+            throw new ASException("111", "data not founddd");
+
+        }
+
+        if (!participantGetResponse.getParticipantList().isEmpty()
+                && participantGetResponse.getParticipantList().size() > 0) {
+            List<Participant> participantsList = participantGetResponse
+                    .getParticipantList();
+
+            for (Participant participant : participantsList) {
+                participant.getName();
+                participant.getFamilyName();
+                participant.getEmail();
+
+            }
+
+        }
 
         return false;
     }

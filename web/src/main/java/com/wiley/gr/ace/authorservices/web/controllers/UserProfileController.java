@@ -11,12 +11,10 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.validation.Valid;
 
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -515,15 +513,16 @@ public class UserProfileController {
      * @param userId
      *            the user id
      * @return the profile
-     * @throws Exception 
+     * @throws Exception
      */
     @RequestMapping(value = "/getImage/{userId}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public final @ResponseBody FileSystemResource getProfile(@PathVariable("userId") final String userId) throws Exception {
+    public final @ResponseBody FileSystemResource getProfile(
+            @PathVariable("userId") final String userId) throws Exception {
         UserProfileController.LOGGER.info("inside getProfile method ");
-        FileSystemResource imageFile = new FileSystemResource(authorProfileService.getProfileImage(userId));
-       return imageFile;
-     
-      
+        FileSystemResource imageFile = new FileSystemResource(
+                authorProfileService.getProfileImage(userId));
+        return imageFile;
+
     }
 
     /**
@@ -540,7 +539,7 @@ public class UserProfileController {
     @RequestMapping(value = "/uploadImage/{userId}/", method = RequestMethod.POST)
     public final Service profilePicture(
             @PathVariable("userId") final String userId,
-           @PathVariable("file") MultipartFile image) throws IOException {
+            @PathVariable("file") final MultipartFile image) throws IOException {
         UserProfileController.LOGGER.info("inside profilePicture method ");
         final Service service = new Service();
         boolean isUpdated = false;

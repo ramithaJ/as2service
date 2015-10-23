@@ -13,7 +13,6 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
@@ -206,7 +205,7 @@ public interface AuthorProfileService {
      * @param participantId
      *            the participant id
      * @return the profile picture
-     * @throws Exception 
+     * @throws Exception
      */
     File getProfileImage(String participantId) throws Exception;
 

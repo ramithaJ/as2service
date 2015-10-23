@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
+import com.wiley.gr.ace.authorservices.persistence.entity.ResetPasswd;
+
 /**
  * The Interface UserLoginServiceDAO.
  *
@@ -18,6 +20,21 @@ package com.wiley.gr.ace.authorservices.persistence.services;
  */
 public interface UserLoginServiceDAO {
 
+    /**
+     * Update is account active.
+     *
+     * @param userId
+     *            the user id
+     */
     void updateIsAccountActive(Integer userId);
+
+    /**
+     * Insert guid.
+     *
+     * @param resetPasswd
+     *            the reset passwd
+     * @return the string
+     */
+    String insertGuid(ResetPasswd resetPasswd);
 
 }

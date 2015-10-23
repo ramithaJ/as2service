@@ -56,10 +56,10 @@ public class AuthorServicesConstants {
     public static final String ROLE_TYPE_INTERNAL = "INTERNAL";
 
     /** The Constant INVITE_RESET_PASSWORD_STATUS. */
-    public static final String INVITE_RESET_PASSWORD_STATUS = "PENDING";
+    public static final String RESET_PASSWORD_STATUS = "PENDING";
 
     /** The Constant INVITE_RESET_PASSWORD_STATUS_ClOSED. */
-    public static final String INVITE_RESET_PASSWORD_STATUS_CLOSED = "CLOSED";
+    public static final String RESET_PASSWORD_STATUS_CLOSED = "CLOSED";
 
     /** The Constant AUDIT_OBJ_NAME. */
     public static final String AUDIT_OBJ_NAME = "OBJ_NAME";

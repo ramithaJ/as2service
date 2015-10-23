@@ -93,7 +93,8 @@ public interface UserLoginService {
      *            the email address
      * @return the string
      */
-    String insertGuid(String firstName, String lastName, String emailAddress);
+
+    String insertGuid(String emailId, String participantId, String guid);
 
     /**
      * Search user in alm.
@@ -116,15 +117,17 @@ public interface UserLoginService {
     /**
      * Reset by email.
      *
-     * @param emailId the email id
+     * @param emailId
+     *            the email id
      * @return true, if successful
      */
     boolean resetByEmail(String emailId);
-    
+
     /**
      * Gets the user details from participant service.
      *
-     * @param emailId the email id
+     * @param emailId
+     *            the email id
      * @return the user details from participant service
      */
     User getUserDetailsFromParticipantService(String emailId);

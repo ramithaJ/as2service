@@ -15,6 +15,7 @@ import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateCo
 
 import org.hibernate.Session;
 
+import com.wiley.gr.ace.authorservices.persistence.entity.ResetPasswd;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
 /**
@@ -24,6 +25,12 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
  */
 public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 
+    /**
+     * Update is account active.
+     *
+     * @param userId
+     *            the user id
+     */
     @Override
     public void updateIsAccountActive(final Integer userId) {
         Session session = null;
@@ -38,7 +45,32 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
                 session.close();
             }
         }
+    }
 
+    /**
+     * Insert guid.
+     *
+     * @param resetPasswd
+     *            the reset passwd
+     * @return the string
+     */
+    @Override
+    public String insertGuid(final ResetPasswd resetPasswd) {
+        Session session = null;
+        Long id = null;
+        try {
+            session = getSessionFactory().openSession();
+            session.beginTransaction();
+            id = (Long) session.save(resetPasswd);
+            session.getTransaction().commit();
+
+        } finally {
+            if (null != session) {
+                session.flush();
+                session.close();
+            }
+        }
+        return id.toString();
     }
 
 }
