@@ -12,6 +12,8 @@
 
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -19,11 +21,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+
+import ch.qos.logback.core.util.FileUtil;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
@@ -742,11 +748,15 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @param participantId
      *            the participant id
      * @return image in terms of Byte array
+     * @throws IOException 
      */
     @Override
-    public byte[] getProfileImage(final String participantId) {
+    public File getProfileImage(final String participantId) throws IOException {
         AuthorProfileServiceImpl.LOGGER.info("inside getProfileImage Method ");
-        return participantsInterfaceService.getProfileImage(participantId);
+        File file = new File("Image.jpg");
+        file.createNewFile();
+        FileUtils.writeByteArrayToFile(file, participantsInterfaceService.getProfileImage(participantId));
+        return file;
     }
 
     /**

@@ -63,8 +63,10 @@ public class ParticipantsInterfaceServiceImpl implements
      */
     @Value("${searchParticipantbyOrcidId.url}")
     private String searchParticipantbyOrcidId;
-
-    private static final String URL = "http://assearchdev.wiley.com:8080/v1/participants/";
+    
+    
+    @Value("${participant.url}")
+    private String participantUrl;
 
     /**
      * Creates the participant.
@@ -147,7 +149,7 @@ public class ParticipantsInterfaceServiceImpl implements
 
     @Override
     public final AddressMapper getAddress(final String participantId) {
-        final String url = URL + participantId + "/addresses";
+        final String url = participantCrudUrl + participantId + "/addresses";
         return (AddressMapper) StubInvokerUtil.restGetServiceInvoker(url,
                 AddressMapper.class);
     }
@@ -167,13 +169,13 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public final ResponseEntity updateAddress(final String participantId,
             final AddressData address) {
-        final String url = "http://demo7580012.mockable.io/address";
+        final String url = participantUrl;
         EntityValue entityValue = new EntityValue();
         entityValue.setAddressData(address);
         ProfileEntity profileEntity = new ProfileEntity();
         profileEntity.setEntityValue(entityValue);
         return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
-                HttpMethod.POST, profileEntity, ParticipantErrorResponse.class,
+                HttpMethod.PUT, profileEntity, ParticipantErrorResponse.class,
                 null);
     }
 
@@ -192,7 +194,7 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public final ResponseEntity uploadProfileImage(final String participantId,
             final byte[] imageFile) {
-        final String url = URL + participantId + "/profileImage";
+        final String url = participantCrudUrl + participantId + "/profileImage";
         return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
                 HttpMethod.PUT, new String(imageFile, StandardCharsets.UTF_8),
                 ParticipantErrorResponse.class, null);
@@ -208,7 +210,7 @@ public class ParticipantsInterfaceServiceImpl implements
      */
     @Override
     public final byte[] getProfileImage(final String participantId) {
-        final String url = URL + participantId + "/profileImage";
+        final String url = participantCrudUrl + participantId + "/profileImage";
         return (byte[]) StubInvokerUtil
                 .restGetServiceInvoker(url, Byte[].class);
     }
@@ -228,13 +230,13 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public final ResponseEntity updateAlerts(final String participantId,
             final AlertRequest alert) {
-        final String url = "http://demo7580012.mockable.io/alert";
+        final String url = participantUrl;
         EntityValue entityValue = new EntityValue();
         entityValue.setAlertRequest(alert);
         ProfileEntity profileEntity = new ProfileEntity();
         profileEntity.setEntityValue(entityValue);
         return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
-                HttpMethod.POST, profileEntity, ParticipantErrorResponse.class,
+                HttpMethod.PUT, profileEntity, ParticipantErrorResponse.class,
                 null);
 
     }
@@ -250,7 +252,7 @@ public class ParticipantsInterfaceServiceImpl implements
      */
     @Override
     public final PreferenceValue getAlerts(final String participantId) {
-        final String url = URL + participantId + "/preferences/" + "ALERT";
+        final String url = participantCrudUrl + participantId + "/preferences/" + "ALERT";
         final PreferenceMapper preferenceMapper = (PreferenceMapper) StubInvokerUtil
                 .restGetServiceInvoker(url, PreferenceMapper.class);
         return preferenceMapper.getPreferenceValue();
@@ -293,7 +295,7 @@ public class ParticipantsInterfaceServiceImpl implements
      */
     @Override
     public final Preferences getPreferredJournals(final String participantId) {
-        final String url = URL + participantId + "/preferences/JOURNAL";
+        final String url = participantCrudUrl + participantId + "/preferences/JOURNAL";
 
         return (Preferences) RestServiceInvokerUtil.getServiceData(url,
                 Preferences.class);

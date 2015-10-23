@@ -183,7 +183,8 @@ public class RegistrationController {
             retrievedUser = registrationService.checkEmailIdExists(user
                     .getPrimaryEmailAddr());
         }
-        if (!StringUtils.isEmpty(retrievedUser)) {
+        if (!StringUtils.isEmpty(retrievedUser)) 
+            System.err.println(retrievedUser);
             foundUserToReturn = new User();
             if (retrievedUser.getFirstName().equalsIgnoreCase(
                     user.getFirstName())
@@ -210,8 +211,6 @@ public class RegistrationController {
                 service.setPayload(user);
                 service.setError(err);
             }
-        }
-
         return service;
     }
 

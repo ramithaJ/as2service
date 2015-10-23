@@ -21,12 +21,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
@@ -512,12 +515,15 @@ public class UserProfileController {
      * @param userId
      *            the user id
      * @return the profile
+     * @throws Exception 
      */
     @RequestMapping(value = "/getImage/{userId}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public final byte[] getProfile(@PathVariable("userId") final String userId) {
+    public final @ResponseBody FileSystemResource getProfile(@PathVariable("userId") final String userId) throws Exception {
         UserProfileController.LOGGER.info("inside getProfile method ");
-        return new byte[100];
-
+        FileSystemResource imageFile = new FileSystemResource(authorProfileService.getProfileImage(userId));
+       return imageFile;
+     
+      
     }
 
     /**
@@ -534,30 +540,22 @@ public class UserProfileController {
     @RequestMapping(value = "/uploadImage/{userId}/", method = RequestMethod.POST)
     public final Service profilePicture(
             @PathVariable("userId") final String userId,
-            @RequestBody final byte[] image) throws IOException {
+           @PathVariable("file") MultipartFile image) throws IOException {
         UserProfileController.LOGGER.info("inside profilePicture method ");
         final Service service = new Service();
-        String res = null;
-        final char[] charTemp = new char[image.length];
-        for (int i = 0; i < image.length; i++) {
-            charTemp[i] = (char) image[i];
-
-        }
-        res = new String(charTemp);
         boolean isUpdated = false;
         try {
-            final File file = new File("c:/Images/Image");
-            FileUtils.writeByteArrayToFile(file, image);
-            if (file.exists()) {
+            if (!image.isEmpty()) {
+                byte[] imageValue = image.getBytes();
                 final int value = 1024;
-                final double bytes = file.length();
+                final double bytes = imageValue.length;
                 final double kilobytes = bytes / value;
                 final double megabytes = kilobytes / value;
                 if (megabytes > 1) {
                     throw new ASException(imageSizeCode, imageSizeMessage);
                 } else if (megabytes < 1) {
                     isUpdated = authorProfileService.uploadProfileImage(userId,
-                            image);
+                            imageValue);
                 }
             }
         } catch (final Exception e) {
@@ -572,8 +570,6 @@ public class UserProfileController {
             service.setStatus(AuthorServicesConstants.FAILURE);
             service.setPayload(isUpdated);
         }
-
-        service.setPayload(res);
         return service;
     }
 
