@@ -24,6 +24,7 @@ import com.wiley.gr.ace.authorservices.model.external.AddressData;
 import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
 import com.wiley.gr.ace.authorservices.model.external.AlertRequest;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
+import com.wiley.gr.ace.authorservices.model.external.ParticipantGetResponse;
 import com.wiley.gr.ace.authorservices.model.external.PreferenceValue;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
@@ -199,5 +200,7 @@ public interface ParticipantsInterfaceService {
      * @return the participant
      */
     Participant searchParticipantByOrcidId(String orcidId);
+
+    ParticipantGetResponse searchParticipantByEmail(String emailId);
 
 }

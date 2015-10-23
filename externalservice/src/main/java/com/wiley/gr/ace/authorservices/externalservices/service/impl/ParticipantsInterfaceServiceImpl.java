@@ -41,11 +41,12 @@ import com.wiley.gr.ace.authorservices.model.external.PreferenceValue;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ParticipantsInterfaceServiceImpl.
  */
-public class ParticipantsInterfaceServiceImpl implements
-        ParticipantsInterfaceService {
+public class ParticipantsInterfaceServiceImpl  implements
+ParticipantsInterfaceService{
     /**
      * The searchparticipantbyidurl.
      */
@@ -65,6 +66,7 @@ public class ParticipantsInterfaceServiceImpl implements
     private String searchParticipantbyOrcidId;
     
     
+    /** The participant url. */
     @Value("${participant.url}")
     private String participantUrl;
 
@@ -140,11 +142,8 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Gets the address.
      *
-     * @param participantId
-     *            the participant id
+     * @param participantId            the participant id
      * @return the address
-     * @throws Exception
-     *             the exception
      */
 
     @Override
@@ -157,13 +156,9 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Update address.
      *
-     * @param participantId
-     *            the participant id
-     * @param address
-     *            the address
+     * @param participantId            the participant id
+     * @param address            the address
      * @return the response entity
-     * @throws Exception
-     *             the exception
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
@@ -182,13 +177,9 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Upload profile image.
      *
-     * @param participantId
-     *            the participant id
-     * @param imageFile
-     *            the image file
+     * @param participantId            the participant id
+     * @param imageFile            the image file
      * @return the response entity
-     * @throws Exception
-     *             the exception
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
@@ -218,13 +209,9 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Update alerts.
      *
-     * @param participantId
-     *            the participant id
-     * @param alert
-     *            the alert
+     * @param participantId            the participant id
+     * @param alert            the alert
      * @return the response entity
-     * @throws Exception
-     *             the exception
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
@@ -244,11 +231,8 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Gets the alerts.
      *
-     * @param participantId
-     *            the participant id
+     * @param participantId            the participant id
      * @return the alerts
-     * @throws Exception
-     *             the exception
      */
     @Override
     public final PreferenceValue getAlerts(final String participantId) {
@@ -362,6 +346,13 @@ public class ParticipantsInterfaceServiceImpl implements
         return participantGetResponse.getParticipantList().get(0);
     }
 
+  
+    /**
+     * Search participant by email id.
+     *
+     * @param userId the user id
+     * @return the participant
+     */
     @Override
     public Participant searchParticipantByEmailId(final String userId) {
         final String participantSearchUrl = participantCrudUrl
@@ -371,5 +362,22 @@ public class ParticipantsInterfaceServiceImpl implements
                         ParticipantGetResponse.class);
         return participantGetResponse.getParticipantList().get(0);
     }
+
+    /**
+     * Search participant by email.
+     *
+     * @param emailId the email id
+     * @return the participant get response
+     */
+    @Override
+    public ParticipantGetResponse searchParticipantByEmail(String emailId) {
+        final String participantSearchUrl = participantCrudUrl
+                .concat("?email=").concat(emailId);
+        ParticipantGetResponse participantGetResponse = (ParticipantGetResponse) RestServiceInvokerUtil
+                .getServiceData(participantSearchUrl, ParticipantGetResponse.class);
+        return participantGetResponse;
+    }
+  
+
 
 }
