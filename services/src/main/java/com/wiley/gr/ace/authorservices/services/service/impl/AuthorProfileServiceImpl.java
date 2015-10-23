@@ -22,14 +22,11 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-
-import ch.qos.logback.core.util.FileUtil;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
@@ -748,14 +745,15 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @param participantId
      *            the participant id
      * @return image in terms of Byte array
-     * @throws IOException 
+     * @throws IOException
      */
     @Override
     public File getProfileImage(final String participantId) throws IOException {
         AuthorProfileServiceImpl.LOGGER.info("inside getProfileImage Method ");
         File file = new File("Image.jpg");
         file.createNewFile();
-        FileUtils.writeByteArrayToFile(file, participantsInterfaceService.getProfileImage(participantId));
+        FileUtils.writeByteArrayToFile(file,
+                participantsInterfaceService.getProfileImage(participantId));
         return file;
     }
 
@@ -870,11 +868,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         for (Interests interests : interestList) {
             if (!interestData.contains(interests)) {
-                interestData.add(interests.getAoeId());
+                interestData.add(interests.getId());
             }
-            if (interestData.contains(interests)) {
-                interestData.remove(interests);
-            }
+
         }
         profileRequest.setInterestList(interestData);
         entityValue.setProfile(profileRequest);
