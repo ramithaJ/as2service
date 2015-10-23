@@ -850,7 +850,29 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public boolean addInterests(final String userId,
             final AreaOfInterests areaOfInterests) {
-        return false;
+        ProfileRequest profileRequest = settingProfileFields(userId);
+        final ProfileEntity profileEntity = new ProfileEntity();
+        profileEntity.setEntityType(PROFILE);
+        final EntityValue entityValue = new EntityValue();
+
+        List<String> interestData = profileRequest.getInterestList();
+        List<Interests> interestList = areaOfInterests.getInterests();
+
+        for (Interests interests : interestList) {
+            if (!interestData.contains(interests)) {
+                interestData.add(interests.getAoeId());
+            }
+            if (interestData.contains(interests)) {
+                interestData.remove(interests);
+            }
+        }
+        profileRequest.setInterestList(interestData);
+        entityValue.setProfile(profileRequest);
+        profileEntity.setEntityValue(entityValue);
+        profileEntity.setSourceSystem("AS");
+        profileEntity.setEntityId(userId);
+
+        return participantsInterfaceService.updateProfile(profileEntity);
 
     }
 
