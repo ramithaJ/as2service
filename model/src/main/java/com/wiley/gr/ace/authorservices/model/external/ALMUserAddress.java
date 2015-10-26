@@ -14,11 +14,14 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * The Class ALMUserAddress.
  */
+@JsonInclude(Include.NON_NULL)
 public class ALMUserAddress {
 
     /** The address. */

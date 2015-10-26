@@ -40,8 +40,10 @@ import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Notifications;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ALMCreateUser;
 import com.wiley.gr.ace.authorservices.model.external.ALMCreateUserRespnse;
 import com.wiley.gr.ace.authorservices.model.external.ALMSearchUserResponse;
+import com.wiley.gr.ace.authorservices.model.external.ALMUpdateUser;
 import com.wiley.gr.ace.authorservices.model.external.ALMUser;
 import com.wiley.gr.ace.authorservices.model.external.ALMUserAddress;
 import com.wiley.gr.ace.authorservices.model.external.CDMResponse;
@@ -307,23 +309,26 @@ public class RegistrationServiceImpl implements RegistrationService {
         String almUserId = null;
         ALMUser almUser = new ALMUser();
         ALMUserAddress almUserAddress = new ALMUserAddress();
-        almUser.setEmail(user.getPrimaryEmailAddr());
         almUser.setFirstName(user.getFirstName());
         almUser.setLastName(user.getLastName());
+        almUser.setEmail(user.getPrimaryEmailAddr());
         almUser.setPassword(user.getPassword());
+        almUser.setUserStatus(AuthorServicesConstants.VERIFY_ACCOUNT_AWAITING_ACTIVATION);
         almUser.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
-        almUser.setTcFlag(AuthorServicesConstants.AS_ALM_TNC_FLAG);
         almUser.setCustomerType(AuthorServicesConstants.AS_ALM_USER_TYPE);
+        almUser.setTcFlag(AuthorServicesConstants.AS_ALM_TNC_FLAG);
         almUserAddress.setCountry(user.getCountryCode());
         almUser.setUserAddress(almUserAddress);
-        almUser.setUserStatus(AuthorServicesConstants.VERIFY_ACCOUNT_AWAITING_ACTIVATION);
+
+        ALMCreateUser almCreateUser = new ALMCreateUser();
+        almCreateUser.setAlmUser(almUser);
         try {
             ALMCreateUserRespnse almCreateUserRespnse = almInterfaceService
-                    .createUser(almUser);
+                    .createUser(almCreateUser);
 
             if (!StringUtils.isEmpty(almCreateUserRespnse)
-                    && "Success".equalsIgnoreCase(almCreateUserRespnse
-                            .getStatus())) {
+                    && AuthorServicesConstants.SUCCESS
+                            .equalsIgnoreCase(almCreateUserRespnse.getStatus())) {
                 almUserId = almCreateUserRespnse.getUserId();
                 RegistrationDetails registrationDetails = new RegistrationDetails();
                 registrationDetails.setAlmUserId(almUserId);
@@ -369,7 +374,9 @@ public class RegistrationServiceImpl implements RegistrationService {
                 almUser.setEmail(user.getPrimaryEmailAddr());
                 almUser.setTcFlag(AuthorServicesConstants.AS_ALM_TNC_FLAG);
                 almUser.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
-                almInterfaceService.updateUser(almUser);
+                ALMUpdateUser almUpdateUser = new ALMUpdateUser();
+                almUpdateUser.setAlmUpdateUser(almUser);
+                almInterfaceService.updateUser(almUpdateUser);
                 user.setParticipantId(ptpId);
                 createContact(user);
                 status = "SUCCESS";
@@ -513,7 +520,9 @@ public class RegistrationServiceImpl implements RegistrationService {
             String userStatusString = null;
             userStatusString = AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE;
             almUser.setUserStatus(userStatusString);
-            almInterfaceService.updateUser(almUser);
+            ALMUpdateUser almUpdateUser = new ALMUpdateUser();
+            almUpdateUser.setAlmUpdateUser(almUser);
+            almInterfaceService.updateUser(almUpdateUser);
         }
     }
 

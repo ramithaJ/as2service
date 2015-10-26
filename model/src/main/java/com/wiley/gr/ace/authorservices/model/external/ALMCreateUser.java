@@ -9,40 +9,25 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-/**
- * 
- */
 package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * The Class ALMCreateUserRespnse.
+ * @author virtusa version1.0
+ *
  */
-public class ALMCreateUserRespnse extends ALMResponse {
+public class ALMCreateUser {
 
-    
-    
-    /** The user id. */
-    @JsonProperty("AlmInternalkey")
-    private String userId;
+    @JsonProperty("CreateUserAttributes")
+    private ALMUser almUser;
 
-    /**
-     * Gets the user id.
-     *
-     * @return the user id
-     */
-    public final String getUserId() {
-        return userId;
+    public final ALMUser getAlmUser() {
+        return almUser;
     }
 
-    /**
-     * Sets the user id.
-     *
-     * @param userId
-     *            the new user id
-     */
-    public final void setUserId(final String userId) {
-        this.userId = userId;
+    public final void setAlmUser(final ALMUser almUser) {
+        this.almUser = almUser;
     }
+
 }

@@ -29,39 +29,39 @@
 		<property name="hibernate.c3p0.max_statements">50</property>
 		<property name="hibernate.c3p0.timeout">1800</property>
 		<property name="hibernate.enable_lazy_load_no_trans">true</property>
-		
-	
-		
+
+
+
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Alerts" />
 
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.CoauthorRequestsOoorders" />
-	
-		
-			
-        <mapping
-            class="com.wiley.gr.ace.authorservices.persistence.entity.ResetPasswd" />
-	
+
+
+
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.ResetPasswd" />
+
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants" />
-		
+
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders" />
 
 
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.Societies" />
-	
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.RegistrationDetails" />
 
-		
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.LookupValues" />
-	
+
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.ObjectTypes" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Orders" />
-		
-	
+
+
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.OrderReference" />
 		<mapping
@@ -76,34 +76,34 @@
 
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest" />
-		
+
 
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AuditDetails" />
 
-		
 
-		
+
+
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.ObjectTypes" />
-		
+
 
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Actions" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AuditDetails" />
-	
+
 
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.JournalAlertsConfiguration" />
 
 
-	
+
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.ProductPublicationStatuses" />
 
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.PublicationStatuses" />
-		
+
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AlertTypes" />
 
@@ -112,16 +112,16 @@
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.WpgResponseDetails" />
 
-		
+
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.OwnershipTypes" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.SubOwnershipTypes" />
-			<mapping
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserFunders" />
-			<mapping
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails" />
-			<mapping
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations" />
 
 	</session-factory>

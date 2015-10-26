@@ -340,7 +340,7 @@ public class RegistrationController {
     public final Service createUser(@RequestBody final User user) {
         Service service = null;
         String userId = null;
-        if (null != user) {
+        if (!StringUtils.isEmpty(user)) {
             boolean executeCreate = true;
             if (user.isSearchFullName()) {
                 executeCreate = isSearchFullName(service, user);
@@ -358,6 +358,7 @@ public class RegistrationController {
                     }
 
                 } else {
+                    
                     throw new UserException(createUserErrorCode,
                             createUserErrorMessage);
                 }

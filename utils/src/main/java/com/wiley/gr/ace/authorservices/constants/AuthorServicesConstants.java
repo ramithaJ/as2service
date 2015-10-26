@@ -125,7 +125,7 @@ public class AuthorServicesConstants {
     public static final String AUTHPASSWORD = "hgdJbhjrnfY9KFs3KPpddQ==";
 
     /** This field holds the value of SOURCESYSTEM. */
-    public static final String SOURCESYSTEM = "AS2.0";
+    public static final String SOURCESYSTEM = "AS";
     /** The Constant PDF_NAME. */
     public static final String INVOICE_PDF_NAME = "Invoice.pdf";
 

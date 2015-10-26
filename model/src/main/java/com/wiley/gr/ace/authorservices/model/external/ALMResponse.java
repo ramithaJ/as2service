@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class ALMResponse {
 
     /** The status. */
+    @JsonProperty("Status")
     private String status;
 
     /** The error. */

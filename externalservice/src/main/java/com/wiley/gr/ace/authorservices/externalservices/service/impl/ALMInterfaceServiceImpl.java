@@ -14,13 +14,19 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import org.springframework.beans.factory.annotation.Value;
+import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
+import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.model.external.ALMCreateUser;
 import com.wiley.gr.ace.authorservices.model.external.ALMCreateUserRespnse;
 import com.wiley.gr.ace.authorservices.model.external.ALMSearchUserResponse;
-import com.wiley.gr.ace.authorservices.model.external.ALMUser;
+import com.wiley.gr.ace.authorservices.model.external.ALMUpdateUser;
 
 /**
  * The Class ALMInterfaceServiceImpl.
@@ -39,15 +45,22 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
     /**
      * Creates the user.
      *
-     * @param almUser
+     * @param almCreateUser
      *            the alm user
      * @return the ALM create user respnse
      */
     @Override
-    public ALMCreateUserRespnse createUser(final ALMUser almUser) {
-        return (ALMCreateUserRespnse) RestServiceInvokerUtil
-                .restServiceInvoker(almCreateUrl, almUser,
-                        ALMCreateUserRespnse.class);
+    public ALMCreateUserRespnse createUser(final ALMCreateUser almCreateUser) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(new java.io.File("c:\\Yugandhar\\almuser.json"),
+                    almCreateUser);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return (ALMCreateUserRespnse) StubInvokerUtil
+                .restServiceResponseInvoker(almCreateUrl,HttpMethod.PUT, almCreateUser,
+                        ALMCreateUserRespnse.class,null);
     }
 
     /**
@@ -72,8 +85,8 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
      * @return the ALM response
      */
     @Override
-    public void updateUser(final ALMUser almUser) {
+    public void updateUser(final ALMUpdateUser almUpdateUser) {
 
-        RestServiceInvokerUtil.putServiceData(almUpdateUrl, almUser);
+        RestServiceInvokerUtil.putServiceData(almUpdateUrl, almUpdateUser);
     }
 }
