@@ -165,7 +165,7 @@ public class UserProfileController {
         final Service service = new Service();
         boolean isDeleted = false;
         try {
-            isDeleted = authorProfileService.deleteAffiliations(userId);
+            isDeleted = authorProfileService.deleteAffiliations(userId,affiliationId);
         } catch (final Exception e) {
             LOGGER.info(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(affiliationsErrorCode,

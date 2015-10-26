@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
@@ -202,10 +203,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @param affiliation
      *            the affiliation
      * @return true, if successful
+     * @throws Exception
      */
     @Override
     public boolean updateAffiliation(final String userId,
-            final Affiliation affiliation) {
+            final Affiliation affiliation) throws Exception {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
         return authorProfileDao.updateAffiliation(userId, affiliation);
@@ -521,16 +523,25 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             Country country = new Country();
             country.setCountryCode(userAffiliation.getCountryCd());
             affiliation.setCountry(country);
-            affiliation.setAffiliationId(userAffiliation.getAffiliationId()
-                    .toString());
+            Long affiliationId = userAffiliation.getAffiliationId();
+            if (!StringUtils.isEmpty(affiliationId)) {
+                affiliation.setAffiliationId(userAffiliation.getAffiliationId()
+                        .toString());
+            }
             affiliation.setInstitutionId(userAffiliation.getInstitutionCd());
             affiliation
                     .setInstitutionName(userAffiliation.getInstitutionName());
             affiliation.setDepartmentName(userAffiliation.getDepartmentName());
             affiliation.setStateCode(userAffiliation.getStateOrProvinceName());
             affiliation.setCity(userAffiliation.getTownOrCityName());
-            affiliation.setStartDate(userAffiliation.getStartDt().toString());
-            affiliation.setEndDate(userAffiliation.getEndDt().toString());
+            Date startDate = userAffiliation.getStartDt();
+            Date endDate = userAffiliation.getEndDt();
+            if (StringUtils.isEmpty(startDate)) {
+                affiliation.setStartDate(startDate.toString());
+            }
+            if (StringUtils.isEmpty(endDate)) {
+                affiliation.setEndDate(endDate.toString());
+            }
             affiliations.add(affiliation);
         }
         return affiliations;
@@ -778,10 +789,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
     @Override
-    public boolean deleteAffiliations(final String userId) {
+    public boolean deleteAffiliations(final String userId,
+            final String affiliationId) {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside deleteAffiliations Method ");
-        return authorProfileDao.deleteAffiliations(userId);
+        return authorProfileDao.deleteAffiliations(userId, affiliationId);
 
     }
 

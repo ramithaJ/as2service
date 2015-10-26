@@ -148,7 +148,7 @@ public class ParticipantsInterfaceServiceImpl implements
 
     @Override
     public final AddressMapper getAddress(final String participantId) {
-        final String url = participantCrudUrl + participantId + "/addresses";
+        final String url = participantCrudUrl.concat("/").concat(participantId).concat("/addresses");
         return (AddressMapper) StubInvokerUtil.restGetServiceInvoker(url,
                 AddressMapper.class);
     }
@@ -189,7 +189,7 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public final ResponseEntity uploadProfileImage(final String participantId,
             final byte[] imageFile) {
-        final String url = participantCrudUrl + participantId + "/profileImage";
+        final String url = participantCrudUrl.concat("/").concat(participantId).concat("/profileImage");
         return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
                 HttpMethod.PUT, new String(imageFile, StandardCharsets.UTF_8),
                 ParticipantErrorResponse.class, null);
@@ -205,7 +205,7 @@ public class ParticipantsInterfaceServiceImpl implements
      */
     @Override
     public final byte[] getProfileImage(final String participantId) {
-        final String url = participantCrudUrl + participantId + "/profileImage";
+        final String url = participantCrudUrl.concat("/").concat(participantId).concat("/profileImage");
         return (byte[]) StubInvokerUtil
                 .restGetServiceInvoker(url, Byte[].class);
     }
@@ -243,8 +243,7 @@ public class ParticipantsInterfaceServiceImpl implements
      */
     @Override
     public final PreferenceValue getAlerts(final String participantId) {
-        final String url = participantCrudUrl + participantId + "/preferences/"
-                + "ALERT";
+        final String url = participantCrudUrl.concat("/").concat(participantId).concat("/preferences/ALERT");
         final PreferenceMapper preferenceMapper = (PreferenceMapper) StubInvokerUtil
                 .restGetServiceInvoker(url, PreferenceMapper.class);
         return preferenceMapper.getPreferenceValue();

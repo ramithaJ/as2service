@@ -14,13 +14,19 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
-import java.nio.charset.StandardCharsets;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
+import javax.sql.rowset.serial.SerialException;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
@@ -88,12 +94,10 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
 
             session = getSessionFactory().openSession();
             session.beginTransaction();
-            String hql = "from UserAffiliations a where a.participnatId = :userId";
-            affiliationList = session
-                    .createQuery(hql)
-                    .setBinary("participantId",
-                            userId.getBytes(StandardCharsets.UTF_8)).list();
-
+            Criteria criteria = session.createCriteria(UserAffiliations.class);
+            criteria.add(Restrictions.eq("participantId",
+                    UUID.fromString(userId)));
+            affiliationList = criteria.list();
         } finally {
             if (session != null) {
                 session.flush();
@@ -114,7 +118,8 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
      *             the exception
      */
     @Override
-    public final boolean deleteAffiliations(final String userId) {
+    public final boolean deleteAffiliations(final String userId,
+            final String affiliationId) {
         AuthorProfileDaoImpl.LOGGER.info("inside deleteAffiliations method ");
 
         Session session = null;
@@ -122,10 +127,16 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
         try {
 
             session = getSessionFactory().openSession();
-            List<UserAffiliations> affiliationList = getAffiliationList(userId);
             session.beginTransaction();
-            for (UserAffiliations af : affiliationList) {
-                session.delete(af);
+            Criteria criteria = session.createCriteria(UserAffiliations.class);
+            criteria.add(Restrictions.eq("participantId",
+                    UUID.fromString(userId)));
+            criteria.add(Restrictions.eq("affiliationId",
+                    Long.parseLong(affiliationId)));
+            UserAffiliations userAffiliations = (UserAffiliations) criteria
+                    .uniqueResult();
+            if (!StringUtils.isEmpty(userAffiliations)) {
+                session.delete(userAffiliations);
             }
             session.getTransaction().commit();
             isDeleted = true;
@@ -150,12 +161,14 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
      * @param affiliation
      *            the affiliation
      * @return true, if successful
+     * @throws SQLException
+     * @throws SerialException
      * @throws Exception
      *             the exception
      */
     @Override
     public final boolean updateAffiliation(final String userId,
-            final Affiliation affiliation) {
+            final Affiliation affiliation) throws Exception {
         AuthorProfileDaoImpl.LOGGER.info("inside updateAffiliation method ");
         Session session = null;
         boolean isUpdated = false;
@@ -164,10 +177,15 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
         if (!"0".equals(affliationId)) {
             userAffiliation.setAffiliationId(Long.valueOf(affliationId));
         }
-        userAffiliation.setStartDt(new Date(Long.parseLong(affiliation
-                .getStartDate())));
-        userAffiliation.setEndDt(new Date(Long.parseLong(affiliation
-                .getEndDate())));
+        String startDate = affiliation.getStartDate();
+        if (!StringUtils.isEmpty(startDate)) {
+            userAffiliation.setStartDt(new Date(Long.parseLong(startDate)));
+        }
+        String endDate = affiliation.getEndDate();
+        if (!StringUtils.isEmpty(endDate)) {
+            userAffiliation.setEndDt(new Date(Long.parseLong(endDate)));
+        }
+        userAffiliation.setParticipantId(UUID.fromString(userId));
         userAffiliation.setTownOrCityName(affiliation.getCity());
         userAffiliation.setStateOrProvinceName(affiliation.getStateCode());
         userAffiliation.setCountryCd(affiliation.getCountryCode());

@@ -256,7 +256,7 @@ public interface AuthorProfileService {
      *            the user id
      * @return true, if successful
      */
-    boolean deleteAffiliations(String userId);
+    boolean deleteAffiliations(String userId, String affiliationId);
 
     /**
      * Update affiliation.
@@ -266,8 +266,9 @@ public interface AuthorProfileService {
      * @param affiliation
      *            the affiliation
      * @return true, if successful
+     * @throws Exception 
      */
-    boolean updateAffiliation(String userId, Affiliation affiliation);
+    boolean updateAffiliation(String userId, Affiliation affiliation) throws Exception;
 
     /**
      * Adds the preferred journal.
