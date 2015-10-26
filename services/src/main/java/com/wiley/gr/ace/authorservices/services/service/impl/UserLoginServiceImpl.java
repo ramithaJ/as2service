@@ -390,10 +390,8 @@ public class UserLoginServiceImpl implements UserLoginService {
             List<Participant> participantsList = participantGetResponse
                     .getParticipantList();
 
-            for (Participant participant : participantsList) {
-                participant.getName();
-                participant.getFamilyName();
-                participant.getEmail();
+            if (!participantsList.isEmpty()) {
+                insertGuid(emailId, participantsList.get(0).getEmail(), "");
 
             }
 

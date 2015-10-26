@@ -881,9 +881,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         profileEntity.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
         profileEntity.setEntityId(userId);
 
-        participantsInterfaceService.addPreferredJournals(profileEntity);
-
-        return false;
+        return participantsInterfaceService.updateProfile(profileEntity);
 
     }
 

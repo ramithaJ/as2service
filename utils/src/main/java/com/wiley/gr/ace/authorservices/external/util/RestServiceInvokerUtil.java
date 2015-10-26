@@ -13,7 +13,6 @@
 package com.wiley.gr.ace.authorservices.external.util;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -238,15 +237,6 @@ public class RestServiceInvokerUtil {
      */
     public static void deleteparticipantServiceData(final String url,
             final Object requestEntityClass) {
-        final ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapper.writeValue(new File("c:\\ravi\\user.json"),
-                    requestEntityClass);
-
-        } catch (final Exception e) {
-
-            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
-        }
 
         new RestTemplate().delete(url, requestEntityClass);
     }
