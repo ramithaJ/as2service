@@ -14,12 +14,9 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
@@ -51,13 +48,6 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
      */
     @Override
     public ALMCreateUserRespnse createUser(final ALMCreateUser almCreateUser) {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapper.writeValue(new java.io.File("c:\\Yugandhar\\almuser.json"),
-                    almCreateUser);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return (ALMCreateUserRespnse) StubInvokerUtil
                 .restServiceResponseInvoker(almCreateUrl,HttpMethod.PUT, almCreateUser,
                         ALMCreateUserRespnse.class,null);
