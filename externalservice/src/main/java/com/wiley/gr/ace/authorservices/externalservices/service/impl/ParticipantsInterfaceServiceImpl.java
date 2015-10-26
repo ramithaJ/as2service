@@ -45,8 +45,8 @@ import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 /**
  * The Class ParticipantsInterfaceServiceImpl.
  */
-public class ParticipantsInterfaceServiceImpl  implements
-ParticipantsInterfaceService{
+public class ParticipantsInterfaceServiceImpl implements
+        ParticipantsInterfaceService {
     /**
      * The searchparticipantbyidurl.
      */
@@ -64,8 +64,7 @@ ParticipantsInterfaceService{
      */
     @Value("${searchParticipantbyOrcidId.url}")
     private String searchParticipantbyOrcidId;
-    
-    
+
     /** The participant url. */
     @Value("${participant.url}")
     private String participantUrl;
@@ -142,7 +141,8 @@ ParticipantsInterfaceService{
     /**
      * Gets the address.
      *
-     * @param participantId            the participant id
+     * @param participantId
+     *            the participant id
      * @return the address
      */
 
@@ -156,8 +156,10 @@ ParticipantsInterfaceService{
     /**
      * Update address.
      *
-     * @param participantId            the participant id
-     * @param address            the address
+     * @param participantId
+     *            the participant id
+     * @param address
+     *            the address
      * @return the response entity
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -177,8 +179,10 @@ ParticipantsInterfaceService{
     /**
      * Upload profile image.
      *
-     * @param participantId            the participant id
-     * @param imageFile            the image file
+     * @param participantId
+     *            the participant id
+     * @param imageFile
+     *            the image file
      * @return the response entity
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -209,8 +213,10 @@ ParticipantsInterfaceService{
     /**
      * Update alerts.
      *
-     * @param participantId            the participant id
-     * @param alert            the alert
+     * @param participantId
+     *            the participant id
+     * @param alert
+     *            the alert
      * @return the response entity
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -231,12 +237,14 @@ ParticipantsInterfaceService{
     /**
      * Gets the alerts.
      *
-     * @param participantId            the participant id
+     * @param participantId
+     *            the participant id
      * @return the alerts
      */
     @Override
     public final PreferenceValue getAlerts(final String participantId) {
-        final String url = participantCrudUrl + participantId + "/preferences/" + "ALERT";
+        final String url = participantCrudUrl + participantId + "/preferences/"
+                + "ALERT";
         final PreferenceMapper preferenceMapper = (PreferenceMapper) StubInvokerUtil
                 .restGetServiceInvoker(url, PreferenceMapper.class);
         return preferenceMapper.getPreferenceValue();
@@ -279,7 +287,8 @@ ParticipantsInterfaceService{
      */
     @Override
     public final Preferences getPreferredJournals(final String participantId) {
-        final String url = participantCrudUrl + participantId + "/preferences/JOURNAL";
+        final String url = participantCrudUrl + participantId
+                + "/preferences/JOURNAL";
 
         return (Preferences) RestServiceInvokerUtil.getServiceData(url,
                 Preferences.class);
@@ -295,7 +304,7 @@ ParticipantsInterfaceService{
     @Override
     public final boolean deletePreferredJournal(
             final ProfileEntity profileEntity) {
-        final String url = "/v1/profile/";
+        final String url = "http://10.201.64.81:8090/profileservice/v1/profile";
 
         RestServiceInvokerUtil.deleteparticipantServiceData(url, profileEntity);
         return false;
@@ -310,7 +319,7 @@ ParticipantsInterfaceService{
     @Override
     public final void addPreferredJournals(final ProfileEntity profileEntity) {
 
-        final String url = "/v1/profile/";
+        final String url = "http://10.201.64.81:8090/profileservice/v1/profile";
         RestServiceInvokerUtil.restServiceInvoker(url, profileEntity,
                 String.class);
     }
@@ -346,11 +355,11 @@ ParticipantsInterfaceService{
         return participantGetResponse.getParticipantList().get(0);
     }
 
-  
     /**
      * Search participant by email id.
      *
-     * @param userId the user id
+     * @param userId
+     *            the user id
      * @return the participant
      */
     @Override
@@ -366,18 +375,18 @@ ParticipantsInterfaceService{
     /**
      * Search participant by email.
      *
-     * @param emailId the email id
+     * @param emailId
+     *            the email id
      * @return the participant get response
      */
     @Override
-    public ParticipantGetResponse searchParticipantByEmail(String emailId) {
+    public ParticipantGetResponse searchParticipantByEmail(final String emailId) {
         final String participantSearchUrl = participantCrudUrl
                 .concat("?email=").concat(emailId);
         ParticipantGetResponse participantGetResponse = (ParticipantGetResponse) RestServiceInvokerUtil
-                .getServiceData(participantSearchUrl, ParticipantGetResponse.class);
+                .getServiceData(participantSearchUrl,
+                        ParticipantGetResponse.class);
         return participantGetResponse;
     }
-  
-
 
 }
