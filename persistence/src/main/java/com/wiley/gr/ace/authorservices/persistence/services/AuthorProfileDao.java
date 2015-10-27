@@ -45,7 +45,7 @@ public interface AuthorProfileDao {
      * @throws Exception
      *             the exception
      */
-    boolean updateAffiliation(String userId, Affiliation affiliation) throws Exception;
+    boolean updateAffiliation(String userId, Affiliation affiliation, String affiliationId) throws Exception;
 
     /**
      * Delete affiliations.
@@ -68,5 +68,6 @@ public interface AuthorProfileDao {
      *             the exception
      */
     List<UserAffiliations> getAffiliationList(String userId);
+
 
 }

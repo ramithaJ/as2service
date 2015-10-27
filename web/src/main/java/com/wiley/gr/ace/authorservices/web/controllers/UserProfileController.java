@@ -124,15 +124,15 @@ public class UserProfileController {
      */
     @RequestMapping(value = "/affiliations/{userId}/{affiliationId}/", method = RequestMethod.POST)
     public final Service updateAffiliation(
-            @PathVariable("userId") final int userId,
+            @PathVariable("userId") final String userId,
             @PathVariable("affiliationId") final String affiliationId,
             @RequestBody final Affiliation affiliationsUpdate) {
         LOGGER.info("inside updateAffiliation method ");
+        System.err.println(affiliationId);
         final Service service = new Service();
         boolean isUpdated = false;
         try {
-            isUpdated = authorProfileService.updateAffiliation(
-                    Integer.toString(userId), affiliationsUpdate);
+            isUpdated = authorProfileService.updateAffiliation(userId, affiliationsUpdate, affiliationId);
         } catch (final Exception e) {
             LOGGER.info(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(affiliationsErrorCode,

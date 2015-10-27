@@ -207,10 +207,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public boolean updateAffiliation(final String userId,
-            final Affiliation affiliation) throws Exception {
+            final Affiliation affiliation, final String affiliationId) throws Exception {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
-        return authorProfileDao.updateAffiliation(userId, affiliation);
+        return authorProfileDao.updateAffiliation(userId, affiliation, affiliationId);
     }
 
     /**

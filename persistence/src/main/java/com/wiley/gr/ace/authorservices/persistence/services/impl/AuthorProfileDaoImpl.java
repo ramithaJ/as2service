@@ -168,14 +168,13 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
      */
     @Override
     public final boolean updateAffiliation(final String userId,
-            final Affiliation affiliation) throws Exception {
+            final Affiliation affiliation,final String affiliationId) throws Exception {
         AuthorProfileDaoImpl.LOGGER.info("inside updateAffiliation method ");
         Session session = null;
         boolean isUpdated = false;
         UserAffiliations userAffiliation = new UserAffiliations();
-        String affliationId = affiliation.getAffiliationId();
-        if (!"0".equals(affliationId)) {
-            userAffiliation.setAffiliationId(Long.valueOf(affliationId));
+        if (!"0".equals(affiliationId)) {
+            userAffiliation.setAffiliationId(Long.valueOf(affiliationId));
         }
         String startDate = affiliation.getStartDate();
         if (!StringUtils.isEmpty(startDate)) {

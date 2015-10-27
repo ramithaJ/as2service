@@ -268,7 +268,7 @@ public interface AuthorProfileService {
      * @return true, if successful
      * @throws Exception 
      */
-    boolean updateAffiliation(String userId, Affiliation affiliation) throws Exception;
+    boolean updateAffiliation(String userId, Affiliation affiliation, String affiliationId) throws Exception;
 
     /**
      * Adds the preferred journal.
