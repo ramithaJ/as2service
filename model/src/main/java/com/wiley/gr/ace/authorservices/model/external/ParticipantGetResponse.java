@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * The Class ParticipantGetResponse.
  */
-public class ParticipantGetResponse extends ParticipantGenericResponse {
+public class ParticipantGetResponse {
 
     /** The participant list. */
     @JsonProperty("content")
