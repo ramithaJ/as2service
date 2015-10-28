@@ -162,6 +162,9 @@ public class RegistrationController {
     @Value("${AuthenticationType}")
     private String authenticationType;
 
+    @Value("${verify.account-url}")
+    private String verifyAccountUrl;
+
     /**
      * Check user exists.
      *
@@ -183,7 +186,7 @@ public class RegistrationController {
             retrievedUser = registrationService.checkEmailIdExists(user
                     .getPrimaryEmailAddr());
         }
-        if (!StringUtils.isEmpty(retrievedUser)) 
+        if (!StringUtils.isEmpty(retrievedUser)) {
             System.err.println(retrievedUser);
             foundUserToReturn = new User();
             if (retrievedUser.getFirstName().equalsIgnoreCase(
@@ -211,6 +214,7 @@ public class RegistrationController {
                 service.setPayload(user);
                 service.setError(err);
             }
+        }
         return service;
     }
 
@@ -285,6 +289,7 @@ public class RegistrationController {
         SendNotificationRequest notificationRequest = new SendNotificationRequest();
         List<String> fieldList = new ArrayList<String>();
         fieldList.add(user.getFirstName() + " " + user.getLastName());
+        fieldList.add(verifyAccountUrl);
         fieldList.add(AuthorServicesUtil.encrypt(userId));
         notificationRequest.setFieldList(fieldList);
         notificationRequest.setFrom("admin@wiley.com");
@@ -358,7 +363,7 @@ public class RegistrationController {
                     }
 
                 } else {
-                    
+
                     throw new UserException(createUserErrorCode,
                             createUserErrorMessage);
                 }

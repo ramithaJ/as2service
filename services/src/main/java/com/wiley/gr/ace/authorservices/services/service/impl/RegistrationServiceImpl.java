@@ -205,38 +205,29 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public final User checkEmailIdExists(final String emailId) {
         User user = null;
-        try {
-            LOGGER.info("checking if user exists in ALM");
-            ALMSearchUserResponse almSearchUserResponse = almInterfaceService
-                    .searchUser(emailId);
-            if (StringUtils.isEmpty(almSearchUserResponse)) {
-                LOGGER.info("User is not found in ALM, Searching the invitation records");
-                if (!StringUtils.isEmpty(sharedService
-                        .searchInvitationRecord(emailId))) {
-                    LOGGER.info("User is an invited user");
-                    Participant participant = participantInterfaceService
-                            .searchParticipantByEmailId(emailId);
-                    user = new User();
-                    user.setFirstName(participant.getGivenName());
-                    user.setLastName(participant.getFamilyName());
-
-                    Country userCountry = new Country();
-                    userCountry.setCountryCode(participant
-                            .getParticipantCountry());
-                    userCountry.setCountryName(autoCompleteService
-                            .getNameByCode("countries",
-                                    participant.getParticipantCountry(), null));
-                    user.setCountry(userCountry);
-                    user.setParticipantId(participant.getParticipantId());
-                }
-            } else {
-                throw new UserException(checkUserExistsErrorCode,
-                        checkUserExistsErrorMessage);
-            }
-
-        } catch (Exception e) {
-            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
-            throw new UserException();
+        LOGGER.info("checking if user exists in ALM");
+        ALMSearchUserResponse almSearchUserResponse = almInterfaceService
+                .searchUser(emailId);
+        if (StringUtils.isEmpty(almSearchUserResponse.getUserPayload())) {
+            LOGGER.info("User is not found in ALM, Searching the invitation records");
+            /*
+             * if (!StringUtils.isEmpty(sharedService
+             * .searchInvitationRecord(emailId))) {
+             * LOGGER.info("User is an invited user"); Participant participant =
+             * participantInterfaceService .searchParticipantByEmailId(emailId);
+             * user = new User(); user.setFirstName(participant.getGivenName());
+             * user.setLastName(participant.getFamilyName());
+             * 
+             * Country userCountry = new Country();
+             * userCountry.setCountryCode(participant.getParticipantCountry());
+             * userCountry .setCountryName(autoCompleteService.getNameByCode(
+             * "countries", participant.getParticipantCountry(), null));
+             * user.setCountry(userCountry);
+             * user.setParticipantId(participant.getParticipantId()); }
+             */
+        } else {
+            throw new UserException(checkUserExistsErrorCode,
+                    checkUserExistsErrorMessage);
         }
 
         return user;

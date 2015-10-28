@@ -13,7 +13,9 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.RegistrationDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
@@ -59,7 +61,22 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
 
     @Override
     public RegistrationDetails getRegistrationRecord(final String almUserId) {
-        return null;
+        Session session = null;
+        RegistrationDetails registrationDetails = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session
+                    .createCriteria(RegistrationDetails.class);
+            criteria.add(Restrictions.eq("almUserId", almUserId));
+            registrationDetails = (RegistrationDetails) criteria.uniqueResult();
+
+        } finally {
+            if (null != session) {
+                session.flush();
+                session.close();
+            }
+        }
+        return registrationDetails;
     }
 
     @Override

@@ -3,14 +3,15 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
+
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.model.NotificationHistory;
 import com.wiley.gr.ace.authorservices.model.Notifications;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ProductPersonRelationObject;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.StringUtils;
 
 /**
  * The Class SharedServiceImpl.
@@ -22,7 +23,7 @@ public class SharedServiceImpl implements SharedService {
     @Value("${authorLookup.url}")
     private String authorLookupUrl;
 
-    @Value("${notification.url}")
+    @Value("${notificationHistory.url}")
     private String notificationHistroyUrl;
 
     @Value("${productPersonRelation.url}")
