@@ -291,8 +291,7 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public final Preferences getPreferredJournals(final String participantId) {
         final String url = participantCrudUrl + "/" + participantId
-                + "/preferences/JOURNAL";
-        System.err.println("urlll" + url);
+                + "/preferences/FAVJOURNAL";
         return (Preferences) RestServiceInvokerUtil.getServiceData(url,
                 Preferences.class);
     }
