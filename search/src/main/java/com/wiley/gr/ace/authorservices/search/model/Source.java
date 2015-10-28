@@ -11,30 +11,59 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.search.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class Source.
  */
+@JsonInclude(Include.NON_NULL)
 public class Source {
 
+    /** The journal production editor. */
+    @JsonProperty("journal_production_editor")
+    private String journalProductionEditor;
+
+    /** The journal publication manager. */
+    @JsonProperty("journal_publication_manager")
+    private String journalPublicationManager;
+
+    /** The journal ownership status. */
+    @JsonProperty("journal_ownership_status")
+    private String journalOwnershipStatus;
+
     /** The journal type. */
+    @JsonProperty("journal_type")
     private String journalType;
 
+    /** The journal business unit. */
+    @JsonProperty("journal_business_unit")
+    private String journalBusinessUnit;
+
     /** The journal ownership type. */
+    @JsonProperty("journal_ownership_type")
     private String journalOwnershipType;
 
     /** The journal status. */
+    @JsonProperty("journal_status")
     private String journalStatus;
 
     /** The journal title. */
+    @JsonProperty("journal_title")
     private String journalTitle;
 
     /** The journal acronym. */
+    @JsonProperty("journal_acronym")
     private String journalAcronym;
 
     /** The journal setup state. */
+    @JsonProperty("journal_setup_state")
     private String journalSetupState;
 
     /**
+     * Gets the journal type.
+     *
      * @return the journalType
      */
     public String getJournalType() {
@@ -42,14 +71,18 @@ public class Source {
     }
 
     /**
+     * Sets the journal type.
+     *
      * @param journalType
      *            the journalType to set
      */
-    public void setJournalType(String journalType) {
+    public void setJournalType(final String journalType) {
         this.journalType = journalType;
     }
 
     /**
+     * Gets the journal ownership type.
+     *
      * @return the journalOwnershipType
      */
     public String getJournalOwnershipType() {
@@ -57,14 +90,18 @@ public class Source {
     }
 
     /**
+     * Sets the journal ownership type.
+     *
      * @param journalOwnershipType
      *            the journalOwnershipType to set
      */
-    public void setJournalOwnershipType(String journalOwnershipType) {
+    public void setJournalOwnershipType(final String journalOwnershipType) {
         this.journalOwnershipType = journalOwnershipType;
     }
 
     /**
+     * Gets the journal status.
+     *
      * @return the journalStatus
      */
     public String getJournalStatus() {
@@ -72,14 +109,18 @@ public class Source {
     }
 
     /**
+     * Sets the journal status.
+     *
      * @param journalStatus
      *            the journalStatus to set
      */
-    public void setJournalStatus(String journalStatus) {
+    public void setJournalStatus(final String journalStatus) {
         this.journalStatus = journalStatus;
     }
 
     /**
+     * Gets the journal title.
+     *
      * @return the journalTitle
      */
     public String getJournalTitle() {
@@ -87,14 +128,18 @@ public class Source {
     }
 
     /**
+     * Sets the journal title.
+     *
      * @param journalTitle
      *            the journalTitle to set
      */
-    public void setJournalTitle(String journalTitle) {
+    public void setJournalTitle(final String journalTitle) {
         this.journalTitle = journalTitle;
     }
 
     /**
+     * Gets the journal acronym.
+     *
      * @return the journalAcronym
      */
     public String getJournalAcronym() {
@@ -102,14 +147,18 @@ public class Source {
     }
 
     /**
+     * Sets the journal acronym.
+     *
      * @param journalAcronym
      *            the journalAcronym to set
      */
-    public void setJournalAcronym(String journalAcronym) {
+    public void setJournalAcronym(final String journalAcronym) {
         this.journalAcronym = journalAcronym;
     }
 
     /**
+     * Gets the journal setup state.
+     *
      * @return the journalSetupState
      */
     public String getJournalSetupState() {
@@ -117,11 +166,92 @@ public class Source {
     }
 
     /**
+     * Sets the journal setup state.
+     *
      * @param journalSetupState
      *            the journalSetupState to set
      */
-    public void setJournalSetupState(String journalSetupState) {
+    public void setJournalSetupState(final String journalSetupState) {
         this.journalSetupState = journalSetupState;
+    }
+
+    /**
+     * Gets the journal production editor.
+     *
+     * @return the journal production editor
+     */
+    public final String getJournalProductionEditor() {
+        return journalProductionEditor;
+    }
+
+    /**
+     * Sets the journal production editor.
+     *
+     * @param journalProductionEditor
+     *            the new journal production editor
+     */
+    public final void setJournalProductionEditor(
+            final String journalProductionEditor) {
+        this.journalProductionEditor = journalProductionEditor;
+    }
+
+    /**
+     * Gets the journal publication manager.
+     *
+     * @return the journal publication manager
+     */
+    public final String getJournalPublicationManager() {
+        return journalPublicationManager;
+    }
+
+    /**
+     * Sets the journal publication manager.
+     *
+     * @param journalPublicationManager
+     *            the new journal publication manager
+     */
+    public final void setJournalPublicationManager(
+            final String journalPublicationManager) {
+        this.journalPublicationManager = journalPublicationManager;
+    }
+
+    /**
+     * Gets the journal ownership status.
+     *
+     * @return the journal ownership status
+     */
+    public final String getJournalOwnershipStatus() {
+        return journalOwnershipStatus;
+    }
+
+    /**
+     * Sets the journal ownership status.
+     *
+     * @param journalOwnershipStatus
+     *            the new journal ownership status
+     */
+    public final void setJournalOwnershipStatus(
+            final String journalOwnershipStatus) {
+        this.journalOwnershipStatus = journalOwnershipStatus;
+    }
+
+    /**
+     * Gets the journal business unit.
+     *
+     * @return the journal business unit
+     */
+    public final String getJournalBusinessUnit() {
+        return journalBusinessUnit;
+    }
+
+    /**
+     * Sets the journal business unit.
+     *
+     * @param journalBusinessUnit
+     *            the new journal business unit
+     */
+    public final void setJournalBusinessUnit(final String journalBusinessUnit) {
+        this.journalBusinessUnit = journalBusinessUnit;
     }
 
 }
