@@ -52,7 +52,7 @@ public interface UserAccountService {
      * @throws UserException
      *             the user exception
      */
-    AddressesData getUserAddress(String userId) throws UserException;
+    List<AddressesData> getUserAddress(String userId) throws UserException;
 
     /**
      * Updat address.

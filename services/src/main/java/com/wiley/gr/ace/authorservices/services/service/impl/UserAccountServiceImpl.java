@@ -26,7 +26,6 @@ import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
-import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.AddressData;
 import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
@@ -124,7 +123,8 @@ public class UserAccountServiceImpl implements UserAccountService {
         final Participant participantResponse = participantService
                 .searchParticipantByParticipantId(userId);
         final User user = new User();
-        final String titleId = participantResponse.getHonorificPrefix();
+        // final String titleId = participantResponse.getHonorificPrefix();
+        String titleId = participantResponse.getJobTitle();
         if (!StringUtils.isEmpty(titleId)) {
             user.setTitle(titleId);
             user.setTitleName(asDataDao.getData(titleId));
@@ -168,24 +168,39 @@ public class UserAccountServiceImpl implements UserAccountService {
      *             the user exception
      */
     @Override
-    public final AddressesData getUserAddress(final String userId) {
+    public final List<AddressesData> getUserAddress(final String userId) {
 
         UserAccountServiceImpl.LOGGER.info("inside getUserAddress Method");
-        AddressesData address = new AddressesData();
         try {
             AddressMapper mapper = participantsInterfaceService
                     .getAddress(userId);
 
             List<ParticipantAddress> participantAddresses = mapper.getContent();
-
+            List<AddressesData> userAddressList = new ArrayList<AddressesData>();
             for (ParticipantAddress participantAddr : participantAddresses) {
-                partipcipantAddrToAddr(participantAddr, address);
+
+                AddressesData addressesData = new AddressesData();
+                AddressData addressData = partipcipantAddrToAddr(participantAddr);
+                if ("Contact"
+                        .equalsIgnoreCase(addressData.getAddressTypeCode())) {
+                    addressesData.setCorrespondenceAddress(addressData);
+                }
+                if ("billing"
+                        .equalsIgnoreCase(addressData.getAddressTypeCode())) {
+                    addressesData.setBillingAddress(addressData);
+                }
+                if ("shipping".equalsIgnoreCase(addressData
+                        .getAddressTypeCode())) {
+                    addressesData.setShippingAddress(addressData);
+                }
+                userAddressList.add(addressesData);
             }
+            return userAddressList;
         } catch (Exception e) {
             LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE);
             throw new UserException();
         }
-        return address;
+
     }
 
     /**
@@ -287,12 +302,13 @@ public class UserAccountServiceImpl implements UserAccountService {
      *            the address
      * @return the addresses
      */
-    private Addresses partipcipantAddrToAddr(
-            final ParticipantAddress participantAddr,
-            final AddressesData address) {
+    private AddressData partipcipantAddrToAddr(
+            final ParticipantAddress participantAddr) {
+
+        AddressData addressData = new AddressData();
         if (!StringUtils.isEmpty(participantAddr)) {
             String type = participantAddr.getAddressType();
-            AddressData addressData = new AddressData();
+
             addressData.setAddressEndDate(participantAddr.getValidTo());
             addressData.setAddressId(participantAddr.getAddressId());
             List<String> streetAddr = participantAddr.getStreetAddress();
@@ -312,17 +328,9 @@ public class UserAccountServiceImpl implements UserAccountService {
             addressData.setPhoneNumber(participantAddr.getTelephone());
             addressData.setStateCode(participantAddr.getAddressRegion());
             addressData.setZipCode(participantAddr.getPostalCode());
-            if ("correspondance".equalsIgnoreCase(type)) {
-                address.setCorrespondenceAddress(addressData);
-            }
-            if ("billing".equalsIgnoreCase(type)) {
-                address.setBillingAddress(addressData);
-            }
-            if ("shipping".equalsIgnoreCase(type)) {
-                address.setShippingAddress(addressData);
-            }
+
         }
-        return null;
+        return addressData;
 
     }
 }
