@@ -32,6 +32,7 @@ import org.springframework.util.StringUtils;
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
@@ -207,10 +208,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public boolean updateAffiliation(final String userId,
-            final Affiliation affiliation, final String affiliationId) throws Exception {
+            final Affiliation affiliation, final String affiliationId)
+            throws Exception {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
-        return authorProfileDao.updateAffiliation(userId, affiliation, affiliationId);
+        return authorProfileDao.updateAffiliation(userId, affiliation,
+                affiliationId);
     }
 
     /**
@@ -558,27 +561,34 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public final List<ResearchFunder> getResearchFundersList(final String userId) {
 
-        UUID participantUUID = UUID.fromString(userId);
+        try {
+            UUID participantUUID = UUID.fromString(userId);
 
-        List<UserFunders> userFundersList = researchFunderDAO
-                .getResearchFunders(participantUUID);
-        List<ResearchFunder> researchFundersList = new ArrayList<ResearchFunder>();
-        ResearchFunder researchFunder = null;
-        for (UserFunders userFunders : userFundersList) {
-            researchFunder = new ResearchFunder();
-            researchFunder.setId(userFunders.getUserFunderId());
-            researchFunder.setResearchFunderId(userFunders.getFunderDoi());
-            researchFunder.setResearchFunderName(userFunders.getFunderName());
-            Set<UserFunderGrants> userFunderGrantsSet = userFunders
-                    .getUserFunderGrantses();
-            Set<String> grantsSet = new HashSet<String>();
-            for (UserFunderGrants userFunderGrants : userFunderGrantsSet) {
-                grantsSet.add(userFunderGrants.getGrantNum());
+            List<UserFunders> userFundersList = researchFunderDAO
+                    .getResearchFunders(participantUUID);
+            List<ResearchFunder> researchFundersList = new ArrayList<ResearchFunder>();
+            ResearchFunder researchFunder = null;
+            for (UserFunders userFunders : userFundersList) {
+                researchFunder = new ResearchFunder();
+                researchFunder.setId(userFunders.getUserFunderId());
+                researchFunder.setResearchFunderId(userFunders.getFunderDoi());
+                researchFunder.setResearchFunderName(userFunders
+                        .getFunderName());
+                Set<UserFunderGrants> userFunderGrantsSet = userFunders
+                        .getUserFunderGrantses();
+                Set<String> grantsSet = new HashSet<String>();
+                for (UserFunderGrants userFunderGrants : userFunderGrantsSet) {
+                    grantsSet.add(userFunderGrants.getGrantNum());
+                }
+                researchFunder.setGrantNumber(grantsSet);
+                researchFundersList.add(researchFunder);
             }
-            researchFunder.setGrantNumber(grantsSet);
-            researchFundersList.add(researchFunder);
+            return researchFundersList;
+        } catch (Exception e) {
+            throw new UserException(AuthorServicesConstants.NODATAFOUNDCODE,
+                    AuthorServicesConstants.NODATAFOUNDMSG);
         }
-        return researchFundersList;
+
     }
 
     /**
@@ -594,26 +604,33 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         UUID participantId = UUID.fromString(userId);
         final List<Society> societiesList = new ArrayList<Society>();
-        final List<UserSocietyDetails> userSocietyDetailsList = societyDao
-                .getSocietyDetails(participantId);
-        if (userSocietyDetailsList.isEmpty()) {
+        try {
+            final List<UserSocietyDetails> userSocietyDetailsList = societyDao
+                    .getSocietyDetails(participantId);
+            if (userSocietyDetailsList.isEmpty()) {
+                return null;
+            }
+
+            Society society = null;
+            for (final UserSocietyDetails userSocietyDetails : userSocietyDetailsList) {
+                society = new Society();
+                society.setId(userSocietyDetails.getUserSocietyId());
+                society.setSocietyId(userSocietyDetails.getSocieties()
+                        .getSocietyCd());
+                society.setSocietyName(userSocietyDetails.getSocietyName());
+                society.setMembershipNumber(userSocietyDetails
+                        .getMembershipNo());
+                society.setPromoCode(userSocietyDetails.getPromoCode());
+                society.setStartDate(userSocietyDetails.getStartDt().toString());
+                society.setEndDate(userSocietyDetails.getEndDt().toString());
+                societiesList.add(society);
+            }
             return societiesList;
+        } catch (Exception e) {
+            throw new UserException(AuthorServicesConstants.NODATAFOUNDCODE,
+                    AuthorServicesConstants.NODATAFOUNDMSG);
         }
 
-        Society society = null;
-        for (final UserSocietyDetails userSocietyDetails : userSocietyDetailsList) {
-            society = new Society();
-            society.setId(userSocietyDetails.getUserSocietyId());
-            society.setSocietyId(userSocietyDetails.getSocieties()
-                    .getSocietyCd());
-            society.setSocietyName(userSocietyDetails.getSocietyName());
-            society.setMembershipNumber(userSocietyDetails.getMembershipNo());
-            society.setPromoCode(userSocietyDetails.getPromoCode());
-            society.setStartDate(userSocietyDetails.getStartDt().toString());
-            society.setEndDate(userSocietyDetails.getEndDt().toString());
-            societiesList.add(society);
-        }
-        return societiesList;
     }
 
     /**

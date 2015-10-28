@@ -33,6 +33,7 @@ import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiReq;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiRes;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
 import com.wiley.gr.ace.authorservices.model.external.AddressesData;
+import com.wiley.gr.ace.authorservices.model.external.Name;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantErrorResponse;
@@ -137,7 +138,12 @@ public class UserAccountServiceImpl implements UserAccountService {
             user.setSuffix(suffixId);
             user.setSuffixName(asDataDao.getData(suffixId));
         }
-        user.setAlternateName(AuthorServicesConstants.EMPTY);
+
+        List<Name> alternateNamesList = participantResponse.getAlternateNames();
+        for (Name name : alternateNamesList) {
+            user.setAlternateName(name.getValue());
+        }
+
         user.setPrimaryEmailAddr(participantResponse.getEmail());
         user.setRecoveryEmailAddress(participantResponse.getRecoveryEmail());
         final String industryCode = participantResponse.getIndustryId();

@@ -41,6 +41,7 @@ import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
 import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsValidateRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
+import com.wiley.gr.ace.authorservices.model.external.SystemSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
@@ -99,6 +100,18 @@ public class UserLoginServiceImpl implements UserLoginService {
     /** The alm service. */
     @Autowired(required = true)
     private UserLoginServiceDAO userLoginServiceDAO;
+
+    /**
+     * This field holds the value of noSecutirySetupCode.
+     */
+    @Value("${noSecutirySetup.code}")
+    private String noSecutirySetupCode;
+
+    /**
+     * This field holds the value of noSecutirySetupMsg.
+     */
+    @Value("${noSecutirySetup.msg}")
+    private String noSecutirySetupMsg;
 
     /**
      * Method to authenticate user. calling external system to authenticate
@@ -218,6 +231,11 @@ public class UserLoginServiceImpl implements UserLoginService {
         int i = 0;
         RetrieveSecurityQuestions retrieveSecurityQuestions = userManagement
                 .userSecurityQuestions(emailId);
+        SystemSecurityQuestions systemSecurityQuestions = retrieveSecurityQuestions
+                .getSystemSecurityQuestions();
+        if (null == systemSecurityQuestions) {
+            throw new UserException(noSecutirySetupCode, noSecutirySetupMsg);
+        }
         retrieveSecurityQuestionsList = retrieveSecurityQuestions
                 .getSystemSecurityQuestions().getSecurityQuestionList();
 
