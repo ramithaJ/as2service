@@ -100,7 +100,7 @@ public class OrcidController {
     @Value("{OrcidController.getOrcidDetails.message}")
     private String getOrcidIdErrorMessage;
 
-    public static final String REGISTRATION = "registration";
+    public static final String REGISTRATION = "register";
 
     public static final String PROFILE = "profile";
 
