@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+<changeSet author="gphaniraj" id="demo-admin">
+<sql>
+create table demo (person_id int);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-admin">
+<sql>
+<comment>creating the admin_users table</comment>
+CREATE TABLE "admin_users" (
+  "ADMIN_USER_ID" binary(16) NOT NULL,
+  "FIRST_NAME" varchar(100) DEFAULT NULL,
+  "LAST_NAME" varchar(100) DEFAULT NULL,
+  "PRIMARY_EMAIL_ADDR" varchar(100) NOT NULL,
+  "LAST_LOGIN_DATE" datetime DEFAULT NULL,
+  "CREATED_DATE" datetime DEFAULT NULL,
+  "CREATED_BY" binary(16) DEFAULT NULL,
+  "UPDATED_DATE" datetime DEFAULT NULL,
+  "UPDATED_BY" binary(16) DEFAULT NULL,
+  PRIMARY KEY ("ADMIN_USER_ID"),
+  UNIQUE KEY "PRIMARY_EMAIL" ("PRIMARY_EMAIL_ADDR")
+);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="demo-admin1">
+<comment>dropping the demo table</comment>
+<sql>
+drop table demo;
+</sql>
+</changeSet>
+
+
+</databaseChangeLog>
+
