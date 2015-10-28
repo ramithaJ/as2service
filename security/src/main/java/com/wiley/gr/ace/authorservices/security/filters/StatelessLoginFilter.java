@@ -242,6 +242,7 @@ public class StatelessLoginFilter extends
             user.setLastName(userDetails.getLastName());
             user.setOrcidId(userDetails.getOrcidId());
             user.setAlmUserId(almUser.getAlmUserId());
+            user.setParticipantId(userDetails.getUserId());
         }
 
         response.setContentType(StatelessLoginFilter.APPLICATION_JSON_CHARSET_UTF_8);

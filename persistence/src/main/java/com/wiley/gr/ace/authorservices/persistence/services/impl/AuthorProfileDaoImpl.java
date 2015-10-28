@@ -98,6 +98,7 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
             criteria.add(Restrictions.eq("participantId",
                     UUID.fromString(userId)));
             affiliationList = criteria.list();
+            System.err.println(affiliationList);
         } finally {
             if (session != null) {
                 session.flush();

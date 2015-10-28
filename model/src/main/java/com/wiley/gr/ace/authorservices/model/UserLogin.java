@@ -35,6 +35,8 @@ public class UserLogin {
     /** The orcid id. */
     private String orcidId;
 
+    private String participantId;
+
     /**
      * Gets the user id.
      *
@@ -107,7 +109,7 @@ public class UserLogin {
      * @param almUserId
      *            the new alm user id
      */
-    public void setAlmUserId(String almUserId) {
+    public void setAlmUserId(final String almUserId) {
         this.almUserId = almUserId;
     }
 
@@ -126,8 +128,16 @@ public class UserLogin {
      * @param orcidId
      *            the new orcid id
      */
-    public void setOrcidId(String orcidId) {
+    public void setOrcidId(final String orcidId) {
         this.orcidId = orcidId;
+    }
+
+    public String getParticipantId() {
+        return participantId;
+    }
+
+    public void setParticipantId(final String participantId) {
+        this.participantId = participantId;
     }
 
 }

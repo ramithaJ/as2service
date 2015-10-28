@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+<changeSet author="gphaniraj" id="demo">
+<sql>
+create table demo1 (person_id int);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-mysql-1">
+<comment>Altered the table additional_permissions to change the data type of user_id from int to binary</comment> 
+<sql>
+alter table additional_permissions modify USER_ID binary(16);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-mysql-2">
+<comment>Altered the table user_roles to change the data type of user_id from int to binary</comment> 
+<sql>
+alter table user_roles modify USER_ID binary(16);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-mysql-3">
+<comment>modifying the column CREATED_BY in permission_groups table to binary</comment>
+<sql>
+ALTER TABLE permission_groups MODIFY CREATED_BY binary(16);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-mysql-4">
+<comment>modifying the column UPDATED_BY in permission_groups table to binary</comment>
+<sql>
+ALTER TABLE permission_groups MODIFY UPDATED_BY binary(16);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-mysql-5">
+<comment>modifying the column CREATED_BY in additional_permissions table to binary</comment>
+<sql>
+ALTER TABLE additional_permissions MODIFY CREATED_BY binary(16);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-mysql-6">
+<comment>modifying the column UPDATED_BY in additional_permissions table to binary</comment>
+<sql>
+ALTER TABLE additional_permissions MODIFY UPDATED_BY binary(16);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-mysql-7">
+<comment>modifying the column CREATED_BY in user_roles table to binary</comment>
+<sql>
+ALTER TABLE user_roles MODIFY CREATED_BY binary(16);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-mysql-8">
+<comment>modifying the column UPDATED_BY in user_roles table to binary</comment>
+<sql>
+ALTER TABLE user_roles MODIFY UPDATED_BY binary(16);
+</sql>
+
+</changeSet>
+
+</databaseChangeLog>
+

@@ -525,8 +525,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             affiliation.setCountry(country);
             Long affiliationId = userAffiliation.getAffiliationId();
             if (!StringUtils.isEmpty(affiliationId)) {
-                affiliation.setAffiliationId(userAffiliation.getAffiliationId()
-                        .toString());
+                affiliation.setAffiliationId(affiliationId.toString());
             }
             affiliation.setInstitutionId(userAffiliation.getInstitutionCd());
             affiliation
@@ -536,10 +535,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             affiliation.setCity(userAffiliation.getTownOrCityName());
             Date startDate = userAffiliation.getStartDt();
             Date endDate = userAffiliation.getEndDt();
-            if (StringUtils.isEmpty(startDate)) {
+            if (!StringUtils.isEmpty(startDate)) {
                 affiliation.setStartDate(startDate.toString());
             }
-            if (StringUtils.isEmpty(endDate)) {
+            if (!StringUtils.isEmpty(endDate)) {
                 affiliation.setEndDate(endDate.toString());
             }
             affiliations.add(affiliation);

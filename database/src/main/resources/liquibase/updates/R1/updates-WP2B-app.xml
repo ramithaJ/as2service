@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+<changeSet author="gphaniraj" id="demo">
+<sql>
+create table demo1 (person_id int);
+</sql>
+</changeSet>
+
+
+<changeSet author="gphaniraj" id="WP2B-mysql-1">
+<comment>modified the column AFFILIATION_ID data type in user_affiliations table from binary to int with autoincrement </comment>
+<sql>
+ALTER TABLE user_affiliations MODIFY COLUMN AFFILIATION_ID INT auto_increment;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-mysql-2">
+<comment>modified the column AFFILIATION_ID data type in user_affiliations table from binary to bigint with autoincrement </comment>
+<sql>
+ALTER TABLE user_affiliations MODIFY COLUMN AFFILIATION_ID bigint(20) auto_increment;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-mysql-3">
+<comment>altered the table article_configuration to remove the columns</comment>
+<sql>
+ALTER TABLE article_configuration
+DROP COLUMN CO_AUTHOR_USER_ID ,
+DROP COLUMN COLLEAGUES_USER_ID,
+DROP COLUMN COLLEAGUES_EMAIL_ID,
+DROP COLUMN CORRESPONDING_AUTHOR_USER_ID;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-mysql-4">
+<comment>modified the column PARTICIPANT_ID data type in reset_passwd table from bigint to binary</comment>
+<sql>
+ALTER TABLE reset_passwd MODIFY PARTICIPANT_ID binary(16);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-mysql-5">
+<comment>demo</comment>
+<sql>
+create table demo(person_id int);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-mysql-6">
+<comment>modifying the column reset_id in reset_passwd table to autoincrement</comment>
+<sql>
+ALTER TABLE reset_passwd MODIFY COLUMN RESET_ID BIGINT(20) NOT NULL AUTO_INCREMENT;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-mysql-7">
+<comment>modifying the column REGISTRASTION_DETAIL_ID in registration_details table to autoincrement</comment>
+<sql>
+ALTER TABLE registration_details MODIFY COLUMN REGISTRASTION_DETAIL_ID BIGINT(20) AUTO_INCREMENT;
+</sql>
+</changeSet>
+
+
+
+</databaseChangeLog>
+
