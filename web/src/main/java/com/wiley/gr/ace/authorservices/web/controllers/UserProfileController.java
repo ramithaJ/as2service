@@ -190,7 +190,7 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/researchFunder/{participantId}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/researchFunders/{participantId}/", method = RequestMethod.GET)
     public final Service getResearchFundersList(
             @PathVariable("participantId") final String participantId) {
 
