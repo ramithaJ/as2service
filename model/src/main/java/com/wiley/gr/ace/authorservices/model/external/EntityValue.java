@@ -38,28 +38,28 @@ public class EntityValue {
     private AddressData addressData;
 
     /** The alert request. */
-    private AlertRequest alertRequest;
+    private AlertRequest alertList;
 
     private List<String> journalList;
-
+    
     /**
-     * Gets the alert request.
-     *
-     * @return the alert request
-     */
-    public final AlertRequest getAlertRequest() {
-        return alertRequest;
-    }
+    * Gets the alert list.
+    *
+    * @return the alert list
+    */
+   public AlertRequest getAlertList() {
+       return alertList;
+   }
 
-    /**
-     * Sets the alert request.
-     *
-     * @param alertRequest
-     *            the new alert request
-     */
-    public final void setAlertRequest(final AlertRequest alertRequest) {
-        this.alertRequest = alertRequest;
-    }
+   /**
+    * Sets the alert list.
+    *
+    * @param alertList the new alert list
+    */
+   public void setAlertList(AlertRequest alertList) {
+       this.alertList = alertList;
+   }
+
 
     /**
      * Gets the address data.

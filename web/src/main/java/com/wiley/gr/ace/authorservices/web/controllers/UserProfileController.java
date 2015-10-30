@@ -493,7 +493,6 @@ public class UserProfileController {
         }
         return service;
     }
-
     /**
      * Gets the industries.
      *
