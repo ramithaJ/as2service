@@ -22,6 +22,7 @@ import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.external.ALMCreateUser;
 import com.wiley.gr.ace.authorservices.model.external.ALMCreateUserRespnse;
+import com.wiley.gr.ace.authorservices.model.external.ALMResponse;
 import com.wiley.gr.ace.authorservices.model.external.ALMSearchUserResponse;
 import com.wiley.gr.ace.authorservices.model.external.ALMUpdateUser;
 
@@ -49,8 +50,8 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
     @Override
     public ALMCreateUserRespnse createUser(final ALMCreateUser almCreateUser) {
         return (ALMCreateUserRespnse) StubInvokerUtil
-                .restServiceResponseInvoker(almCreateUrl,HttpMethod.PUT, almCreateUser,
-                        ALMCreateUserRespnse.class,null);
+                .restServiceResponseInvoker(almCreateUrl, HttpMethod.PUT,
+                        almCreateUser, ALMCreateUserRespnse.class, null);
     }
 
     /**
@@ -77,6 +78,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
     @Override
     public void updateUser(final ALMUpdateUser almUpdateUser) {
 
-        RestServiceInvokerUtil.putServiceData(almUpdateUrl, almUpdateUser);
+        RestServiceInvokerUtil.restServiceInvoker(almUpdateUrl, almUpdateUser,
+                ALMResponse.class);
     }
 }

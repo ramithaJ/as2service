@@ -353,12 +353,12 @@ public class RegistrationServiceImpl implements RegistrationService {
     public String doFinalCreate(final String almUserId,
             final String sendEmailFlag) {
 
-        String status = null;
+        String ptpId = null;
         try {
             User user = returnUserFromDB(almUserId);
             user.setUserId(almUserId);
             user.setSendEmailFlag(sendEmailFlag);
-            String ptpId = createParticipant(user);
+            ptpId = createParticipant(user);
             if (!StringUtils.isEmpty(ptpId)) {
                 ALMUser almUser = new ALMUser();
                 almUser.setEmail(user.getPrimaryEmailAddr());
@@ -369,7 +369,6 @@ public class RegistrationServiceImpl implements RegistrationService {
                 almInterfaceService.updateUser(almUpdateUser);
                 user.setParticipantId(ptpId);
                 createContact(user);
-                status = "SUCCESS";
             } else {
                 throw new UserException(createUserErrorCode,
                         createUserErrorMessage);
@@ -378,7 +377,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(createUserErrorCode, createUserErrorMessage);
         }
-        return status;
+        return ptpId;
     }
 
     /**
@@ -477,7 +476,8 @@ public class RegistrationServiceImpl implements RegistrationService {
                     .getUserPayload();
             if (!StringUtils.isEmpty(almUserList)) {
                 for (ALMUser almUser : almUserList) {
-                    if (almUser.getEmail().equals(user.getPrimaryEmailAddr())) {
+                    if (almUser.getEmail().equalsIgnoreCase(
+                            user.getPrimaryEmailAddr())) {
                         String userStatus = almUser.getUserStatus();
                         verifyAccountChecking(almUser, userStatus);
                     } else {

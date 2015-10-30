@@ -448,9 +448,16 @@ public class RegistrationController {
     public final Service createParticipantAndContact(
             @RequestBody final User user) {
 
+        Service service = new Service();
+        User createdUser = new User();
         LOGGER.info("Creating participant and contact");
-        registrationService.doFinalCreate(user.getUserId(),
+        String ptpId = registrationService.doFinalCreate(user.getUserId(),
                 user.getSendEmailFlag());
+        if (!StringUtils.isEmpty(ptpId)) {
+            user.setParticipantId(ptpId);
+            service.setStatus("SUCCESS");
+            service.setPayload(createdUser);
+        }
 
         return new Service();
     }
