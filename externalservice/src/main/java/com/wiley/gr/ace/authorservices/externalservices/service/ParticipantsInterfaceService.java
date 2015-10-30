@@ -136,7 +136,7 @@ public interface ParticipantsInterfaceService {
      * @throws Exception
      *             the exception
      */
-    ResponseEntity updateAlerts(String participantId, AlertRequest alert);
+    ResponseEntity updateAlerts(String participantId, AlertRequest alert) throws Exception;
 
     /**
      * Gets the alerts.

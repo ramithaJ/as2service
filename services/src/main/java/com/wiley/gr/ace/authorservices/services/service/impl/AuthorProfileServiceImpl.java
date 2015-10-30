@@ -244,17 +244,18 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 alertType.setEmail("0");
             }
             if (alert.isOnScreen()) {
-                alertType.setOnscreen("1");
+                alertType.setOnScreen("1");
             } else {
-                alertType.setOnscreen("0");
+                alertType.setOnScreen("0");
             }
             preferenceAlert.setAlertType(alertType);
             preferList.add(preferenceAlert);
         }
-        alertRequest.setAlertList(preferList);
+        alertRequest.setAlert(preferList);
         try {
             final ResponseEntity resposeEntity = participantsInterfaceService
                     .updateAlerts(participantId, alertRequest);
+            System.err.println(resposeEntity);
             code = resposeEntity.getStatusCode().value();
             if (!code.equals(200)) {
                 isUpdated = false;

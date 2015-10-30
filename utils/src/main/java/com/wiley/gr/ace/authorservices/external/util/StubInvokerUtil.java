@@ -144,7 +144,7 @@ public class StubInvokerUtil {
                     httpMethod, requestEntity, responseEntityClass, params);
 
             if (response != null) {
-                return response.getBody();
+                return response;
             } else {
                 return null;
             }

@@ -30,7 +30,7 @@ public class AlertRequest {
     private String preferredEmailId;
     
     /** The alert list. */
-    private List<PreferenceAlert> alertList;
+    private List<PreferenceAlert> alert;
     
     /**
      * Gets the preferred email id.
@@ -49,22 +49,24 @@ public class AlertRequest {
     public final void setPreferredEmailId(final String preferredEmailId) {
         this.preferredEmailId = preferredEmailId;
     }
-    
+
     /**
-     * Gets the alert list.
+     * Gets the alert.
      *
-     * @return the alert list
+     * @return the alert
      */
-    public final List<PreferenceAlert> getAlertList() {
-        return alertList;
+    public List<PreferenceAlert> getAlert() {
+        return alert;
+    }
+
+    /**
+     * Sets the alert.
+     *
+     * @param alert the new alert
+     */
+    public void setAlert(List<PreferenceAlert> alert) {
+        this.alert = alert;
     }
     
-    /**
-     * Sets the alert list.
-     *
-     * @param list the new alert list
-     */
-    public final void setAlertList(final List<PreferenceAlert> list) {
-        this.alertList = list;
-    }
+
 }

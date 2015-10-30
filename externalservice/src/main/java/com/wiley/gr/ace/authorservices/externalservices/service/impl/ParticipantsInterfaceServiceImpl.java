@@ -221,19 +221,22 @@ public class ParticipantsInterfaceServiceImpl implements
      * @param alert
      *            the alert
      * @return the response entity
+     * @throws Exception
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final ResponseEntity updateAlerts(final String participantId,
-            final AlertRequest alert) {
+            final AlertRequest alert) throws Exception {
         final String url = participantUrl;
         EntityValue entityValue = new EntityValue();
-        entityValue.setAlertRequest(alert);
+        entityValue.setAlertList(alert);
         ProfileEntity profileEntity = new ProfileEntity();
         profileEntity.setEntityValue(entityValue);
+        profileEntity.setSourceSystem("AS2.0");
+        profileEntity.setEntityId(participantId);
+        profileEntity.setEntityType("ALERT");
         return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
-                HttpMethod.PUT, profileEntity, ParticipantErrorResponse.class,
-                null);
+                HttpMethod.PUT, profileEntity, null, null);
 
     }
 
@@ -250,6 +253,7 @@ public class ParticipantsInterfaceServiceImpl implements
                 .concat("/preferences/ALERT");
         final PreferenceMapper preferenceMapper = (PreferenceMapper) StubInvokerUtil
                 .restGetServiceInvoker(url, PreferenceMapper.class);
+        System.err.println(preferenceMapper);
         return preferenceMapper.getPreferenceValue();
     }
 

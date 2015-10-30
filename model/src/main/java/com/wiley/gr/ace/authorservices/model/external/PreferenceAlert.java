@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 /**
  * The Class PreferenceAlert.
@@ -23,10 +25,12 @@ package com.wiley.gr.ace.authorservices.model.external;
 public class PreferenceAlert {
     
     /** The preference key. */
+    @JsonProperty("prefereceKey")
     private String preferenceKey;
     
     /** The alert type. */
     private AlertType alertType;
+    
 
     /**
      * Gets the preference key.
