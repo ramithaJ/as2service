@@ -132,7 +132,8 @@ public class UserProfileController {
         final Service service = new Service();
         boolean isUpdated = false;
         try {
-            isUpdated = authorProfileService.updateAffiliation(userId, affiliationsUpdate, affiliationId);
+            isUpdated = authorProfileService.updateAffiliation(userId,
+                    affiliationsUpdate, affiliationId);
         } catch (final Exception e) {
             LOGGER.info(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(affiliationsErrorCode,
@@ -165,7 +166,8 @@ public class UserProfileController {
         final Service service = new Service();
         boolean isDeleted = false;
         try {
-            isDeleted = authorProfileService.deleteAffiliations(userId,affiliationId);
+            isDeleted = authorProfileService.deleteAffiliations(userId,
+                    affiliationId);
         } catch (final Exception e) {
             LOGGER.info(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(affiliationsErrorCode,
@@ -188,7 +190,7 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/researchFunders/{participantId}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/researchFunder/{participantId}/", method = RequestMethod.GET)
     public final Service getResearchFundersList(
             @PathVariable("participantId") final String participantId) {
 
@@ -201,7 +203,7 @@ public class UserProfileController {
         return service;
     }
 
-    @RequestMapping(value = "/researchFunders/{participantId}/", method = RequestMethod.POST)
+    @RequestMapping(value = "/researchFunder/{participantId}/", method = RequestMethod.POST)
     public final Service updateResearchFunder(
             @PathVariable("participantId") final String participantId,
             @RequestBody final ResearchFunder researchFunder) {
@@ -213,7 +215,7 @@ public class UserProfileController {
         return service;
     }
 
-    @RequestMapping(value = "/researchFunders/{participantSeqId}/", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/researchFunder/{participantSeqId}/", method = RequestMethod.DELETE)
     public final Service updateResearchFunder(
             @PathVariable("participantSeqId") final Long participantSeqId) {
 
