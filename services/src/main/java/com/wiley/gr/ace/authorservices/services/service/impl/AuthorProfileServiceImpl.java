@@ -900,11 +900,26 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public boolean addPreferredJournal(final String userId,
             final JournalDetails journalDetails) {
         final ProfileEntity profileEntity = new ProfileEntity();
+        List<String> preferredJournalData = participantsInterfaceService
+                .getPreferredJournals(userId).getPreferenceValue();
         profileEntity.setEntityType("FAVJOURNAL");
         final EntityValue entityValue = new EntityValue();
         final JournalElement journalElement = new JournalElement();
         journalElement.setJournalID(journalDetails.getJournalId());
-        entityValue.setJournal(journalElement);
+        List<String> journalList = new ArrayList<>();
+        if (!preferredJournalData.isEmpty()
+                && !preferredJournalData
+                        .contains(journalDetails.getJournalId())) {
+            journalList.add(journalDetails.getJournalId());
+            for (String string : preferredJournalData) {
+                journalList.add(string);
+
+            }
+
+            entityValue.setJournalList(journalList);
+
+        }
+
         profileEntity.setEntityValue(entityValue);
         profileEntity.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
         profileEntity.setEntityId(userId);
