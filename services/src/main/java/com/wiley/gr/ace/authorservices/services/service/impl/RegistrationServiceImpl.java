@@ -31,7 +31,6 @@ import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.UserException;
-import com.wiley.gr.ace.authorservices.external.util.AuthorServicesUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.NotificationService;
@@ -464,8 +463,14 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public final void verifyAccount(final String almUserIdEncrypted) {
         try {
-            User user = returnUserFromDB(AuthorServicesUtil
-                    .decrypt(almUserIdEncrypted));
+            // Uncomment the below codeblock when encryption is implemented in
+            // registration notification
+            /*
+             * User user = returnUserFromDB(AuthorServicesUtil
+             * .decrypt(almUserIdEncrypted));
+             */
+
+            User user = returnUserFromDB(almUserIdEncrypted);
 
             List<ALMUser> almUserList = almInterfaceService
                     .searchUser(user.getPrimaryEmailAddr()).getUserPayload()

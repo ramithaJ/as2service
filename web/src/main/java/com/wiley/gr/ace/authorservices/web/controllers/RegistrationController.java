@@ -290,7 +290,9 @@ public class RegistrationController {
         List<String> fieldList = new ArrayList<String>();
         fieldList.add(user.getFirstName() + " " + user.getLastName());
         fieldList.add(verifyAccountUrl);
-        fieldList.add(AuthorServicesUtil.encrypt(userId));
+        // Uncomment the below line for implementing encryption
+        // fieldList.add(AuthorServicesUtil.encrypt(userId));
+        fieldList.add(userId);
         notificationRequest.setFieldList(fieldList);
         notificationRequest.setFrom("admin@wiley.com");
         List<String> toList = new ArrayList<String>();
