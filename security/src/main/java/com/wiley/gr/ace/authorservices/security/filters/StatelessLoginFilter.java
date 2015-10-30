@@ -203,6 +203,7 @@ public class StatelessLoginFilter extends
 
         ErrorPOJO errorPOJO = null;
         User userDetails = null;
+        UserLogin user = new UserLogin();
 
         if (!StringUtils.equalsIgnoreCase(StatelessLoginFilter.ADMIN,
                 unp.getType())) {
@@ -218,7 +219,8 @@ public class StatelessLoginFilter extends
                     && almUser.getStatus().equalsIgnoreCase(
                             AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE)) {
 
-                errorPOJO = new ErrorPOJO(
+                user.setAlmUserId(almUser.getAlmUserId());
+            	errorPOJO = new ErrorPOJO(
                         StatelessLoginFilter.FIRST_TIME_LOGIN,
                         StatelessLoginFilter.FIRST_TIME_LOGIN_MSG);
 
@@ -235,7 +237,6 @@ public class StatelessLoginFilter extends
             }
         }
 
-        final UserLogin user = new UserLogin();
         if (userDetails != null) {
             user.setUserId(userDetails.getUserId());
             user.setFirstName(userDetails.getFirstName());
