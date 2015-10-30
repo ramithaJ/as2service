@@ -429,7 +429,7 @@ public class RegistrationController {
      *            the alm user id encrypted
      * @return the service
      */
-    @RequestMapping(value = "verifyAccount/{almUserIdEncrypted}", method = RequestMethod.GET)
+    @RequestMapping(value = "/verifyAccount/{almUserIdEncrypted}", method = RequestMethod.GET)
     public final Service verifyAccount(
             @PathVariable("almUserIdEncrypted") final String almUserIdEncrypted) {
         LOGGER.info("Verifying user in AS");
