@@ -1,15 +1,16 @@
-/**
- * ****************************************************************************
+/*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- * <p>
- * All material contained herein is proprietary to John Wiley & Sons
- * and its third party suppliers, if any. The methods, techniques and
- * technical concepts contained herein are considered trade secrets
- * and confidential and may be protected by intellectual property laws.
- * Reproduction or distribution of this material, in whole or in part,
- * is strictly forbidden except by express prior written permission
+ *
+ * All material contained herein is proprietary to John Wiley & Sons 
+ * and its third party suppliers, if any. The methods, techniques and 
+ * technical concepts contained herein are considered trade secrets 
+ * and confidential and may be protected by intellectual property laws.  
+ * Reproduction or distribution of this material, in whole or in part, 
+ * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
- * *****************************************************************************
+ *******************************************************************************/
+/**
+ * 
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
@@ -80,6 +81,7 @@ public class RegistrationController {
     @Value("${noDataFound.code}")
     private String noDataFoundCode;
 
+    /** The no data found message. */
     @Value("${noDataFound.message}")
     private String noDataFoundMessage;
 
@@ -162,6 +164,7 @@ public class RegistrationController {
     @Value("${AuthenticationType}")
     private String authenticationType;
 
+    /** The verify account url. */
     @Value("${verify.account-url}")
     private String verifyAccountUrl;
 
@@ -251,8 +254,13 @@ public class RegistrationController {
     }
 
     /**
+     * Checks if is search full name.
+     *
      * @param service
+     *            the service
      * @param user
+     *            the user
+     * @return true, if is search full name
      */
     private boolean isSearchFullName(Service service, final User user) {
         boolean executeCreate = true;
@@ -281,8 +289,12 @@ public class RegistrationController {
     }
 
     /**
+     * Checks if is user not invited.
+     *
      * @param user
+     *            the user
      * @param userId
+     *            the user id
      */
     private void isUserNotInvited(final User user, final String userId) {
         LOGGER.info("Sending verification email to user as user is not invited");
@@ -303,9 +315,14 @@ public class RegistrationController {
     }
 
     /**
+     * Checks if is user invited.
+     *
      * @param service
+     *            the service
      * @param user
+     *            the user
      * @param userId
+     *            the user id
      */
     private void isUserInvited(final Service service, final User user,
             final String userId) {
@@ -425,15 +442,14 @@ public class RegistrationController {
     /**
      * Verify account.
      *
-     * @param almUserIdEncrypted
-     *            the alm user id encrypted
+     * @param user
+     *            the user
      * @return the service
      */
-    @RequestMapping(value = "/verifyAccount/{almUserIdEncrypted}", method = RequestMethod.GET)
-    public final Service verifyAccount(
-            @PathVariable("almUserIdEncrypted") final String almUserIdEncrypted) {
+    @RequestMapping(value = "/verifyAccount", method = RequestMethod.GET)
+    public final Service verifyAccount(@RequestBody final User user) {
         LOGGER.info("Verifying user in AS");
-        registrationService.verifyAccount(almUserIdEncrypted);
+        registrationService.verifyAccount(user.getUserId());
         return new Service();
     }
 
