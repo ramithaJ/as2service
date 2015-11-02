@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.AccessReasons;
 import com.wiley.gr.ace.authorservices.model.Country;
@@ -39,6 +40,7 @@ import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
+import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
 import com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
@@ -99,6 +101,10 @@ public class ASDataServiceImpl implements ASDataService {
     /** The state name. */
     @Value("${state.Name}")
     private String stateName;
+
+    /** The user management. */
+    @Autowired(required = true)
+    private UserManagement userManagement;
 
     /**
      * This will call external service to get titles data.
@@ -380,18 +386,21 @@ public class ASDataServiceImpl implements ASDataService {
     public final List<SecurityDetails> getSecurityQuestions() {
 
         LOGGER.info("inside getSecurityQuestions method ");
-
-        List<LookupValues> lookupList = aSDataDAO.getDropDown("SEQ");
-        List<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
+        List<SecurityDetails> securityDetailsList = new ArrayList<SecurityDetails>();
         SecurityDetails securityDetails = null;
-        for (LookupValues lookupValues : lookupList) {
+        int i = 0;
+        RetrieveSecurityQuestions retrieveSecurityQuestions = userManagement
+                .lookupSecutityQuestions();
+        List<String> retrieveSecurityQuestionsList = retrieveSecurityQuestions
+                .getSystemSecurityQuestions().getSecurityQuestionList();
+        for (String list : retrieveSecurityQuestionsList) {
 
             securityDetails = new SecurityDetails();
-            securityDetails.setSecurityQuestionId(lookupValues.getLookupName());
-            securityDetails.setSecurityQuestion(lookupValues.getLookupValue());
-            securityQuestionsList.add(securityDetails);
+            securityDetails.setSecurityQuestionId("SecurityQuestion" + (++i));
+            securityDetails.setSecurityQuestion(list);
+            securityDetailsList.add(securityDetails);
         }
-        return securityQuestionsList;
+        return securityDetailsList;
     }
 
     /**
