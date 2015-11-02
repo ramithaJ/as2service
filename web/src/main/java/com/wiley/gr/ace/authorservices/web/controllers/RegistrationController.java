@@ -446,7 +446,7 @@ public class RegistrationController {
      *            the user
      * @return the service
      */
-    @RequestMapping(value = "/verifyAccount", method = RequestMethod.GET)
+    @RequestMapping(value = "/verifyAccount", method = RequestMethod.POST)
     public final Service verifyAccount(@RequestBody final User user) {
         LOGGER.info("Verifying user in AS");
         registrationService.verifyAccount(user.getUserId());
