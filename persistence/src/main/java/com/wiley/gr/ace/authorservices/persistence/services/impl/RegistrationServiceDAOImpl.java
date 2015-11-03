@@ -15,6 +15,7 @@ import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateCo
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.RegistrationDetails;
@@ -48,9 +49,9 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
         Session session = null;
         try {
             session = getSessionFactory().openSession();
-            session.beginTransaction();
+            Transaction transaction = session.getTransaction();
             session.save(registrationDetails);
-            session.getTransaction().commit();
+            transaction.commit();
         } finally {
             if (null != session) {
                 session.flush();

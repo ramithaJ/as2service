@@ -15,10 +15,13 @@
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
-import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.external.ALMCreateUser;
 import com.wiley.gr.ace.authorservices.model.external.ALMCreateUserRespnse;
@@ -49,9 +52,14 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
      */
     @Override
     public ALMCreateUserRespnse createUser(final ALMCreateUser almCreateUser) {
-        return (ALMCreateUserRespnse) StubInvokerUtil
-                .restServiceResponseInvoker(almCreateUrl, HttpMethod.PUT,
-                        almCreateUser, ALMCreateUserRespnse.class, null);
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<ALMCreateUser> requestEntity = new HttpEntity<ALMCreateUser>(
+                almCreateUser, requestHeaders);
+
+        return new RestTemplate().exchange(almCreateUrl, HttpMethod.PUT,
+                requestEntity, ALMCreateUserRespnse.class).getBody();
+
     }
 
     /**
