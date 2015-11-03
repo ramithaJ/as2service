@@ -6,9 +6,12 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,121 +25,124 @@ import javax.persistence.TemporalType;
 @Table(name = "user_funders", catalog = "as2_app_db")
 public class UserFunders implements java.io.Serializable {
 
-	private long userFunderId;
-	private UUID participantId;
-	private String funderDoi;
-	private String funderName;
-	private Date createdDate;
-	private UUID createdBy;
-	private Date updatedDate;
-	private UUID updatedBy;
-	private Set<UserFunderGrants> userFunderGrantses = new HashSet<UserFunderGrants>(
-			0);
+    private long userFunderId;
+    private UUID participantId;
+    private String funderDoi;
+    private String funderName;
+    private Date createdDate;
+    private UUID createdBy;
+    private Date updatedDate;
+    private UUID updatedBy;
+    private Set<UserFunderGrants> userFunderGrantses = new HashSet<UserFunderGrants>(
+            0);
 
-	public UserFunders() {
-	}
+    public UserFunders() {
+    }
 
-	public UserFunders(long userFunderId) {
-		this.userFunderId = userFunderId;
-	}
+    public UserFunders(final long userFunderId) {
+        this.userFunderId = userFunderId;
+    }
 
-	public UserFunders(long userFunderId, UUID participantId, String funderDoi,
-			String funderName, Date createdDate, UUID createdBy,
-			Date updatedDate, UUID updatedBy,
-			Set<UserFunderGrants> userFunderGrantses) {
-		this.userFunderId = userFunderId;
-		this.participantId = participantId;
-		this.funderDoi = funderDoi;
-		this.funderName = funderName;
-		this.createdDate = createdDate;
-		this.createdBy = createdBy;
-		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
-		this.userFunderGrantses = userFunderGrantses;
-	}
+    public UserFunders(final long userFunderId, final UUID participantId,
+            final String funderDoi, final String funderName,
+            final Date createdDate, final UUID createdBy,
+            final Date updatedDate, final UUID updatedBy,
+            final Set<UserFunderGrants> userFunderGrantses) {
+        this.userFunderId = userFunderId;
+        this.participantId = participantId;
+        this.funderDoi = funderDoi;
+        this.funderName = funderName;
+        this.createdDate = createdDate;
+        this.createdBy = createdBy;
+        this.updatedDate = updatedDate;
+        this.updatedBy = updatedBy;
+        this.userFunderGrantses = userFunderGrantses;
+    }
 
-	@Id
-	@Column(name = "USER_FUNDER_ID", unique = true, nullable = false)
-	public long getUserFunderId() {
-		return this.userFunderId;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "USER_FUNDER_ID", unique = true, nullable = false)
+    public long getUserFunderId() {
+        return this.userFunderId;
+    }
 
-	public void setUserFunderId(long userFunderId) {
-		this.userFunderId = userFunderId;
-	}
+    public void setUserFunderId(final long userFunderId) {
+        this.userFunderId = userFunderId;
+    }
 
-	@Column(name = "PARTICIPANT_ID")
-	public UUID getParticipantId() {
-		return this.participantId;
-	}
+    @Column(name = "PARTICIPANT_ID")
+    public UUID getParticipantId() {
+        return this.participantId;
+    }
 
-	public void setParticipantId(UUID participantId) {
-		this.participantId = participantId;
-	}
+    public void setParticipantId(final UUID participantId) {
+        this.participantId = participantId;
+    }
 
-	@Column(name = "FUNDER_DOI", length = 50)
-	public String getFunderDoi() {
-		return this.funderDoi;
-	}
+    @Column(name = "FUNDER_DOI", length = 50)
+    public String getFunderDoi() {
+        return this.funderDoi;
+    }
 
-	public void setFunderDoi(String funderDoi) {
-		this.funderDoi = funderDoi;
-	}
+    public void setFunderDoi(final String funderDoi) {
+        this.funderDoi = funderDoi;
+    }
 
-	@Column(name = "FUNDER_NAME", length = 250)
-	public String getFunderName() {
-		return this.funderName;
-	}
+    @Column(name = "FUNDER_NAME", length = 250)
+    public String getFunderName() {
+        return this.funderName;
+    }
 
-	public void setFunderName(String funderName) {
-		this.funderName = funderName;
-	}
+    public void setFunderName(final String funderName) {
+        this.funderName = funderName;
+    }
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_DATE", length = 19)
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATED_DATE", length = 19)
+    public Date getCreatedDate() {
+        return this.createdDate;
+    }
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
+    public void setCreatedDate(final Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
-	@Column(name = "CREATED_BY")
-	public UUID getCreatedBy() {
-		return this.createdBy;
-	}
+    @Column(name = "CREATED_BY")
+    public UUID getCreatedBy() {
+        return this.createdBy;
+    }
 
-	public void setCreatedBy(UUID createdBy) {
-		this.createdBy = createdBy;
-	}
+    public void setCreatedBy(final UUID createdBy) {
+        this.createdBy = createdBy;
+    }
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "UPDATED_DATE", length = 19)
-	public Date getUpdatedDate() {
-		return this.updatedDate;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "UPDATED_DATE", length = 19)
+    public Date getUpdatedDate() {
+        return this.updatedDate;
+    }
 
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
+    public void setUpdatedDate(final Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 
-	@Column(name = "UPDATED_BY")
-	public UUID getUpdatedBy() {
-		return this.updatedBy;
-	}
+    @Column(name = "UPDATED_BY")
+    public UUID getUpdatedBy() {
+        return this.updatedBy;
+    }
 
-	public void setUpdatedBy(UUID updatedBy) {
-		this.updatedBy = updatedBy;
-	}
+    public void setUpdatedBy(final UUID updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userFunders")
-	public Set<UserFunderGrants> getUserFunderGrantses() {
-		return this.userFunderGrantses;
-	}
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userFunders")
+    public Set<UserFunderGrants> getUserFunderGrantses() {
+        return this.userFunderGrantses;
+    }
 
-	public void setUserFunderGrantses(Set<UserFunderGrants> userFunderGrantses) {
-		this.userFunderGrantses = userFunderGrantses;
-	}
+    public void setUserFunderGrantses(
+            final Set<UserFunderGrants> userFunderGrantses) {
+        this.userFunderGrantses = userFunderGrantses;
+    }
 
 }
