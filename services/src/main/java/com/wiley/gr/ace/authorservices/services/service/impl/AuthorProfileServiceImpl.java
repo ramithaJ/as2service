@@ -949,7 +949,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             userFunders.setParticipantId(participantUUID);
             userFunders.setFunderDoi(researchFunder.getResearchFunderId());
             userFunders.setFunderName(researchFunder.getResearchFunderName());
-            userFunders.setParticipantId(participantUUID);
 
             Set<UserFunderGrants> userFunderGrantsSet = new HashSet<UserFunderGrants>();
             UserFunderGrants userFunderGrants = null;
