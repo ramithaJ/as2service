@@ -69,7 +69,7 @@ public class SocietyDaoImpl implements SocietyDao {
             session = getSessionFactory().openSession();
             session.beginTransaction();
             UserSocietyDetails userSocietyDetails = (UserSocietyDetails) session
-                    .get(UserSocietyDetails.class, society.getId());
+                    .get(UserSocietyDetails.class, society.getSeqId());
             userSocietyDetails.setParticipantId(participantUUID);
 
             Societies societies = new Societies();

@@ -254,14 +254,12 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/societies/{userId}/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/societies/{userId}", method = RequestMethod.POST)
     public final Service updateSocietyDetails(
             @PathVariable("userId") final String userId,
-            @Valid @RequestBody final Society society,
-            @PathVariable("id") final Long id) {
+            @Valid @RequestBody final Society society) {
 
         final Service service = new Service();
-        society.setId(id);
         UserProfileController.LOGGER
                 .info("inside updateSocietyDetails method ");
         authorProfileService.updateSocietyDetails(userId, society);

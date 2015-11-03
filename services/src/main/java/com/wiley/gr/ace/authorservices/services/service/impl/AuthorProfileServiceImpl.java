@@ -170,7 +170,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         UUID participantUUID = UUID.fromString(userId);
 
-        if (0 == society.getId()) {
+        if (0 == society.getSeqId()) {
             UserSocietyDetails userSocietyDetails = new UserSocietyDetails();
             userSocietyDetails.setParticipantId(participantUUID);
 
@@ -571,7 +571,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             ResearchFunder researchFunder = null;
             for (UserFunders userFunders : userFundersList) {
                 researchFunder = new ResearchFunder();
-                researchFunder.setId(userFunders.getUserFunderId());
+                researchFunder.setSeqId(userFunders.getUserFunderId());
                 researchFunder.setResearchFunderId(userFunders.getFunderDoi());
                 researchFunder.setResearchFunderName(userFunders
                         .getFunderName());
@@ -615,7 +615,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             Society society = null;
             for (final UserSocietyDetails userSocietyDetails : userSocietyDetailsList) {
                 society = new Society();
-                society.setId(userSocietyDetails.getUserSocietyId());
+                society.setSeqId(userSocietyDetails.getUserSocietyId());
                 society.setSocietyId(userSocietyDetails.getSocieties()
                         .getSocietyCd());
                 society.setSocietyName(userSocietyDetails.getSocietyName());
@@ -944,7 +944,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             final ResearchFunder researchFunder) {
 
         UUID participantUUID = UUID.fromString(participantId);
-        if (0 == researchFunder.getId()) {
+        if (0 == researchFunder.getSeqId()) {
             UserFunders userFunders = new UserFunders();
             userFunders.setParticipantId(participantUUID);
             userFunders.setFunderDoi(researchFunder.getResearchFunderId());

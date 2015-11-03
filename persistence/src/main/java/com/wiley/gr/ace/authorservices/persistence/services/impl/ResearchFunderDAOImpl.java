@@ -63,7 +63,7 @@ public class ResearchFunderDAOImpl implements ResearchFunderDAO {
             session = getSessionFactory().openSession();
             session.beginTransaction();
             UserFunders userFunders = (UserFunders) session.get(
-                    UserFunders.class, researchFunder.getId());
+                    UserFunders.class, researchFunder.getSeqId());
             userFunders.setParticipantId(participantUUID);
             userFunders.setFunderDoi(researchFunder.getResearchFunderId());
             userFunders.setFunderName(researchFunder.getResearchFunderName());

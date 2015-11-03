@@ -35,7 +35,7 @@ public class ResearchFunder implements Serializable {
     /**
      * This field holds the value of id.
      */
-    private Long id;
+    private Long seqId;
 
     /** The research funder id. */
     @NotNull
@@ -63,18 +63,25 @@ public class ResearchFunder implements Serializable {
     private Set<String> grantNumber;
 
     /**
-     * @return the id
+     * @return the seqId
      */
-    public final Long getId() {
-        return id;
+    public final Long getSeqId() {
+        return seqId;
     }
 
     /**
-     * @param id
-     *            the id to set
+     * @param seqId
+     *            the seqId to set
      */
-    public final void setId(final Long id) {
-        this.id = id;
+    public final void setSeqId(final Long seqId) {
+        this.seqId = seqId;
+    }
+
+    /**
+     * @return the serialversionuid
+     */
+    public static final long getSerialversionuid() {
+        return serialVersionUID;
     }
 
     /**
