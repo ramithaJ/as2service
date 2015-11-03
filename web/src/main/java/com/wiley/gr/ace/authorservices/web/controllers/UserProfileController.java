@@ -35,6 +35,7 @@ import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
+import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Service;
@@ -253,12 +254,14 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/societies/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/societies/{userId}/{id}", method = RequestMethod.POST)
     public final Service updateSocietyDetails(
             @PathVariable("userId") final String userId,
-            @Valid @RequestBody final Society society) {
+            @Valid @RequestBody final Society society,
+            @PathVariable("id") final Long id) {
 
         final Service service = new Service();
+        society.setId(id);
         UserProfileController.LOGGER
                 .info("inside updateSocietyDetails method ");
         authorProfileService.updateSocietyDetails(userId, society);
@@ -493,6 +496,7 @@ public class UserProfileController {
         }
         return service;
     }
+
     /**
      * Gets the industries.
      *
@@ -607,5 +611,26 @@ public class UserProfileController {
         final Service service = new Service();
         service.setPayload(authorProfileService.getWOAaccounts(participantId));
         return service;
+    }
+
+    /**
+     * Gets the WOA details.
+     *
+     * @param userId
+     *            - the request value .
+     * @return service
+     */
+    @RequestMapping(value = "/getWOADetails/{userId}", method = RequestMethod.GET)
+    public final Service getWOADetails(
+            @PathVariable("userId") final String userId) {
+
+        Service service = new Service();
+        service.setStatus("FAILURE");
+        ErrorPOJO error = new ErrorPOJO();
+        error.setCode("PROFILE_ACCNT_NO_WOA_ACCNT_ERR_TEXT");
+        error.setMessage("You have not used any WOA accounts for ordering to be displayed here");
+        service.setError(error);
+        return service;
+
     }
 }

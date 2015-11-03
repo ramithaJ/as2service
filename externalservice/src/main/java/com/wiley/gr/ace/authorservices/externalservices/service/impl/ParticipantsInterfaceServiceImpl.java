@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
@@ -235,6 +236,7 @@ public class ParticipantsInterfaceServiceImpl implements
         profileEntity.setSourceSystem("AS2.0");
         profileEntity.setEntityId(participantId);
         profileEntity.setEntityType("ALERT");
+        System.err.println(new ObjectMapper().writeValueAsString(profileEntity));
         return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
                 HttpMethod.PUT, profileEntity, null, null);
 
