@@ -9,7 +9,7 @@ import java.util.List;
 public class PreferenceValue {
     
     /** The preffered email id. */
-    String prefferedEmailId;
+    String preferredEmailId;
     
     /** The alert. */
     List<PreferenceAlert> alert;
@@ -19,8 +19,8 @@ public class PreferenceValue {
      *
      * @return the preffered email id
      */
-    public String getPrefferedEmailId() {
-        return prefferedEmailId;
+    public String getPreferredEmailId() {
+        return preferredEmailId;
     }
     
     /**
@@ -28,8 +28,8 @@ public class PreferenceValue {
      *
      * @param prefferedEmailId the new preffered email id
      */
-    public void setPrefferedEmailId(String prefferedEmailId) {
-        this.prefferedEmailId = prefferedEmailId;
+    public void setPreferredEmailId(String preferredEmailId) {
+        this.preferredEmailId = preferredEmailId;
     }
 
     /**
