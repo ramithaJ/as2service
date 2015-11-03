@@ -236,7 +236,8 @@ public class ParticipantsInterfaceServiceImpl implements
         profileEntity.setSourceSystem("AS2.0");
         profileEntity.setEntityId(participantId);
         profileEntity.setEntityType("ALERT");
-        System.err.println(new ObjectMapper().writeValueAsString(profileEntity));
+        System.err
+                .println(new ObjectMapper().writeValueAsString(profileEntity));
         return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
                 HttpMethod.PUT, profileEntity, null, null);
 
@@ -272,9 +273,11 @@ public class ParticipantsInterfaceServiceImpl implements
 
         final String url = "http://10.201.64.81:8090/profileservice/v1/profile";
         boolean status = false;
-        ParticipantUpdateSuccessResponse participantUpdateSuccessResponse = (ParticipantUpdateSuccessResponse) StubInvokerUtil
+        ResponseEntity responseEntity = (ResponseEntity) StubInvokerUtil
                 .restServiceResponseInvoker(url, HttpMethod.PUT, profileEntity,
                         ParticipantUpdateSuccessResponse.class, null);
+        ParticipantUpdateSuccessResponse participantUpdateSuccessResponse = (ParticipantUpdateSuccessResponse) responseEntity
+                .getBody();
         if (AuthorServicesConstants.SUCCESS
                 .equalsIgnoreCase(participantUpdateSuccessResponse.getStatus())) {
             status = true;
