@@ -18,6 +18,7 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
+import com.wiley.gr.ace.authorservices.model.AlertsResponse;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Interests;
@@ -28,7 +29,6 @@ import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.external.PreferenceValue;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
 
 /**
@@ -168,7 +168,7 @@ public interface AuthorProfileService {
      * @throws ASException
      *             the exception
      */
-    PreferenceValue getAlerts(String participantId) throws ASException;
+    AlertsResponse getAlerts(String participantId) throws ASException;
 
     /**
      * Gets the preffered journals.

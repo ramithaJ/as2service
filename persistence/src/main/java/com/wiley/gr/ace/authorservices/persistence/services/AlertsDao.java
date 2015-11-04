@@ -12,8 +12,6 @@
 
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import java.util.List;
-
 import com.wiley.gr.ace.authorservices.persistence.entity.Alerts;
 
 /**
@@ -25,6 +23,8 @@ public interface AlertsDao {
      *
      * @return the alerts
      */
-   List<Alerts>  getAlerts();
+   Alerts  getAlerts(String alertCd);
+
+
 
 }
