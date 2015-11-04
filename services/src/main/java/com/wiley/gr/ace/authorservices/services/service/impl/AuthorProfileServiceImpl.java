@@ -212,6 +212,16 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             throws Exception {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
+        if(affiliation.getInstitutionName() != null && !affiliation.getInstitutionName().isEmpty()) {
+        	String instutitionName = autocomplete.getNameByCode("institutions", affiliation.getInstitutionId(), null);
+        	affiliation.setInstitutionName(instutitionName);
+        }
+        
+        if(affiliation.getDepartmentName() != null && !affiliation.getDepartmentName().isEmpty()) {
+        	String departmentName  = autocomplete.getNameByCode("departments", affiliation.getDepartmentId(), affiliation.getInstitutionId());
+        	affiliation.setDepartmentName(departmentName);
+        }
+        
         return authorProfileDao.updateAffiliation(userId, affiliation,
                 affiliationId);
     }
