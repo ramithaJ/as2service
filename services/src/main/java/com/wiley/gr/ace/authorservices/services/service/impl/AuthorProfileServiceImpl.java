@@ -319,6 +319,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         if (emailDetails.getPrimaryEmailAddr() != profileRequest
                 .getPrimaryEmail()) {
+            profileEntity.setEntityType(PROFILE);
             profileRequest.setOldEmail(profileRequest.getPrimaryEmail());
         }
 
