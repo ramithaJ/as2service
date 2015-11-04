@@ -39,6 +39,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
+import com.wiley.gr.ace.authorservices.model.AlertsResponse;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Country;
@@ -75,6 +76,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunders;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
+import com.wiley.gr.ace.authorservices.persistence.services.AlertsDao;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
 import com.wiley.gr.ace.authorservices.persistence.services.ResearchFunderDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SocietyDao;
@@ -147,6 +149,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Autowired(required = true)
     private ParticipantsInterfaceService participantService;
+    
+    /** The alerts dao. */
+   @Autowired(required = true)
+   private AlertsDao alertsDao;
 
     /**
      * This field holds the value of PROFILE
@@ -671,17 +677,43 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *             the exception
      */
     @Override
-    public PreferenceValue getAlerts(final String participantId)
+    public AlertsResponse getAlerts(final String participantId)
             throws ASException {
         AuthorProfileServiceImpl.LOGGER.info("inside getAlerts Method ");
         PreferenceValue preferenceValue = null;
+        AlertsResponse alertResponse = new AlertsResponse();
         try {
             preferenceValue = participantsInterfaceService
                     .getAlerts(participantId);
+            List<String> email  = new ArrayList<>();
+            email.add(preferenceValue.getPreferredEmailId());
+            alertResponse.setEmailsList(email);
+            List<PreferenceAlert> alerts = preferenceValue.getAlert();
+            List<Alert> alertList = new ArrayList<>();
+            for(PreferenceAlert alert : alerts){
+                Alert tempAlert = new Alert();
+                String alertId = alert.getPreferenceKey();
+                tempAlert.setAlertId(alertId);
+                tempAlert.setAlertName(alertsDao.getAlerts(alertId).getAlertName());
+                if("0".equals(alert.getAlertType().getEmail())){
+                    tempAlert.setEmail(false);
+                }
+                else{
+                    tempAlert.setEmail(true);
+                }
+                if("0".equals(alert.getAlertType().getOnScreen())){
+                    tempAlert.setOnScreen(false);
+                }
+                else{
+                    tempAlert.setOnScreen(true);
+                }
+                alertList.add(tempAlert);
+            }
+            alertResponse.setAlertsList(alertList);
         } catch (Exception e) {
             LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
         }
-        return preferenceValue;
+        return alertResponse;
     }
 
     /**
