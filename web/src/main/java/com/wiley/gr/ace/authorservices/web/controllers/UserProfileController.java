@@ -140,11 +140,7 @@ public class UserProfileController {
             throw new UserException(affiliationsErrorCode,
                     affiliationsErrorMessage);
         }
-        if (isUpdated) {
-            service.setStatus(AuthorServicesConstants.SUCCESS);
-        } else {
-            service.setStatus(AuthorServicesConstants.FAILURE);
-        }
+        
         return service;
     }
 
