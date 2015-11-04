@@ -309,19 +309,18 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .info("inside updateEmailDetails Method ");
 
         final ProfileEntity profileEntity = new ProfileEntity();
-        profileEntity.setEntityType(EMAIL);
+        profileEntity.setEntityType(PROFILE);
 
         final EntityValue entityValue = new EntityValue();
 
         ProfileRequest profileRequest = settingProfileFields(userId);
-        profileRequest.setPrimaryEmail(emailDetails.getPrimaryEmailAddr());
-        profileRequest.setRecoveryEmail(emailDetails.getRecoveryEmailAddress());
-
         if (emailDetails.getPrimaryEmailAddr() != profileRequest
                 .getPrimaryEmail()) {
-            profileEntity.setEntityType(PROFILE);
+            profileEntity.setEntityType(EMAIL);
             profileRequest.setOldEmail(profileRequest.getPrimaryEmail());
         }
+        profileRequest.setPrimaryEmail(emailDetails.getPrimaryEmailAddr());
+        profileRequest.setRecoveryEmail(emailDetails.getRecoveryEmailAddress());
 
         boolean isRevUpdated = false;
         if (emailDetails.getRecoveryEmailAddress() != profileRequest

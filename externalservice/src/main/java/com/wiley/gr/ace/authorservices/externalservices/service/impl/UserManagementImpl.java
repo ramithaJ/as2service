@@ -119,8 +119,8 @@ public class UserManagementImpl implements UserManagement {
     public final boolean resetPassword(
             final PasswordResetRequest passwordResetRequest) {
 
-        return this.externalPostServiceInvoker(
-                resetPasswordurl, passwordResetRequest);
+        return this.externalPostServiceInvoker(resetPasswordurl,
+                passwordResetRequest);
     }
 
     /**
@@ -147,8 +147,7 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean forceFulReset(final ForcefulReset forcefulReset) {
 
-        return this.externalPostServiceInvoker(forceFulReseturl,
-                forcefulReset);
+        return this.externalPostServiceInvoker(forceFulReseturl, forcefulReset);
     }
 
     /**
@@ -276,6 +275,11 @@ public class UserManagementImpl implements UserManagement {
             status = true;
         } else if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
             final ErrorPayLoad errorPayLoad = responseStatus.getError();
+            if ("ALM915".equalsIgnoreCase(errorPayLoad.getErrorCode())) {
+                throw new UserException(
+                        "LOGIN_INVALID_SECURITY_QUESTION_ERR_TEXT",
+                        errorPayLoad.getErrorMessage());
+            }
             throw new UserException(errorPayLoad.getErrorCode(),
                     errorPayLoad.getErrorMessage());
         }
