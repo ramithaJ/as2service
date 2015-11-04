@@ -540,10 +540,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             Date startDate = userAffiliation.getStartDt();
             Date endDate = userAffiliation.getEndDt();
             if (!StringUtils.isEmpty(startDate)) {
-                affiliation.setStartDate(startDate.toString());
+                affiliation.setStartDate(startDate.getTime()+"");
             }
             if (!StringUtils.isEmpty(endDate)) {
-                affiliation.setEndDate(endDate.toString());
+                affiliation.setEndDate(endDate.getTime()+"");
             }
             affiliations.add(affiliation);
         }
