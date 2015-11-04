@@ -478,11 +478,6 @@ public class UserProfileController {
             LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(alertsErrorCode, alertsErrorMessage);
         }
-        if (isUpdated) {
-            service.setStatus(AuthorServicesConstants.SUCCESS);
-        } else {
-            service.setStatus(AuthorServicesConstants.FAILURE);
-        }
         return service;
     }
 
