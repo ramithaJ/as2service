@@ -160,6 +160,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     private static final String PROFILE = "PROFILE";
 
     /**
+     * This field holds the value of EMAIL
+     */
+    private static final String EMAIL = "EMAIL";
+
+    /**
      * Update society details.
      *
      * @param userId
@@ -288,7 +293,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .info("inside updateEmailDetails Method ");
 
         final ProfileEntity profileEntity = new ProfileEntity();
-        profileEntity.setEntityType(PROFILE);
+        profileEntity.setEntityType(EMAIL);
 
         final EntityValue entityValue = new EntityValue();
 
@@ -532,25 +537,28 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             Affiliation affiliation = new Affiliation();
             Country country = new Country();
             country.setCountryCode(userAffiliation.getCountryCd());
-            country.setCountryName(autocomplete.getNameByCode("countries", userAffiliation.getCountryCd(), null));
+            country.setCountryName(autocomplete.getNameByCode("countries",
+                    userAffiliation.getCountryCd(), null));
             affiliation.setCountry(country);
             Long affiliationId = userAffiliation.getAffiliationId();
             if (!StringUtils.isEmpty(affiliationId)) {
                 affiliation.setAffiliationId(affiliationId.toString());
             }
             affiliation.setInstitutionId(userAffiliation.getInstitutionCd());
-            affiliation
-                    .setInstitutionName(autocomplete.getNameByCode("institutions", userAffiliation.getInstitutionCd(), null));
-            affiliation.setDepartmentName(autocomplete.getNameByCode("departments", userAffiliation.getDepartmentCd(), userAffiliation.getInstitutionCd()));
+            affiliation.setInstitutionName(autocomplete.getNameByCode(
+                    "institutions", userAffiliation.getInstitutionCd(), null));
+            affiliation.setDepartmentName(autocomplete.getNameByCode(
+                    "departments", userAffiliation.getDepartmentCd(),
+                    userAffiliation.getInstitutionCd()));
             affiliation.setStateCode(userAffiliation.getStateOrProvinceName());
             affiliation.setCity(userAffiliation.getTownOrCityName());
             Date startDate = userAffiliation.getStartDt();
             Date endDate = userAffiliation.getEndDt();
             if (!StringUtils.isEmpty(startDate)) {
-                affiliation.setStartDate(startDate.getTime()+"");
+                affiliation.setStartDate(startDate.getTime() + "");
             }
             if (!StringUtils.isEmpty(endDate)) {
-                affiliation.setEndDate(endDate.getTime()+"");
+                affiliation.setEndDate(endDate.getTime() + "");
             }
             affiliations.add(affiliation);
         }
