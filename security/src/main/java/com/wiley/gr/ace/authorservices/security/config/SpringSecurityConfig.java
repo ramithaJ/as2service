@@ -153,7 +153,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/userprofile/affiliations/*/")
                 .permitAll()
 
-                .antMatchers("/search/api")
+                .antMatchers("/search/api/*")
                 .permitAll()
 
                 .antMatchers("/search/autocomplete")
