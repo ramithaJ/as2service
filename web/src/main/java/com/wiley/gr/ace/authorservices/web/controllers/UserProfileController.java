@@ -485,10 +485,8 @@ public class UserProfileController {
         }
         if (isUpdated) {
             service.setStatus(AuthorServicesConstants.SUCCESS);
-            service.setPayload(isUpdated);
         } else {
             service.setStatus(AuthorServicesConstants.FAILURE);
-            service.setPayload(isUpdated);
         }
         return service;
     }
