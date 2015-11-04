@@ -662,8 +662,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 society.setMembershipNumber(userSocietyDetails
                         .getMembershipNo());
                 society.setPromoCode(userSocietyDetails.getPromoCode());
-                society.setStartDate(userSocietyDetails.getStartDt().toString());
-                society.setEndDate(userSocietyDetails.getEndDt().toString());
+                society.setStartDate(userSocietyDetails.getStartDt().toString()
+                        + "");
+                society.setEndDate(userSocietyDetails.getEndDt().toString()
+                        + "");
                 societiesList.add(society);
             }
             return societiesList;
