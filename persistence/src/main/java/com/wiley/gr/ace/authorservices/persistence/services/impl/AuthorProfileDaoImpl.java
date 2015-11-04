@@ -187,7 +187,7 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
         }
         userAffiliation.setParticipantId(UUID.fromString(userId));
         userAffiliation.setTownOrCityName(affiliation.getCity());
-        userAffiliation.setStateOrProvinceName(affiliation.getStateCode());
+        userAffiliation.setStateOrProvinceName(affiliation.getState());
         userAffiliation.setCountryCd(affiliation.getCountryCode());
         userAffiliation.setInstitutionCd(affiliation.getInstitutionId());
         userAffiliation.setInstitutionName(affiliation.getInstitutionName());
