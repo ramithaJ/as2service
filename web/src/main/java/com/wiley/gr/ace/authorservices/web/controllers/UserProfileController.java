@@ -131,9 +131,8 @@ public class UserProfileController {
         LOGGER.info("inside updateAffiliation method ");
         System.err.println(affiliationId);
         final Service service = new Service();
-        boolean isUpdated = false;
         try {
-            isUpdated = authorProfileService.updateAffiliation(userId,
+            authorProfileService.updateAffiliation(userId,
                     affiliationsUpdate, affiliationId);
         } catch (final Exception e) {
             LOGGER.info(AuthorServicesConstants.PRINTSTACKTRACE, e);
