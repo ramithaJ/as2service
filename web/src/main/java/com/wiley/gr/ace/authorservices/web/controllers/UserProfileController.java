@@ -132,14 +132,14 @@ public class UserProfileController {
         System.err.println(affiliationId);
         final Service service = new Service();
         try {
-            authorProfileService.updateAffiliation(userId,
-                    affiliationsUpdate, affiliationId);
+            authorProfileService.updateAffiliation(userId, affiliationsUpdate,
+                    affiliationId);
         } catch (final Exception e) {
             LOGGER.info(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(affiliationsErrorCode,
                     affiliationsErrorMessage);
         }
-        
+
         return service;
     }
 
@@ -470,10 +470,10 @@ public class UserProfileController {
             @PathVariable("userId") final String userId,
             @RequestBody final AlertsList listOfalert) {
         UserProfileController.LOGGER.info("inside updateAlerts method ");
-        boolean isUpdated = false;
+
         final Service service = new Service();
         try {
-            isUpdated = authorProfileService.updateAlerts(userId, listOfalert);
+            authorProfileService.updateAlerts(userId, listOfalert);
         } catch (final Exception e) {
             LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(alertsErrorCode, alertsErrorMessage);
