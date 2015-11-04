@@ -555,11 +555,17 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 affiliation.setAffiliationId(affiliationId.toString());
             }
             affiliation.setInstitutionId(userAffiliation.getInstitutionCd());
-            affiliation.setInstitutionName(autocomplete.getNameByCode(
-                    "institutions", userAffiliation.getInstitutionCd(), null));
-            affiliation.setDepartmentName(autocomplete.getNameByCode(
-                    "departments", userAffiliation.getDepartmentCd(),
-                    userAffiliation.getInstitutionCd()));
+            if(affiliation.getInstitutionName() == null || affiliation.getInstitutionName().isEmpty()) {
+            	affiliation.setInstitutionName(autocomplete.getNameByCode(
+                        "institutions", userAffiliation.getInstitutionCd(), null));
+            }
+            
+            if(affiliation.getDepartmentName() == null || affiliation.getDepartmentName().isEmpty()) {
+            	affiliation.setDepartmentName(autocomplete.getNameByCode(
+                        "departments", userAffiliation.getDepartmentCd(),
+                        userAffiliation.getInstitutionCd()));
+            }
+            
             affiliation.setStateCode(userAffiliation.getStateOrProvinceName());
             affiliation.setCity(userAffiliation.getTownOrCityName());
             Date startDate = userAffiliation.getStartDt();
