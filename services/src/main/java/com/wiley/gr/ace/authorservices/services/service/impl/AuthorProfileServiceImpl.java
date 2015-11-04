@@ -323,6 +323,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             profileRequest.setOldEmail(profileRequest.getPrimaryEmail());
         }
 
+        boolean isRevUpdated = false;
+        if (emailDetails.getRecoveryEmailAddress() != profileRequest
+                .getRecoveryEmail()) {
+            isRevUpdated = true;
+        }
+
         entityValue.setProfile(profileRequest);
         profileEntity.setEntityValue(entityValue);
         profileEntity.setSourceSystem("AS");
@@ -331,7 +337,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         boolean status = participantsInterfaceService
                 .updateProfile(profileEntity);
         // check this code
-        if (status) {
+        if (status && isRevUpdated) {
             sendNotification.updateSecEmailNotification(
                     emailDetails.getPrimaryEmailAddr(),
                     secEmailUpdateTemplateId);
