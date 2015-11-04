@@ -71,6 +71,7 @@ import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateReq
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
+import com.wiley.gr.ace.authorservices.persistence.entity.Alerts;
 import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
@@ -149,10 +150,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Autowired(required = true)
     private ParticipantsInterfaceService participantService;
-    
+
     /** The alerts dao. */
-   @Autowired(required = true)
-   private AlertsDao alertsDao;
+    @Autowired(required = true)
+    private AlertsDao alertsDao;
 
     /**
      * This field holds the value of PROFILE
@@ -223,16 +224,21 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             throws Exception {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
-        if(affiliation.getInstitutionName() != null && !affiliation.getInstitutionName().isEmpty()) {
-        	String instutitionName = autocomplete.getNameByCode("institutions", affiliation.getInstitutionId(), null);
-        	affiliation.setInstitutionName(instutitionName);
+        if (affiliation.getInstitutionName() != null
+                && !affiliation.getInstitutionName().isEmpty()) {
+            String instutitionName = autocomplete.getNameByCode("institutions",
+                    affiliation.getInstitutionId(), null);
+            affiliation.setInstitutionName(instutitionName);
         }
-        
-        if(affiliation.getDepartmentName() != null && !affiliation.getDepartmentName().isEmpty()) {
-        	String departmentName  = autocomplete.getNameByCode("departments", affiliation.getDepartmentId(), affiliation.getInstitutionId());
-        	affiliation.setDepartmentName(departmentName);
+
+        if (affiliation.getDepartmentName() != null
+                && !affiliation.getDepartmentName().isEmpty()) {
+            String departmentName = autocomplete.getNameByCode("departments",
+                    affiliation.getDepartmentId(),
+                    affiliation.getInstitutionId());
+            affiliation.setDepartmentName(departmentName);
         }
-        
+
         return authorProfileDao.updateAffiliation(userId, affiliation,
                 affiliationId);
     }
@@ -555,17 +561,20 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 affiliation.setAffiliationId(affiliationId.toString());
             }
             affiliation.setInstitutionId(userAffiliation.getInstitutionCd());
-            if(affiliation.getInstitutionName() == null || affiliation.getInstitutionName().isEmpty()) {
-            	affiliation.setInstitutionName(autocomplete.getNameByCode(
-                        "institutions", userAffiliation.getInstitutionCd(), null));
+            if (affiliation.getInstitutionName() == null
+                    || affiliation.getInstitutionName().isEmpty()) {
+                affiliation.setInstitutionName(autocomplete.getNameByCode(
+                        "institutions", userAffiliation.getInstitutionCd(),
+                        null));
             }
-            
-            if(affiliation.getDepartmentName() == null || affiliation.getDepartmentName().isEmpty()) {
-            	affiliation.setDepartmentName(autocomplete.getNameByCode(
+
+            if (affiliation.getDepartmentName() == null
+                    || affiliation.getDepartmentName().isEmpty()) {
+                affiliation.setDepartmentName(autocomplete.getNameByCode(
                         "departments", userAffiliation.getDepartmentCd(),
                         userAffiliation.getInstitutionCd()));
             }
-            
+
             affiliation.setStateCode(userAffiliation.getStateOrProvinceName());
             affiliation.setCity(userAffiliation.getTownOrCityName());
             Date startDate = userAffiliation.getStartDt();
@@ -709,29 +718,34 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         try {
             preferenceValue = participantsInterfaceService
                     .getAlerts(participantId);
-            List<String> email  = new ArrayList<>();
+            List<String> email = new ArrayList<>();
             email.add(preferenceValue.getPreferredEmailId());
             alertResponse.setEmailsList(email);
             List<PreferenceAlert> alerts = preferenceValue.getAlert();
             List<Alert> alertList = new ArrayList<>();
-            for(PreferenceAlert alert : alerts){
+            List<Alerts> alertDao = alertsDao.getAlerts();
+            for (Alerts alert : alertDao) {
                 Alert tempAlert = new Alert();
-                String alertId = alert.getPreferenceKey();
-                tempAlert.setAlertId(alertId);
-                tempAlert.setAlertName(alertsDao.getAlerts(alertId).getAlertName());
-                if("0".equals(alert.getAlertType().getEmail())){
-                    tempAlert.setEmail(false);
-                }
-                else{
-                    tempAlert.setEmail(true);
-                }
-                if("0".equals(alert.getAlertType().getOnScreen())){
-                    tempAlert.setOnScreen(false);
-                }
-                else{
-                    tempAlert.setOnScreen(true);
-                }
+                tempAlert.setAlertId(alert.getAlertCd());
+                tempAlert.setAlertName(alert.getAlertName());
+                tempAlert.setOnScreen(false);
+                tempAlert.setEmail(false);
                 alertList.add(tempAlert);
+            }
+            for (PreferenceAlert preferenceAlert : alerts) {
+                for (Alert alert : alertList) {
+                    if (preferenceAlert.getPreferenceKey().equals(
+                            alert.getAlertId())) {
+                        AlertType alertType = preferenceAlert.getAlertType();
+                        if ("1".equals(alertType.getEmail())) {
+                            alert.setEmail(true);
+                        }
+                        if ("1".equals(alertType.getOnScreen())) {
+                            alert.setOnScreen(true);
+                        }
+                        break;
+                    }
+                }
             }
             alertResponse.setAlertsList(alertList);
         } catch (Exception e) {

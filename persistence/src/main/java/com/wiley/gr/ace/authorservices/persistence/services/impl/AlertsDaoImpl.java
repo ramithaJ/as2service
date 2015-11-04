@@ -14,6 +14,9 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.Alerts;
@@ -30,15 +33,17 @@ public class AlertsDaoImpl implements AlertsDao {
      * @return list of alerts.
      * 
      * */
+    @SuppressWarnings("unchecked")
     @Override
-    public final Alerts getAlerts(String alertCd) {
+    public final List<Alerts> getAlerts() {
         Session session = null;
-        Alerts alert = null;
+        Criteria criteria = null;
+        List<Alerts> alertsList = null;
         try {
             session = getSessionFactory().openSession();
             session.beginTransaction();
-            alert = (Alerts) session.get(Alerts.class, alertCd);
-            
+            criteria = session.createCriteria(Alerts.class);
+            alertsList = criteria.list();
         } finally {
             if (null != session) {
                 session.flush();
@@ -47,7 +52,7 @@ public class AlertsDaoImpl implements AlertsDao {
             }
         }
 
-        return alert;
+        return alertsList;
     }
 
 }
