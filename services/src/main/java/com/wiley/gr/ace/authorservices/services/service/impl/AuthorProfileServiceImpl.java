@@ -526,6 +526,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             Affiliation affiliation = new Affiliation();
             Country country = new Country();
             country.setCountryCode(userAffiliation.getCountryCd());
+            country.setCountryName(autocomplete.getNameByCode("countries", userAffiliation.getCountryCd(), null));
             affiliation.setCountry(country);
             Long affiliationId = userAffiliation.getAffiliationId();
             if (!StringUtils.isEmpty(affiliationId)) {
@@ -533,8 +534,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             }
             affiliation.setInstitutionId(userAffiliation.getInstitutionCd());
             affiliation
-                    .setInstitutionName(userAffiliation.getInstitutionName());
-            affiliation.setDepartmentName(userAffiliation.getDepartmentName());
+                    .setInstitutionName(autocomplete.getNameByCode("institutions", userAffiliation.getInstitutionCd(), null));
+            affiliation.setDepartmentName(autocomplete.getNameByCode("departments", userAffiliation.getDepartmentCd(), userAffiliation.getInstitutionCd()));
             affiliation.setStateCode(userAffiliation.getStateOrProvinceName());
             affiliation.setCity(userAffiliation.getTownOrCityName());
             Date startDate = userAffiliation.getStartDt();
