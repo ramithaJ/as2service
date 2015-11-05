@@ -654,24 +654,25 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         try {
             final List<UserSocietyDetails> userSocietyDetailsList = societyDao
                     .getSocietyDetails(participantId);
-            
+
             Society society = null;
             if (!userSocietyDetailsList.isEmpty()) {
-            
-	            for (final UserSocietyDetails userSocietyDetails : userSocietyDetailsList) {
-	                society = new Society();
-	                society.setSeqId(userSocietyDetails.getUserSocietyId());
-	                society.setSocietyId(userSocietyDetails.getSocieties()
-	                        .getSocietyCd());
-	                society.setSocietyName(userSocietyDetails.getSocietyName());
-	                society.setMembershipNumber(userSocietyDetails
-	                        .getMembershipNo());
-	                society.setPromoCode(userSocietyDetails.getPromoCode());
-	                society.setStartDate(userSocietyDetails.getStartDt().getTime()
-	                        + "");
-	                society.setEndDate(userSocietyDetails.getEndDt().getTime() + "");
-	                societiesList.add(society);
-	            }
+
+                for (final UserSocietyDetails userSocietyDetails : userSocietyDetailsList) {
+                    society = new Society();
+                    society.setSeqId(userSocietyDetails.getUserSocietyId());
+                    society.setSocietyId(userSocietyDetails.getSocieties()
+                            .getSocietyCd());
+                    society.setSocietyName(userSocietyDetails.getSocietyName());
+                    society.setMembershipNumber(userSocietyDetails
+                            .getMembershipNo());
+                    society.setPromoCode(userSocietyDetails.getPromoCode());
+                    society.setStartDate(userSocietyDetails.getStartDt()
+                            .getTime() + "");
+                    society.setEndDate(userSocietyDetails.getEndDt().getTime()
+                            + "");
+                    societiesList.add(society);
+                }
             }
             return societiesList;
         } catch (Exception e) {
@@ -934,18 +935,31 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public boolean deletePreferredJournals(final String userId,
             final String journalId) {
-        final boolean status = false;
         final ProfileEntity profileEntity = new ProfileEntity();
+        List<String> preferredJournalData = participantsInterfaceService
+                .getPreferredJournals(userId).getPreferenceValue();
         profileEntity.setEntityType("FAVJOURNAL");
-        final JournalElement journalElement = new JournalElement();
-        journalElement.setRelationshipId(journalId);
         final EntityValue entityValue = new EntityValue();
-        entityValue.setJournal(journalElement);
+        final JournalElement journalElement = new JournalElement();
+        journalElement.setJournalID(journalId);
+        List<String> journalList = new ArrayList<>();
+
+        if (!preferredJournalData.isEmpty()
+                && preferredJournalData.contains(journalId)) {
+            preferredJournalData.remove(journalId);
+        }
+        for (String string : preferredJournalData) {
+            journalList.add(string);
+
+        }
+
+        entityValue.setJournalList(journalList);
+
         profileEntity.setEntityValue(entityValue);
         profileEntity.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
         profileEntity.setEntityId(userId);
-        participantsInterfaceService.deletePreferredJournal(profileEntity);
-        return status;
+
+        return participantsInterfaceService.updateProfile(profileEntity);
     }
 
     @Override
@@ -987,17 +1001,20 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         journalElement.setJournalID(journalDetails.getJournalId());
         List<String> journalList = new ArrayList<>();
         if (!preferredJournalData.isEmpty()
+                && preferredJournalData.contains(journalDetails.getJournalId())) {
+            throw new ASException("2014", "Journal Already Exist");
+        }
+        if (!preferredJournalData.isEmpty()
                 && !preferredJournalData
                         .contains(journalDetails.getJournalId())) {
             journalList.add(journalDetails.getJournalId());
-            for (String string : preferredJournalData) {
-                journalList.add(string);
-
-            }
-
-            entityValue.setJournalList(journalList);
+        }
+        for (String string : preferredJournalData) {
+            journalList.add(string);
 
         }
+
+        entityValue.setJournalList(journalList);
 
         profileEntity.setEntityValue(entityValue);
         profileEntity.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
