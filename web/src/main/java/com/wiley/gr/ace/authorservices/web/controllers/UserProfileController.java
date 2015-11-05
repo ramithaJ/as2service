@@ -158,9 +158,8 @@ public class UserProfileController {
             @PathVariable("affiliationId") final String affiliationId) {
         UserProfileController.LOGGER.info("inside deleteaffiliation method ");
         final Service service = new Service();
-        boolean isDeleted = false;
         try {
-            isDeleted = authorProfileService.deleteAffiliations(userId,
+            authorProfileService.deleteAffiliations(userId,
                     affiliationId);
         } catch (final Exception e) {
             LOGGER.info(AuthorServicesConstants.PRINTSTACKTRACE, e);
@@ -525,7 +524,6 @@ public class UserProfileController {
             @PathVariable("file") final MultipartFile image) throws IOException {
         UserProfileController.LOGGER.info("inside profilePicture method ");
         final Service service = new Service();
-        boolean isUpdated = false;
         try {
             if (!image.isEmpty()) {
                 byte[] imageValue = image.getBytes();
@@ -536,7 +534,7 @@ public class UserProfileController {
                 if (megabytes > 1) {
                     throw new ASException(imageSizeCode, imageSizeMessage);
                 } else if (megabytes < 1) {
-                    isUpdated = authorProfileService.uploadProfileImage(userId,
+                    authorProfileService.uploadProfileImage(userId,
                             imageValue);
                 }
             }
