@@ -167,13 +167,7 @@ public class UserProfileController {
             throw new UserException(affiliationsErrorCode,
                     affiliationsErrorMessage);
         }
-        if (isDeleted) {
-            service.setStatus(AuthorServicesConstants.SUCCESS);
-            service.setPayload(isDeleted);
-        } else {
-            service.setStatus(AuthorServicesConstants.FAILURE);
-            service.setPayload(isDeleted);
-        }
+        
         return service;
     }
 
@@ -551,13 +545,7 @@ public class UserProfileController {
             throw new UserException(profilePictureErrorCode,
                     profilePictureErrorMessage);
         }
-        if (isUpdated) {
-            service.setStatus(AuthorServicesConstants.SUCCESS);
-            service.setPayload(isUpdated);
-        } else {
-            service.setStatus(AuthorServicesConstants.FAILURE);
-            service.setPayload(isUpdated);
-        }
+        
         return service;
     }
 
