@@ -60,6 +60,24 @@ public class Source {
     /** The journal setup state. */
     @JsonProperty("journal_setup_state")
     private String journalSetupState;
+    
+    @JsonProperty("article_journal_title")
+    private String articleJournalTitle;
+    
+    @JsonProperty("article_title")
+    private String articleTitle;
+    
+    @JsonProperty("article_corres_auth_name")
+    private String articleCorresAuthName;
+    
+    @JsonProperty("article_coauth_name")
+    private String articleCoauthName;
+    
+    @JsonProperty("article_journal_elec_issn")
+    private String articleJournalElecIssn;
+    
+    @JsonProperty("article_doi")
+    private String articleDoi;
 
     /**
      * Gets the journal type.
@@ -253,5 +271,45 @@ public class Source {
     public final void setJournalBusinessUnit(final String journalBusinessUnit) {
         this.journalBusinessUnit = journalBusinessUnit;
     }
+
+	public String getArticleJournalTitle() {
+		return articleJournalTitle;
+	}
+
+	public void setArticleJournalTitle(String articleJournalTitle) {
+		this.articleJournalTitle = articleJournalTitle;
+	}
+
+	public String getArticleCorresAuthName() {
+		return articleCorresAuthName;
+	}
+
+	public void setArticleCorresAuthName(String articleCorresAuthName) {
+		this.articleCorresAuthName = articleCorresAuthName;
+	}
+
+	public String getArticleCoauthName() {
+		return articleCoauthName;
+	}
+
+	public void setArticleCoauthName(String articleCoauthName) {
+		this.articleCoauthName = articleCoauthName;
+	}
+
+	public String getArticleJournalElecIssn() {
+		return articleJournalElecIssn;
+	}
+
+	public void setArticleJournalElecIssn(String articleJournalElecIssn) {
+		this.articleJournalElecIssn = articleJournalElecIssn;
+	}
+
+	public String getArticleDoi() {
+		return articleDoi;
+	}
+
+	public void setArticleDoi(String articleDoi) {
+		this.articleDoi = articleDoi;
+	}
 
 }
