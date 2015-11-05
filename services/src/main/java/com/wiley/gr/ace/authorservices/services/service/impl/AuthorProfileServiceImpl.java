@@ -68,6 +68,8 @@ import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 import com.wiley.gr.ace.authorservices.model.external.ProfileRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateRequest;
+import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
+import com.wiley.gr.ace.authorservices.model.external.UserSecurityAttributes;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
@@ -307,6 +309,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateEmailDetails Method ");
+        boolean isPrimaryUpdated = false;
 
         final ProfileEntity profileEntity = new ProfileEntity();
         profileEntity.setEntityType(PROFILE);
@@ -318,6 +321,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .getPrimaryEmail()) {
             profileEntity.setEntityType(EMAIL);
             profileRequest.setOldEmail(profileRequest.getPrimaryEmail());
+            isPrimaryUpdated = true;
         }
         profileRequest.setPrimaryEmail(emailDetails.getPrimaryEmailAddr());
         profileRequest.setRecoveryEmail(emailDetails.getRecoveryEmailAddress());
@@ -335,6 +339,16 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         boolean status = participantsInterfaceService
                 .updateProfile(profileEntity);
+        
+        if(status && isPrimaryUpdated) {
+        	UserEmailDetails userEmailDetails = new UserEmailDetails();
+        	UserSecurityAttributes userSecurityAttributes = new UserSecurityAttributes();
+        	userSecurityAttributes.setExistingEmail(profileRequest.getPrimaryEmail());
+        	userSecurityAttributes.setNewEmail(emailDetails.getPrimaryEmailAddr());
+        	userSecurityAttributes.setSourceSystem("AS");
+        	userEmailDetails.setUpdateUserSecurityAttributes(userSecurityAttributes);
+        	userManagement.updateUserId(userEmailDetails);
+        }
         // check this code
         if (status && isRevUpdated) {
             sendNotification.updateSecEmailNotification(
