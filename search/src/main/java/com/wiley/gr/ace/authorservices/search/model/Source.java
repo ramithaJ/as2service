@@ -312,4 +312,12 @@ public class Source {
 		this.articleDoi = articleDoi;
 	}
 
+	public String getArticleTitle() {
+		return articleTitle;
+	}
+
+	public void setArticleTitle(String articleTitle) {
+		this.articleTitle = articleTitle;
+	}
+
 }
