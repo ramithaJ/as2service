@@ -35,7 +35,8 @@ public interface ResearchFunderDAO {
      * @param researchFunder
      * @return
      */
-    boolean updateResearchFunder(String participantId, ResearchFunder researchFunder);
+    boolean updateResearchFunder(String participantId,
+            ResearchFunder researchFunder);
 
     /**
      * @param researchFunderId
@@ -44,5 +45,7 @@ public interface ResearchFunderDAO {
     boolean deleteResearchFunder(Long researchFunderSeqId);
 
     boolean addResearchFunder(UserFunders userFunders);
+
+    boolean deleteGrants(Long participantId);
 
 }

@@ -57,6 +57,8 @@ public class ResearchFunderDAOImpl implements ResearchFunderDAO {
     public boolean updateResearchFunder(final String participantId,
             final ResearchFunder researchFunder) {
 
+        deleteGrants(researchFunder.getSeqId());
+
         UUID participantUUID = UUID.fromString(participantId);
         Session session = null;
         try {
@@ -74,8 +76,10 @@ public class ResearchFunderDAOImpl implements ResearchFunderDAO {
             for (String grant : grantsList) {
                 userFunderGrants = new UserFunderGrants();
                 userFunderGrants.setGrantNum(grant);
+                userFunderGrants.setUserFunders(userFunders);
+                userFunderGrantsSet.add(userFunderGrants);
             }
-            userFunderGrantsSet.add(userFunderGrants);
+
             userFunders.setUserFunderGrantses(userFunderGrantsSet);
             userFunders.setUpdatedBy(participantUUID);
             userFunders.setUpdatedDate(new Date());
@@ -122,6 +126,29 @@ public class ResearchFunderDAOImpl implements ResearchFunderDAO {
             session.save(userFunders);
             session.getTransaction().commit();
 
+        } finally {
+            if (null != session) {
+                session.flush();
+                session.close();
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean deleteGrants(final Long userFunderId) {
+
+        Session session = null;
+
+        String hql = "delete from UserFunderGrants where userFunders.userFunderId = :userFunderId";
+
+        try {
+            session = getSessionFactory().openSession();
+            session.beginTransaction();
+            session.createQuery(hql)
+                    .setString("userFunderId", userFunderId.toString())
+                    .executeUpdate();
+            session.getTransaction().commit();
         } finally {
             if (null != session) {
                 session.flush();

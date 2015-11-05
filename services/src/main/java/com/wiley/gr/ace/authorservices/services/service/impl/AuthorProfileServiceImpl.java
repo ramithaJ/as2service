@@ -1065,6 +1065,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             for (String grnat : grantSet) {
                 userFunderGrants = new UserFunderGrants();
                 userFunderGrants.setGrantNum(grnat);
+                userFunderGrants.setUserFunders(userFunders);
                 userFunderGrantsSet.add(userFunderGrants);
             }
             userFunders.setUserFunderGrantses(userFunderGrantsSet);
