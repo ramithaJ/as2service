@@ -339,15 +339,18 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         boolean status = participantsInterfaceService
                 .updateProfile(profileEntity);
-        
-        if(status && isPrimaryUpdated) {
-        	UserEmailDetails userEmailDetails = new UserEmailDetails();
-        	UserSecurityAttributes userSecurityAttributes = new UserSecurityAttributes();
-        	userSecurityAttributes.setExistingEmail(profileRequest.getPrimaryEmail());
-        	userSecurityAttributes.setNewEmail(emailDetails.getPrimaryEmailAddr());
-        	userSecurityAttributes.setSourceSystem("AS");
-        	userEmailDetails.setUpdateUserSecurityAttributes(userSecurityAttributes);
-        	userManagement.updateUserId(userEmailDetails);
+
+        if (status && isPrimaryUpdated) {
+            UserEmailDetails userEmailDetails = new UserEmailDetails();
+            UserSecurityAttributes userSecurityAttributes = new UserSecurityAttributes();
+            userSecurityAttributes.setExistingEmail(profileRequest
+                    .getPrimaryEmail());
+            userSecurityAttributes.setNewEmail(emailDetails
+                    .getPrimaryEmailAddr());
+            userSecurityAttributes.setSourceSystem("AS");
+            userEmailDetails
+                    .setUpdateUserSecurityAttributes(userSecurityAttributes);
+            userManagement.updateUserId(userEmailDetails);
         }
         // check this code
         if (status && isRevUpdated) {
@@ -1016,7 +1019,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         List<String> journalList = new ArrayList<>();
         if (!preferredJournalData.isEmpty()
                 && preferredJournalData.contains(journalDetails.getJournalId())) {
-            throw new ASException("2014", "Journal Already Exist");
+            throw new ASException("PROFILE_ACCNT_JOURNAL_EXISTS",
+                    "Journal Already Exist");
         }
         if (!preferredJournalData.isEmpty()
                 && !preferredJournalData
