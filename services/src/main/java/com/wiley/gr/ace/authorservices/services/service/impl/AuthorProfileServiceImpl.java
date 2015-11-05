@@ -654,24 +654,24 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         try {
             final List<UserSocietyDetails> userSocietyDetailsList = societyDao
                     .getSocietyDetails(participantId);
-            if (userSocietyDetailsList.isEmpty()) {
-                return null;
-            }
-
+            
             Society society = null;
-            for (final UserSocietyDetails userSocietyDetails : userSocietyDetailsList) {
-                society = new Society();
-                society.setSeqId(userSocietyDetails.getUserSocietyId());
-                society.setSocietyId(userSocietyDetails.getSocieties()
-                        .getSocietyCd());
-                society.setSocietyName(userSocietyDetails.getSocietyName());
-                society.setMembershipNumber(userSocietyDetails
-                        .getMembershipNo());
-                society.setPromoCode(userSocietyDetails.getPromoCode());
-                society.setStartDate(userSocietyDetails.getStartDt().getTime()
-                        + "");
-                society.setEndDate(userSocietyDetails.getEndDt().getTime() + "");
-                societiesList.add(society);
+            if (!userSocietyDetailsList.isEmpty()) {
+            
+	            for (final UserSocietyDetails userSocietyDetails : userSocietyDetailsList) {
+	                society = new Society();
+	                society.setSeqId(userSocietyDetails.getUserSocietyId());
+	                society.setSocietyId(userSocietyDetails.getSocieties()
+	                        .getSocietyCd());
+	                society.setSocietyName(userSocietyDetails.getSocietyName());
+	                society.setMembershipNumber(userSocietyDetails
+	                        .getMembershipNo());
+	                society.setPromoCode(userSocietyDetails.getPromoCode());
+	                society.setStartDate(userSocietyDetails.getStartDt().getTime()
+	                        + "");
+	                society.setEndDate(userSocietyDetails.getEndDt().getTime() + "");
+	                societiesList.add(society);
+	            }
             }
             return societiesList;
         } catch (Exception e) {
