@@ -492,10 +492,10 @@ public class AutocompleteServiceImpl implements AutocompleteService {
             if (cacheData != null) {
                 name = cacheData.getDisplayName();
             }
-        } else {
+        } /*else {
             throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
                     AuthorServicesConstants.SERVERERRORMESSAGE);
-        }
+        }*/
 
         return name;
     }
