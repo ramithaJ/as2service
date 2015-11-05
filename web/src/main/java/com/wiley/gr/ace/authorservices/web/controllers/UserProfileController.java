@@ -159,14 +159,13 @@ public class UserProfileController {
         UserProfileController.LOGGER.info("inside deleteaffiliation method ");
         final Service service = new Service();
         try {
-            authorProfileService.deleteAffiliations(userId,
-                    affiliationId);
+            authorProfileService.deleteAffiliations(userId, affiliationId);
         } catch (final Exception e) {
             LOGGER.info(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(affiliationsErrorCode,
                     affiliationsErrorMessage);
         }
-        
+
         return service;
     }
 
@@ -203,7 +202,7 @@ public class UserProfileController {
     }
 
     @RequestMapping(value = "/researchFunder/{participantSeqId}/", method = RequestMethod.DELETE)
-    public final Service updateResearchFunder(
+    public final Service deleteResearchFunder(
             @PathVariable("participantSeqId") final Long participantSeqId) {
 
         UserProfileController.LOGGER
@@ -534,8 +533,7 @@ public class UserProfileController {
                 if (megabytes > 1) {
                     throw new ASException(imageSizeCode, imageSizeMessage);
                 } else if (megabytes < 1) {
-                    authorProfileService.uploadProfileImage(userId,
-                            imageValue);
+                    authorProfileService.uploadProfileImage(userId, imageValue);
                 }
             }
         } catch (final Exception e) {
@@ -543,7 +541,7 @@ public class UserProfileController {
             throw new UserException(profilePictureErrorCode,
                     profilePictureErrorMessage);
         }
-        
+
         return service;
     }
 

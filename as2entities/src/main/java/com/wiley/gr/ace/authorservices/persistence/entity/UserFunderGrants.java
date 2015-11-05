@@ -2,13 +2,15 @@ package com.wiley.gr.ace.authorservices.persistence.entity;
 
 // Generated Oct 19, 2015 4:16:00 PM by Hibernate Tools 4.0.0
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
 import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,93 +25,94 @@ import javax.persistence.TemporalType;
 @Table(name = "user_funder_grants", catalog = "as2_app_db")
 public class UserFunderGrants implements java.io.Serializable {
 
-	private Long funderGrantId;
-	private UserFunders userFunders;
-	private String grantNum;
-	private Date createdDate;
-	private UUID createdBy;
-	private Date updatedDate;
-	private UUID updatedBy;
+    private Long funderGrantId;
+    private UserFunders userFunders;
+    private String grantNum;
+    private Date createdDate;
+    private UUID createdBy;
+    private Date updatedDate;
+    private UUID updatedBy;
 
-	public UserFunderGrants() {
-	}
+    public UserFunderGrants() {
+    }
 
-	public UserFunderGrants(UserFunders userFunders, String grantNum,
-			Date createdDate, UUID createdBy, Date updatedDate, UUID updatedBy) {
-		this.userFunders = userFunders;
-		this.grantNum = grantNum;
-		this.createdDate = createdDate;
-		this.createdBy = createdBy;
-		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
-	}
+    public UserFunderGrants(final UserFunders userFunders,
+            final String grantNum, final Date createdDate,
+            final UUID createdBy, final Date updatedDate, final UUID updatedBy) {
+        this.userFunders = userFunders;
+        this.grantNum = grantNum;
+        this.createdDate = createdDate;
+        this.createdBy = createdBy;
+        this.updatedDate = updatedDate;
+        this.updatedBy = updatedBy;
+    }
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "FUNDER_GRANT_ID", unique = true, nullable = false)
-	public Long getFunderGrantId() {
-		return this.funderGrantId;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "FUNDER_GRANT_ID", unique = true, nullable = false)
+    public Long getFunderGrantId() {
+        return this.funderGrantId;
+    }
 
-	public void setFunderGrantId(Long funderGrantId) {
-		this.funderGrantId = funderGrantId;
-	}
+    public void setFunderGrantId(final Long funderGrantId) {
+        this.funderGrantId = funderGrantId;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_FUNDER_ID")
-	public UserFunders getUserFunders() {
-		return this.userFunders;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_FUNDER_ID")
+    public UserFunders getUserFunders() {
+        return this.userFunders;
+    }
 
-	public void setUserFunders(UserFunders userFunders) {
-		this.userFunders = userFunders;
-	}
+    public void setUserFunders(final UserFunders userFunders) {
+        this.userFunders = userFunders;
+    }
 
-	@Column(name = "GRANT_NUM", length = 100)
-	public String getGrantNum() {
-		return this.grantNum;
-	}
+    @Column(name = "GRANT_NUM", length = 100)
+    public String getGrantNum() {
+        return this.grantNum;
+    }
 
-	public void setGrantNum(String grantNum) {
-		this.grantNum = grantNum;
-	}
+    public void setGrantNum(final String grantNum) {
+        this.grantNum = grantNum;
+    }
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_DATE", length = 19)
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATED_DATE", length = 19)
+    public Date getCreatedDate() {
+        return this.createdDate;
+    }
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
+    public void setCreatedDate(final Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
-	@Column(name = "CREATED_BY")
-	public UUID getCreatedBy() {
-		return this.createdBy;
-	}
+    @Column(name = "CREATED_BY")
+    public UUID getCreatedBy() {
+        return this.createdBy;
+    }
 
-	public void setCreatedBy(UUID createdBy) {
-		this.createdBy = createdBy;
-	}
+    public void setCreatedBy(final UUID createdBy) {
+        this.createdBy = createdBy;
+    }
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "UPDATED_DATE", length = 19)
-	public Date getUpdatedDate() {
-		return this.updatedDate;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "UPDATED_DATE", length = 19)
+    public Date getUpdatedDate() {
+        return this.updatedDate;
+    }
 
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
+    public void setUpdatedDate(final Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 
-	@Column(name = "UPDATED_BY")
-	public UUID getUpdatedBy() {
-		return this.updatedBy;
-	}
+    @Column(name = "UPDATED_BY")
+    public UUID getUpdatedBy() {
+        return this.updatedBy;
+    }
 
-	public void setUpdatedBy(UUID updatedBy) {
-		this.updatedBy = updatedBy;
-	}
+    public void setUpdatedBy(final UUID updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 
 }
